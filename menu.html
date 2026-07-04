@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mack Magic Mobile Bar — Drink Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0D0D0D;
+    --cream:#F0EDE6;
+    --gold:#C8963E;
+    --gold-soft:#c8a96e;
+    --spice:#7A2E1D;
+    --herb:#4B5E3E;
+    --line: rgba(240,237,230,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Barlow Condensed', sans-serif;
+    min-height:100vh;
+  }
+  body{
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(200,150,62,0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(200,150,62,0.05), transparent 45%);
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    padding:56px 24px 32px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+  }
+  h1{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(48px, 9vw, 96px);
+    letter-spacing:4px;
+    line-height:0.95;
+    margin-top:10px;
+    color:var(--cream);
+  }
+  h1 span{ color:var(--gold); }
+  .subhead{
+    margin-top:14px;
+    font-size:19px;
+    color:rgba(240,237,230,0.65);
+    letter-spacing:0.5px;
+  }
+  .onair{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:22px;
+    padding:6px 16px;
+    border:1px solid var(--gold);
+    border-radius:2px;
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:3px;
+    font-size:14px;
+    color:var(--gold);
+  }
+  .onair::before{
+    content:"";
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--spice);
+    box-shadow:0 0 8px var(--spice);
+    animation:pulse 1.6s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.35; }
+  }
+
+  /* ===== FILTER BAR ===== */
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    padding:28px 24px 8px;
+  }
+  .filter-btn{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-size:14px;
+    background:transparent;
+    border:1px solid var(--line);
+    color:rgba(240,237,230,0.75);
+    padding:8px 18px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .filter-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .filter-btn.active{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--black);
+  }
+
+  /* ===== GRID ===== */
+  .grid{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px 24px 80px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:22px;
+  }
+
+  /* ===== TICKET CARD ===== */
+  .card{
+    position:relative;
+    background:#161514;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px 22px 22px;
+    cursor:pointer;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    display:flex;
+    flex-direction:column;
+    min-height:190px;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold-soft);
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:-1px; left:24px; right:24px;
+    height:1px;
+    background-image:linear-gradient(to right, var(--line) 50%, transparent 50%);
+    background-size:10px 1px;
+  }
+  .card .tag{
+    position:absolute;
+    top:16px; right:16px;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:12px;
+    font-weight:600;
+  }
+  .tag.spirit-tequila{ background:rgba(122,46,29,0.25); color:#e08f6f; border:1px solid rgba(122,46,29,0.6);}
+  .tag.spirit-vodka{ background:rgba(120,140,170,0.18); color:#a9c1e0; border:1px solid rgba(120,140,170,0.5);}
+  .tag.spirit-brandy{ background:rgba(200,150,62,0.18); color:var(--gold-soft); border:1px solid rgba(200,150,62,0.5);}
+  .tag.spirit-liqueur{ background:rgba(75,94,62,0.25); color:#9fb389; border:1px solid rgba(75,94,62,0.6);}
+  .tag.spirit-mocktail{ background:rgba(200,200,200,0.12); color:#cfcfcf; border:1px solid rgba(200,200,200,0.4);}
+
+  .card .num{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:13px;
+    color:rgba(240,237,230,0.35);
+    letter-spacing:2px;
+  }
+  .card h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    letter-spacing:1px;
+    margin-top:6px;
+    color:var(--cream);
+    line-height:1;
+  }
+  .card .desc{
+    margin-top:10px;
+    font-size:16px;
+    color:rgba(240,237,230,0.6);
+    flex-grow:1;
+  }
+  .card .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+  }
+  .card .spirit-name{
+    font-size:14px;
+    letter-spacing:1px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  .card .view{
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:rgba(240,237,230,0.4);
+  }
+
+  /* ===== MODAL ===== */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(3px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+  }
+  .overlay.open{ display:flex; }
+
+  .ticket{
+    background:#141312;
+    border:1px solid var(--gold-soft);
+    border-radius:8px;
+    max-width:520px;
+    width:100%;
+    max-height:88vh;
+    overflow-y:auto;
+    position:relative;
+    padding:36px 34px 30px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  }
+  .ticket::-webkit-scrollbar{ width:6px; }
+  .ticket::-webkit-scrollbar-thumb{ background:var(--gold); border-radius:4px; }
+
+  .close-btn{
+    position:absolute; top:18px; right:18px;
+    background:none; border:none;
+    color:rgba(240,237,230,0.5);
+    font-size:26px;
+    cursor:pointer;
+    line-height:1;
+  }
+  .close-btn:hover{ color:var(--gold); }
+
+  .ticket .stamp{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:12px;
+    letter-spacing:3px;
+    color:var(--gold);
+    text-transform:uppercase;
+  }
+  .ticket h2{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:44px;
+    letter-spacing:1px;
+    margin-top:8px;
+    color:var(--cream);
+    line-height:1;
+  }
+  .ticket .ticket-desc{
+    margin-top:12px;
+    font-size:17px;
+    color:rgba(240,237,230,0.65);
+    padding-bottom:18px;
+    border-bottom:1px dashed var(--line);
+  }
+  .ticket h4{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:2px;
+    font-size:17px;
+    color:var(--gold-soft);
+    margin-top:22px;
+    margin-bottom:10px;
+    text-transform:uppercase;
+  }
+  .ticket ul{
+    list-style:none;
+  }
+  .ticket ul li{
+    font-size:17px;
+    padding:5px 0;
+    color:var(--cream);
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .ticket ul li .amt{
+    color:var(--gold-soft);
+    font-weight:600;
+  }
+  .ticket ol{
+    padding-left:20px;
+  }
+  .ticket ol li{
+    font-size:17px;
+    padding:6px 0;
+    color:rgba(240,237,230,0.85);
+  }
+  .ticket .garnish{
+    margin-top:20px;
+    font-size:15px;
+    font-style:italic;
+    color:rgba(240,237,230,0.55);
+  }
+  .ticket .barcode{
+    margin-top:26px;
+    height:34px;
+    background:repeating-linear-gradient(90deg, var(--cream) 0 2px, transparent 2px 5px);
+    opacity:0.15;
+    border-radius:2px;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 24px 50px;
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:rgba(240,237,230,0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .onair::before{ animation:none; }
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Saneca TV LLC &nbsp;•&nbsp; G4E Movement Studio</div>
+  <h1>MACK MAGIC <span>MOBILE BAR</span></h1>
+  <div class="subhead">Signature cocktail menu — tap any ticket for the full recipe</div>
+  <div class="onair">ON AIR</div>
+</header>
+
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-filter="all">All Drinks</button>
+  <button class="filter-btn" data-filter="tequila">Tequila</button>
+  <button class="filter-btn" data-filter="vodka">Vodka</button>
+  <button class="filter-btn" data-filter="brandy">Brandy &amp; Grand Marnier</button>
+  <button class="filter-btn" data-filter="liqueur">Wine &amp; Liqueur</button>
+  <button class="filter-btn" data-filter="mocktail">Mocktail</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="overlay" id="overlay">
+  <div class="ticket" id="ticket">
+    <button class="close-btn" id="closeBtn">&times;</button>
+    <div id="ticketContent"></div>
+  </div>
+</div>
+
+<footer>Mack Magic Mobile Bar &nbsp;•&nbsp; STV Network &nbsp;•&nbsp; Lithonia, GA</footer>
+
+<script>
+const drinks = [
+  {
+    name: "Spicy Blackberry Margarita",
+    spirit: "1800 Silver Tequila",
+    category: "tequila",
+    desc: "Muddled blackberry and jalapeño over a classic margarita base — sweet heat, smooth finish.",
+    ingredients: [
+      ["Tequila (1800 or Patron)", "2 oz"],
+      ["Fresh lime juice", "1 oz"],
+      ["Agave or simple syrup", "0.5 oz"],
+      ["Blackberries, muddled", "4-5"],
+      ["Jalapeño slice, muddled", "1-2 slices"]
+    ],
+    steps: [
+      "Muddle blackberries and jalapeño in a shaker.",
+      "Add tequila, lime juice, and agave syrup.",
+      "Fill with ice and shake hard for 12-15 seconds.",
+      "Double strain over fresh ice.",
+      "Salt or tajín rim optional."
+    ],
+    garnish: "Garnish with a blackberry and thin jalapeño wheel."
+  },
+  {
+    name: "Mango Tangerine Margarita",
+    spirit: "1800 Silver Tequila",
+    category: "tequila",
+    desc: "Tropical and citrus-forward, built on Nature's Nectar Mango Tangerine juice.",
+    ingredients: [
+      ["Tequila", "2 oz"],
+      ["Mango Tangerine juice", "3 oz"],
+      ["Fresh lime juice", "0.5 oz"]
+    ],
+    steps: [
+      "Combine all ingredients in a shaker with ice.",
+      "Shake for 10-12 seconds.",
+      "Strain over fresh ice in a salt-rimmed glass."
+    ],
+    garnish: "Garnish with an orange wheel."
+  },
+  {
+    name: "Spicy Mango Margarita",
+    spirit: "Patron Silver Tequila",
+    category: "tequila",
+    desc: "Mango Passion Fruit juice with a jalapeño kick — the boldest ticket on the menu.",
+    ingredients: [
+      ["Tequila", "2 oz"],
+      ["Mango Passion Fruit juice", "3 oz"],
+      ["Fresh lime juice", "0.5 oz"],
+      ["Jalapeño slices, muddled", "1-2 slices"]
+    ],
+    steps: [
+      "Muddle jalapeño slices in the bottom of a shaker.",
+      "Add tequila, juice, and lime juice with ice.",
+      "Shake hard, then double strain over fresh ice.",
+      "Tajín rim recommended."
+    ],
+    garnish: "Garnish with a jalapeño wheel and lime twist."
+  },
+  {
+    name: "Citrus Vodka Smash",
+    spirit: "Smirnoff Citrus Vodka",
+    category: "vodka",
+    desc: "Muddled orange and lemon with a soda top — bright, crisp, and easy-drinking.",
+    ingredients: [
+      ["Vodka", "2 oz"],
+      ["Fresh lemon juice", "0.75 oz"],
+      ["Simple syrup", "0.5 oz"],
+      ["Orange wheel, muddled", "1"],
+      ["Lemon wheel, muddled", "1"],
+      ["Soda water", "top"]
+    ],
+    steps: [
+      "Muddle orange and lemon wheels in a shaker.",
+      "Add vodka, lemon juice, and simple syrup with ice.",
+      "Shake, then strain into a glass over fresh ice.",
+      "Top with soda water."
+    ],
+    garnish: "Garnish with an orange twist."
+  },
+  {
+    name: "Dirty Grey Goose Martini",
+    spirit: "Grey Goose Vodka",
+    category: "vodka",
+    desc: "A classic dirty martini, olive brine forward, for the purists on the guest list.",
+    ingredients: [
+      ["Grey Goose Vodka", "2.5 oz"],
+      ["Dry vermouth", "0.5 oz"],
+      ["Olive brine", "0.5 oz"]
+    ],
+    steps: [
+      "Add all ingredients to a mixing glass with ice.",
+      "Stir for 20-30 seconds until well chilled.",
+      "Strain into a chilled martini glass."
+    ],
+    garnish: "Garnish with olives on a pick."
+  },
+  {
+    name: "Passion Fruit Vodka Punch",
+    spirit: "Grey Goose Vodka",
+    category: "vodka",
+    desc: "Mango Passion Fruit juice with a bright lime finish and a blackberry garnish.",
+    ingredients: [
+      ["Vodka", "2 oz"],
+      ["Mango Passion Fruit juice", "3 oz"],
+      ["Fresh lime juice", "0.25 oz"]
+    ],
+    steps: [
+      "Build over ice in a highball glass, or shake for a chilled version.",
+      "Stir gently to combine."
+    ],
+    garnish: "Garnish with a blackberry skewer."
+  },
+  {
+    name: "Dirty Citrus Vodka Cooler",
+    spirit: "Smirnoff Citrus Vodka",
+    category: "vodka",
+    desc: "Lime-forward and effervescent with a splash of tropical Splash on top.",
+    ingredients: [
+      ["Vodka", "2 oz"],
+      ["Fresh lime juice", "2 oz"],
+      ["Splash Tropical Blend", "splash"]
+    ],
+    steps: [
+      "Shake vodka and lime juice with ice.",
+      "Strain over fresh ice.",
+      "Top with a splash of Tropical Blend."
+    ],
+    garnish: "Garnish with an olive or lime wheel."
+  },
+  {
+    name: "Strawberry Lemonade Brandy Smash",
+    spirit: "E&J VSOP Brandy",
+    category: "brandy",
+    desc: "Simply Nature Strawberry Lemonade meets brandy for a warm, fruity smash.",
+    ingredients: [
+      ["Brandy", "2 oz"],
+      ["Strawberry Lemonade", "3 oz"],
+      ["Fresh lime juice", "0.5 oz"]
+    ],
+    steps: [
+      "Shake all ingredients with ice for 10 seconds.",
+      "Strain over fresh ice."
+    ],
+    garnish: "Garnish with a lemon wheel and blackberry."
+  },
+  {
+    name: "Grand Marnier Mango Sunrise",
+    spirit: "Grand Marnier No. 2",
+    category: "brandy",
+    desc: "A layered sunrise-style build with mango and a blackberry syrup drop.",
+    ingredients: [
+      ["Grand Marnier No. 2", "1.5 oz"],
+      ["Mango Tangerine juice", "3 oz"],
+      ["Grenadine or blackberry syrup", "0.25 oz"]
+    ],
+    steps: [
+      "Build Grand Marnier and Mango Tangerine juice over ice — do not stir.",
+      "Slowly pour grenadine or blackberry syrup down the side of the glass to layer."
+    ],
+    garnish: "Garnish with an orange wheel."
+  },
+  {
+    name: "Grand Marnier Citrus Fizz",
+    spirit: "Grand Marnier No. 2",
+    category: "liqueur",
+    desc: "A bubbly, muddled-orange fizz — light enough for daytime events.",
+    ingredients: [
+      ["Grand Marnier No. 2", "1.5 oz"],
+      ["Fresh lime juice", "0.5 oz"],
+      ["Orange wheel, muddled", "1"],
+      ["Soda water or Stella Rosa", "top"]
+    ],
+    steps: [
+      "Muddle orange wheel in the bottom of a glass.",
+      "Add Grand Marnier and lime juice with ice.",
+      "Top with soda water or Stella Rosa for a bubbly finish."
+    ],
+    garnish: "Garnish with an orange twist."
+  },
+  {
+    name: "Kahlua Mudslide Float",
+    spirit: "Kahlua Original Mudslide",
+    category: "liqueur",
+    desc: "Ready-to-drink mudslide, dressed up with an orange twist for a dessert-style pour.",
+    ingredients: [
+      ["Kahlua Original Mudslide", "4 oz"],
+      ["Ice", "as needed"]
+    ],
+    steps: [
+      "Pour over ice in a rocks glass.",
+      "Stir gently before serving."
+    ],
+    garnish: "Garnish with an orange twist or cocoa dust."
+  },
+  {
+    name: "Stella Rosa Berry Sparkler",
+    spirit: "Stella Rosa Red Berry",
+    category: "liqueur",
+    desc: "Light and sweet, built on Stella Rosa with fresh blackberries and lime.",
+    ingredients: [
+      ["Stella Rosa Red Berry", "4 oz"],
+      ["Fresh blackberries", "3-4"],
+      ["Lime wheel", "1"]
+    ],
+    steps: [
+      "Muddle blackberries lightly in the bottom of a wine glass.",
+      "Add Stella Rosa and stir gently.",
+      "Add ice if serving chilled."
+    ],
+    garnish: "Garnish with a lime wheel and blackberry."
+  },
+  {
+    name: "Tropical Splash Spicy Cooler",
+    spirit: "Non-Alcoholic",
+    category: "mocktail",
+    desc: "Sweet-and-spicy tropical mocktail — jalapeño keeps it interesting, easy to make boozy on request.",
+    ingredients: [
+      ["Splash Tropical Blend", "4 oz"],
+      ["Fresh lime juice", "0.5 oz"],
+      ["Jalapeño slice, muddled", "1"]
+    ],
+    steps: [
+      "Muddle jalapeño slice in the bottom of a glass.",
+      "Add Splash Tropical Blend and lime juice.",
+      "Fill with ice and stir well."
+    ],
+    garnish: "Garnish with a lime wheel. Add 2 oz tequila or vodka to make it boozy."
+  }
+];
+
+const grid = document.getElementById('grid');
+const overlay = document.getElementById('overlay');
+const ticketContent = document.getElementById('ticketContent');
+const closeBtn = document.getElementById('closeBtn');
+const filters = document.getElementById('filters');
+
+function renderCards(filter){
+  grid.innerHTML = '';
+  const list = filter === 'all' ? drinks : drinks.filter(d => d.category === filter);
+  list.forEach((d, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="tag spirit-${d.category}">${d.category}</div>
+      <div class="num">No. ${String(i+1).padStart(2,'0')}</div>
+      <h3>${d.name}</h3>
+      <div class="desc">${d.desc}</div>
+      <div class="footer-row">
+        <div class="spirit-name">${d.spirit}</div>
+        <div class="view">View Recipe →</div>
+      </div>
+    `;
+    card.addEventListener('click', () => openTicket(d));
+    grid.appendChild(card);
+  });
+}
+
+function openTicket(d){
+  const ingredientsHTML = d.ingredients.map(i => `<li><span>${i[0]}</span><span class="amt">${i[1]}</span></li>`).join('');
+  const stepsHTML = d.steps.map(s => `<li>${s}</li>`).join('');
+  ticketContent.innerHTML = `
+    <div class="stamp">Mack Magic Mobile Bar — Order Ticket</div>
+    <h2>${d.name}</h2>
+    <div class="ticket-desc">${d.desc}</div>
+    <h4>Ingredients</h4>
+    <ul>${ingredientsHTML}</ul>
+    <h4>Method</h4>
+    <ol>${stepsHTML}</ol>
+    <div class="garnish">${d.garnish}</div>
+    <div class="barcode"></div>
+  `;
+  overlay.classList.add('open');
+}
+
+closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('open'); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') overlay.classList.remove('open'); });
+
+filters.addEventListener('click', (e) => {
+  if(!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderCards(e.target.dataset.filter);
+});
+
+renderCards('all');
+</script>
+
+</body>
+</html>
