@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>T&D Decks & Fences — Custom Decks, Fencing & Outdoor Builds</title>
+<meta name="description" content="T&D Decks & Fences builds custom decks, fencing, repairs and landscaping across the Alpharetta area. Text photos of your project to Shawn for a fast, free quote." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --walnut: #3D2B1F;
+    --cedar: #C1623D;
+    --parchment: #FAF6F0;
+    --forest: #45624A;
+    --ink: #2A2622;
+    --sand: #E8DDC9;
+    --cedar-dim: #e8956e;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .display { font-family: 'Fraunces', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ── NAV ─────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--walnut);
+    padding: 0 5vw;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-brand span { color: var(--cedar-dim); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .nav-link {
+    color: var(--sand);
+    font-size: 0.85rem;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.18s;
+  }
+  .nav-link:hover { opacity: 1; }
+
+  @media (max-width: 600px) { .nav-link { display: none; } }
+
+  /* anchor targets — clear the fixed nav so the heading isn't hidden on jump */
+  #work, #how, #contact { scroll-margin-top: 76px; }
+
+  .nav-cta {
+    background: var(--cedar);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.18s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: #a84e2e; }
+
+  /* ── RULER HERO ──────────────────────── */
+  .hero {
+    padding-top: 56px;
+    background: var(--walnut);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(255,255,255,0.012) 3px,
+      rgba(255,255,255,0.012) 4px
+    );
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 72px 5vw 0;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--cedar-dim);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    max-width: 720px;
+    margin-bottom: 24px;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--cedar-dim);
+  }
+
+  .hero-sub {
+    color: var(--sand);
+    font-size: 1.05rem;
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .btn-primary {
+    background: var(--cedar);
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.18s, transform 0.12s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #a84e2e; transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--sand);
+    font-size: 0.88rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.8;
+    transition: opacity 0.18s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-ghost:hover { opacity: 1; }
+  .btn-ghost svg { width: 14px; height: 14px; }
+
+  .btn-outline {
+    border: 1.5px solid var(--sand);
+    color: #fff;
+    padding: 11.5px 26px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .btn-outline:hover { border-color: var(--cedar-dim); background: rgba(255,255,255,0.04); }
+
+  /* ── RULER STRIP ─────────────────────── */
+  .ruler-strip {
+    width: 100%;
+    height: 48px;
+    background: var(--cedar);
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 6px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ruler-strip::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.18);
+  }
+
+  .ruler-ticks {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: flex-end;
+    padding-bottom: 6px;
+  }
+
+  .tick {
+    flex: 1;
+    background: rgba(255,255,255,0.7);
+    margin: 0 1px;
+    transition: height 0.4s ease;
+  }
+
+  .tick.major { background: rgba(255,255,255,0.9); }
+
+  /* ── SAMPLE QUOTE CARD ───────────────── */
+  .preview-wrap {
+    background: var(--sand);
+    padding: 40px 5vw 0;
+  }
+
+  .preview-card {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 14px 14px 0 0;
+    border: 1px solid var(--sand);
+    border-bottom: none;
+    overflow: hidden;
+    box-shadow: 0 -4px 32px rgba(61,43,31,0.10), 0 2px 0 var(--cedar);
+  }
+
+  .preview-topbar {
+    background: var(--walnut);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .preview-topbar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cedar-dim);
+  }
+
+  .preview-body {
+    padding: 24px 20px 28px;
+  }
+
+  .preview-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: var(--cedar);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .preview-quote-row {
+    display: grid;
+    grid-template-columns: 2fr 0.5fr 0.7fr 0.7fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--sand);
+    font-size: 0.82rem;
+    align-items: center;
+  }
+
+  .preview-quote-row.header { font-weight: 600; color: #8a7a68; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .preview-total {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+  }
+
+  .preview-total-box {
+    background: var(--parchment);
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 12px 20px;
+    min-width: 200px;
+  }
+
+  .preview-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 3px 0;
+    color: #8a7a68;
+  }
+
+  .preview-total-final {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--walnut);
+    padding-top: 8px;
+    margin-top: 6px;
+    border-top: 1px solid var(--sand);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .preview-note {
+    font-size: 0.8rem;
+    color: #8a7a68;
+    margin-top: 14px;
+    font-style: italic;
+  }
+
+  /* ── FEATURES SECTION ────────────────── */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 5vw;
+  }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cedar);
+    margin-bottom: 14px;
+  }
+
+  .section-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--walnut);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    max-width: 580px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  @media (max-width: 720px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .feature { border-right: none !important; border-bottom: 1px solid var(--sand); }
+    .feature:last-child { border-bottom: none; }
+  }
+
+  .feature {
+    padding: 32px 28px;
+    border-right: 1px solid var(--sand);
+    position: relative;
+  }
+
+  .feature:last-child { border-right: none; }
+
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 1.2rem;
+  }
+
+  .feature-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--walnut);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .feature-desc {
+    font-size: 0.88rem;
+    color: #6b5c4a;
+    line-height: 1.65;
+  }
+
+  .features-outer {
+    background: #fff;
+    border: 1px solid var(--sand);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .features-divider {
+    height: 1px;
+    background: var(--sand);
+  }
+
+  /* ── HOW IT WORKS ────────────────────── */
+  .how-outer {
+    background: var(--walnut);
+    padding: 80px 0;
+  }
+
+  .how-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 5vw;
+  }
+
+  .how-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cedar-dim);
+    margin-bottom: 14px;
+  }
+
+  .how-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    max-width: 520px;
+  }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+
+  @media (max-width: 680px) {
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step { border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .step:nth-child(2n) { border-right: none; }
+    .step:nth-child(3), .step:nth-child(4) { border-bottom: none; }
+  }
+
+  .step {
+    padding: 24px 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--cedar);
+    opacity: 0.35;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .step-desc {
+    font-size: 0.83rem;
+    color: var(--sand);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  /* ── DETAILS STRIP ───────────────────── */
+  .details-outer {
+    padding: 80px 0;
+    background: var(--parchment);
+    border-top: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .details-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  @media (max-width: 680px) {
+    .details-inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .detail-block-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cedar);
+    margin-bottom: 14px;
+  }
+
+  .detail-block-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--walnut);
+    margin-bottom: 16px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .detail-block-body {
+    font-size: 0.9rem;
+    color: #6b5c4a;
+    line-height: 1.7;
+  }
+
+  .detail-check-list { list-style: none; margin-top: 18px; }
+  .detail-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .detail-check-list li::before {
+    content: '✓';
+    color: var(--forest);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── TESTIMONIAL / CALLOUT ───────────── */
+  .callout-outer {
+    background: var(--cedar);
+    padding: 64px 5vw;
+    text-align: center;
+  }
+
+  .callout-quote {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    max-width: 640px;
+    margin: 0 auto 24px;
+    line-height: 1.4;
+  }
+
+  .callout-attr {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ── CTA FOOTER ──────────────────────── */
+  .cta-outer {
+    background: var(--walnut);
+    padding: 80px 5vw;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-outer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(255,255,255,0.012) 3px,
+      rgba(255,255,255,0.012) 4px
+    );
+    pointer-events: none;
+  }
+
+  .cta-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cedar-dim);
+    margin-bottom: 18px;
+  }
+
+  .cta-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-sub {
+    color: var(--sand);
+    font-size: 0.95rem;
+    max-width: 420px;
+    margin: 0 auto 36px;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .cta-bottom-ruler {
+    width: 100%;
+    height: 6px;
+    background: var(--cedar);
+    position: absolute;
+    bottom: 0; left: 0;
+  }
+
+  /* ── CONTACT SECTION ─────────────────── */
+  .contact-outer {
+    background: var(--ink);
+    padding: 0;
+    position: relative;
+  }
+
+  .contact-strip { position: relative; }
+  .contact-strip .ruler-strip { height: 8px; padding: 0; }
+  .contact-strip .ruler-ticks { display: none; }
+
+  .contact-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 64px 5vw 56px;
+  }
+
+  .contact-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cedar-dim);
+    margin-bottom: 14px;
+  }
+
+  .contact-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    max-width: 560px;
+  }
+
+  .contact-headline span { color: var(--cedar-dim); font-style: italic; }
+
+  .contact-sub {
+    color: var(--sand);
+    font-size: 0.98rem;
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 40px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 680px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+
+  .contact-primary {
+    background: rgba(255,255,255,0.03);
+    padding: 32px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  @media (max-width: 680px) {
+    .contact-primary { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .contact-row:last-child { margin-bottom: 0; }
+
+  .contact-row-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    background: var(--cedar);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+  }
+
+  .contact-row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cedar-dim);
+    margin-bottom: 4px;
+  }
+
+  .contact-row-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.2;
+  }
+  .contact-row-value:hover { color: var(--cedar-dim); }
+
+  .contact-row-value.small {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .contact-row-note {
+    font-size: 0.82rem;
+    color: var(--sand);
+    opacity: 0.75;
+    margin-top: 3px;
+  }
+
+  .travel-badge {
+    display: inline-block;
+    margin-top: 4px;
+    border: 1.5px solid var(--cedar);
+    color: var(--cedar-dim);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .contact-secondary {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(193,98,61,0.06);
+  }
+
+  .flyer-card {
+    background: var(--parchment);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .flyer-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .flyer-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: var(--walnut);
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .flyer-desc {
+    font-size: 0.82rem;
+    color: #6b5c4a;
+    margin-bottom: 18px;
+    line-height: 1.55;
+  }
+
+  .btn-download {
+    background: var(--walnut);
+    color: #fff;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.18s;
+  }
+  .btn-download:hover { background: #2c1f16; }
+  .btn-download svg { width: 15px; height: 15px; }
+
+  /* ── FOOTER ──────────────────────────── */
+  footer {
+    background: var(--ink);
+    padding: 24px 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    color: var(--sand);
+    font-weight: 600;
+  }
+
+  .footer-note {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── FADE-IN ANIMATION ───────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; transition: none; }
+    .tick { transition: none; }
+  }
+
+  /* ── JOB SITE GALLERY ────────────────── */
+  .gallery-wrap {
+    max-width: 860px;
+    margin: 0 auto 80px;
+    padding: 0 5vw;
+  }
+
+  .gallery-stage {
+    position: relative;
+    background: var(--walnut);
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 10px 34px rgba(61,43,31,0.16);
+  }
+
+  @media (min-width: 640px) {
+    .gallery-stage { aspect-ratio: 16 / 9; }
+  }
+
+  .gallery-media {
+    width: 100%;
+    height: 100%;
+  }
+
+  .gallery-media img,
+  .gallery-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: var(--walnut);
+  }
+
+  .gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(42, 30, 22, 0.55);
+    border: 1px solid rgba(255,255,255,0.28);
+    color: #fff;
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    transition: background 0.18s;
+  }
+  .gallery-arrow:hover { background: var(--cedar); }
+  .gallery-prev { left: 12px; }
+  .gallery-next { right: 12px; }
+
+  .gallery-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: linear-gradient(transparent, rgba(20,14,10,0.85) 60%);
+    color: #fff;
+    padding: 34px 16px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  .gallery-caption-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .gallery-caption-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cedar-dim);
+    white-space: nowrap;
+  }
+
+  .gallery-thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .gallery-thumb {
+    flex: 0 0 auto;
+    width: 74px;
+    height: 52px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    background: var(--sand);
+    opacity: 0.6;
+    transition: opacity 0.18s, border-color 0.18s;
+  }
+
+  .gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-thumb.is-video {
+    background: var(--walnut);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-thumb.is-video::after {
+    content: '▶';
+    color: var(--cedar-dim);
+    font-size: 0.8rem;
+  }
+
+  .gallery-thumb.active { border-color: var(--cedar); opacity: 1; }
+  .gallery-thumb:hover { opacity: 1; }
+
+  @media (max-width: 560px) {
+    .gallery-thumb { width: 58px; height: 42px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">T&D <span>Decks & Fences</span></div>
+  <div class="nav-links">
+    <a href="#work" class="nav-link">Our Work</a>
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Get a Free Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Licensed · Insured · Local Crew</span>
+    <h1 class="hero-headline">
+      Built to last.<br><em>Measured right the first time.</em>
+    </h1>
+    <p class="hero-sub">
+      From a backyard deck to a full property fence line, T&D Decks &amp; Fences builds it plumb, level, and built to hold up to Georgia weather for decades — not just seasons.
+    </p>
+    <div class="hero-actions">
+      <a href="sms:3139929030" class="btn-primary">Text Shawn a Photo →</a>
+      <a href="#work" class="btn-outline">See Our Work</a>
+    </div>
+  </div>
+
+  <!-- Ruler strip -->
+  <div class="ruler-strip">
+    <div class="ruler-ticks" id="rulerTicks"></div>
+  </div>
+</section>
+
+<!-- SAMPLE QUOTE -->
+<div class="preview-wrap">
+  <div class="preview-card fade-up">
+    <div class="preview-topbar">
+      <span class="preview-topbar-label">Sample Quote</span>
+      <span class="preview-topbar-label" style="color:rgba(255,255,255,0.4)">No surprises</span>
+    </div>
+    <div class="preview-body">
+      <div class="preview-label">Backyard Deck — Alpharetta, GA</div>
+
+      <div class="preview-quote-row header">
+        <div>Description</div><div>Qty</div><div>Unit $</div><div style="text-align:right">Total</div>
+      </div>
+      <div class="preview-quote-row">
+        <div>Composite decking boards (5/4×6)</div><div>220</div><div>$4.80</div><div style="text-align:right;font-family:'JetBrains Mono',monospace">$1,056.00</div>
+      </div>
+      <div class="preview-quote-row">
+        <div>Pressure-treated framing lumber</div><div>160</div><div>$3.20</div><div style="text-align:right;font-family:'JetBrains Mono',monospace">$512.00</div>
+      </div>
+      <div class="preview-quote-row">
+        <div>Concrete (post footings, 6 bags)</div><div>6</div><div>$9.50</div><div style="text-align:right;font-family:'JetBrains Mono',monospace">$57.00</div>
+      </div>
+      <div class="preview-quote-row">
+        <div>Labor — framing &amp; install</div><div>16</div><div>$65.00</div><div style="text-align:right;font-family:'JetBrains Mono',monospace">$1,040.00</div>
+      </div>
+      <div class="preview-quote-row">
+        <div>Labor — staining &amp; finish</div><div>4</div><div>$55.00</div><div style="text-align:right;font-family:'JetBrains Mono',monospace">$220.00</div>
+      </div>
+
+      <div class="preview-total">
+        <div class="preview-total-box">
+          <div class="preview-total-row"><span>Subtotal</span><span>$2,885.00</span></div>
+          <div class="preview-total-row"><span>Tax (8%)</span><span>$230.80</span></div>
+          <div class="preview-total-final"><span>Total</span><span>$3,115.80</span></div>
+        </div>
+      </div>
+      <p class="preview-note">Every quote is itemized like this — materials, labor, and tax broken out so you know exactly what you're paying for.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" style="padding-bottom:0;">
+  <div class="section-eyebrow fade-up">What we build</div>
+  <h2 class="section-headline fade-up">Every job, done right the first time.</h2>
+</section>
+
+<div style="max-width:960px;margin:0 auto;padding:0 5vw 80px;">
+  <div class="features-outer fade-up">
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon" style="background:#f0ede6;">🪵</div>
+        <div class="feature-title">Custom Decks</div>
+        <p class="feature-desc">Design and build, from a simple platform deck to multi-level layouts with built-in seating and railing.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon" style="background:#f0ede6;">🚧</div>
+        <div class="feature-title">Fencing</div>
+        <p class="feature-desc">Wood and composite fence lines — privacy, picket, or pool-code fencing, set true and built to hold.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon" style="background:#f0ede6;">🔧</div>
+        <div class="feature-title">Repairs</div>
+        <p class="feature-desc">Loose boards, rotted posts, sagging rails — we patch what's fixable and rebuild what isn't.</p>
+      </div>
+    </div>
+    <div class="features-divider"></div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon" style="background:#f0ede6;">🌿</div>
+        <div class="feature-title">Landscaping</div>
+        <p class="feature-desc">Grading, borders, and site prep so your new deck or fence sits right in the yard, not just on top of it.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon" style="background:#f0ede6;">💵</div>
+        <div class="feature-title">Free Estimates</div>
+        <p class="feature-desc">Text a few photos and get a real, itemized number back — no site visit required to get started.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon" style="background:#f0ede6;">🚚</div>
+        <div class="feature-title">Willing to Travel</div>
+        <p class="feature-desc">Outside our usual radius? Send the details anyway — we take on jobs across the wider area.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOB SITE GALLERY -->
+<section class="section" style="padding-top:0;" id="work">
+  <div class="section-eyebrow fade-up">From the field</div>
+  <h2 class="section-headline fade-up">Real decks. Real fences. Real crews.</h2>
+</section>
+
+<div class="gallery-wrap fade-up">
+  <div class="gallery-stage">
+    <button class="gallery-arrow gallery-prev" aria-label="Previous slide" type="button">‹</button>
+    <div class="gallery-media" id="galleryMedia"></div>
+    <button class="gallery-arrow gallery-next" aria-label="Next slide" type="button">›</button>
+    <div class="gallery-caption">
+      <span class="gallery-caption-text" id="galleryCaptionText"></span>
+      <span class="gallery-caption-index" id="galleryCaptionIndex"></span>
+    </div>
+  </div>
+  <div class="gallery-thumbs" id="galleryThumbs"></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-outer" id="how">
+  <div class="how-inner">
+    <div class="how-eyebrow fade-up">The process</div>
+    <h2 class="how-headline fade-up">From first text to finished build.</h2>
+    <div class="steps fade-up">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Send photos</div>
+        <p class="step-desc">Text or email a few photos of your space to Shawn — no site visit needed to get started.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Get your quote</div>
+        <p class="step-desc">Materials, labor, and tax laid out clearly. You'll know the real number before you commit.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Schedule the build</div>
+        <p class="step-desc">Pick a start date that works for you. The crew shows up ready to go.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Enjoy the result</div>
+        <p class="step-desc">Walk the finished deck or fence with the crew before they leave the site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section class="details-outer">
+  <div class="details-inner">
+    <div class="fade-up">
+      <div class="detail-block-eyebrow">Why homeowners choose us</div>
+      <h3 class="detail-block-headline">Straight answers, no pressure.</h3>
+      <p class="detail-block-body">We tell you what a job actually costs and what it actually needs — not the upsell. If it's a simple repair, we say so.</p>
+      <ul class="detail-check-list">
+        <li>Licensed &amp; insured</li>
+        <li>Free, itemized written estimates</li>
+        <li>Willing to travel for the right job</li>
+        <li>Clean job site, start to finish</li>
+      </ul>
+    </div>
+    <div class="fade-up">
+      <div class="detail-block-eyebrow">What's included</div>
+      <h3 class="detail-block-headline">Every quote, broken down.</h3>
+      <p class="detail-block-body">No lump-sum guessing. You see exactly what's going into the job before work ever starts.</p>
+      <ul class="detail-check-list">
+        <li>Materials &amp; supply costs, itemized</li>
+        <li>Labor for install, framing &amp; finish work</li>
+        <li>Tax calculated up front</li>
+        <li>Photos of the finished job</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CALLOUT -->
+<div class="callout-outer">
+  <p class="callout-quote">"Crew showed up when they said they would and the deck turned out better than what we pictured."</p>
+  <div class="callout-attr">Homeowner, Alpharetta, GA</div>
+</div>
+
+<!-- CTA -->
+<section class="cta-outer">
+  <div class="cta-eyebrow">Ready to start?</div>
+  <h2 class="cta-headline">Get a straight quote on your project.</h2>
+  <p class="cta-sub">Text a few photos of your space — no obligation, no pressure, just a real number.</p>
+  <div class="cta-actions">
+    <a href="sms:3139929030" class="btn-primary" style="font-size:1rem;padding:15px 32px;">Text 313-992-9030</a>
+    <a href="#contact" class="btn-outline">More Ways to Reach Us</a>
+  </div>
+  <div class="cta-bottom-ruler"></div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-outer" id="contact">
+  <div class="contact-strip">
+    <div class="ruler-strip"><div class="ruler-ticks"></div></div>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-eyebrow fade-up">Get in touch</div>
+    <h2 class="contact-headline fade-up">Text all inquiries <span>&amp; job photos</span></h2>
+    <p class="contact-sub fade-up">Shawn reads every message himself. Send a few photos of the space and you'll get a real quote back — usually the same day.</p>
+
+    <div class="contact-grid fade-up">
+      <div class="contact-primary">
+        <div class="contact-row">
+          <div class="contact-row-icon">📱</div>
+          <div>
+            <div class="contact-row-label">Call / Text Shawn</div>
+            <a href="sms:3139929030" class="contact-row-value">313-992-9030</a>
+            <div class="contact-row-note">Fastest way to reach us — text photos anytime</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-icon">✉️</div>
+          <div>
+            <div class="contact-row-label">Email Photos</div>
+            <a href="mailto:shawnelloyd@yahoo.com" class="contact-row-value small">shawnelloyd@yahoo.com</a>
+            <div class="contact-row-note">Prefer email? Send project photos here instead</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-row-icon">🚚</div>
+          <div>
+            <div class="contact-row-label">Service Area</div>
+            <div class="contact-row-value small" style="color:#fff;">Alpharetta &amp; surrounding area</div>
+            <div class="travel-badge">Willing to travel</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-secondary">
+        <div class="flyer-card">
+          <div class="flyer-icon">📄</div>
+          <div class="flyer-title">Have our flyer handy</div>
+          <p class="flyer-desc">Download a printable one-page flyer with all our contact info — good for sharing with neighbors or keeping on the fridge.</p>
+          <a href="TD-Decks-and-Fences-Flyer.pdf" download class="btn-download">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8m0 0l-3-3m3 3l3-3M2.5 12.5v1a1 1 0 001 1h9a1 1 0 001-1v-1"/></svg>
+            Download the Flyer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">T&D Decks & Fences</div>
+  <div class="footer-note">Serving Alpharetta &amp; the surrounding area · Licensed &amp; insured</div>
+</footer>
+
+<script>
+  // Build ruler ticks (all instances on page)
+  document.querySelectorAll('.ruler-ticks').forEach((rulerEl) => {
+    const numTicks = 120;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < numTicks; i++) {
+      const t = document.createElement('div');
+      t.className = 'tick' + (i % 10 === 0 ? ' major' : '');
+      t.style.height = '0px';
+      frag.appendChild(t);
+    }
+    rulerEl.appendChild(frag);
+
+    requestAnimationFrame(() => {
+      const ticks = rulerEl.querySelectorAll('.tick');
+      ticks.forEach((t, i) => {
+        setTimeout(() => {
+          const isMajor = i % 10 === 0;
+          const isMid = i % 5 === 0;
+          t.style.height = isMajor ? '72%' : isMid ? '48%' : '28%';
+          t.style.transition = 'height 0.25s ease';
+        }, i * 4);
+      });
+    });
+  });
+
+  // Fade-up on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── JOB SITE GALLERY ──────────────────
+  (function () {
+    const BASE = 'https://raw.githubusercontent.com/fairefaretravels/TheContractor/61a570e8899dbda050be59769bb35ce79dafec01/';
+
+    const MEDIA = [
+      { type: 'image', src: BASE + 'IMG_3664.jpeg', caption: 'Framing takes shape' },
+      { type: 'image', src: BASE + 'IMG_3665.jpeg', caption: 'Squaring up the joists' },
+      { type: 'image', src: BASE + 'IMG_3673.jpeg', caption: 'Post footings, set and leveled' },
+      { type: 'image', src: BASE + 'IMG_3674.jpeg', caption: 'Decking going down, board by board' },
+      { type: 'image', src: BASE + 'IMG_3676.jpeg', caption: 'Blocking and bracing before the boards go on' },
+      { type: 'video', src: BASE + 'IMG_3678.mov', caption: 'A look at the crew mid-build' },
+      { type: 'video', src: BASE + 'IMG_3679.mov', caption: 'Another pass through the job site' },
+      { type: 'image', src: BASE + 'IMG_3680.jpeg', caption: 'Rail posts going in' },
+      { type: 'image', src: BASE + 'IMG_3681.jpeg', caption: 'Detail work on the railing' },
+      { type: 'image', src: BASE + 'IMG_3708.jpeg', caption: 'Fence line taking shape' },
+      { type: 'image', src: BASE + 'IMG_3714.jpeg', caption: 'Panel by panel' },
+      { type: 'image', src: BASE + 'IMG_3715.jpeg', caption: 'Closing in the last section' },
+      { type: 'image', src: BASE + 'IMG_3722.jpeg', caption: 'Final walk-through details' },
+      { type: 'image', src: BASE + 'IMG_3723.jpeg', caption: 'Clean lines, tight fit' },
+      { type: 'image', src: BASE + 'IMG_8892.png', caption: 'Another one in the books' }
+    ];
+
+    const mediaEl = document.getElementById('galleryMedia');
+    const capTextEl = document.getElementById('galleryCaptionText');
+    const capIndexEl = document.getElementById('galleryCaptionIndex');
+    const thumbsEl = document.getElementById('galleryThumbs');
+
+    if (!mediaEl) return;
+
+    let idx = 0;
+    let timer = null;
+    const AUTOPLAY_MS = 4500;
+
+    function renderThumbs() {
+      thumbsEl.innerHTML = '';
+      MEDIA.forEach((m, i) => {
+        const t = document.createElement('div');
+        t.className = 'gallery-thumb' + (m.type === 'video' ? ' is-video' : '');
+        if (m.type === 'image') {
+          const img = document.createElement('img');
+          img.src = m.src;
+          img.loading = 'lazy';
+          img.alt = '';
+          t.appendChild(img);
+        }
+        t.addEventListener('click', () => { show(i); resetTimer(); });
+        thumbsEl.appendChild(t);
+      });
+    }
+
+    function show(i) {
+      idx = (i + MEDIA.length) % MEDIA.length;
+      const m = MEDIA[idx];
+
+      mediaEl.innerHTML = '';
+      if (m.type === 'image') {
+        const img = document.createElement('img');
+        img.src = m.src;
+        img.alt = m.caption;
+        mediaEl.appendChild(img);
+      } else {
+        const vid = document.createElement('video');
+        vid.src = m.src;
+        vid.controls = true;
+        vid.playsInline = true;
+        vid.preload = 'metadata';
+        vid.addEventListener('play', () => clearInterval(timer));
+        vid.addEventListener('ended', () => { next(); resetTimer(); });
+        mediaEl.appendChild(vid);
+      }
+
+      capTextEl.textContent = m.caption;
+      capIndexEl.textContent = (idx + 1) + ' / ' + MEDIA.length;
+
+      Array.from(thumbsEl.children).forEach((el, i2) => el.classList.toggle('active', i2 === idx));
+      const activeThumb = thumbsEl.children[idx];
+      if (activeThumb && activeThumb.scrollIntoView) {
+        activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
+    function next() { show(idx + 1); }
+    function prev() { show(idx - 1); }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (MEDIA[idx].type === 'image') next();
+      }, AUTOPLAY_MS);
+    }
+
+    document.querySelector('.gallery-next').addEventListener('click', () => { next(); resetTimer(); });
+    document.querySelector('.gallery-prev').addEventListener('click', () => { prev(); resetTimer(); });
+
+    renderThumbs();
+    show(0);
+    resetTimer();
+  })();
+</script>
+</body>
+</html>
