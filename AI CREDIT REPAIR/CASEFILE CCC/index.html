@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASEFILE — Credit Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0A0E16;
+  --panel:#121927;
+  --panel-2:#182135;
+  --border:#26304A;
+  --text:#E9EDF6;
+  --text-dim:#8C96AE;
+  --text-faint:#5D6780;
+  --accent:#4FD8C4;
+  --accent-2:#7C93FF;
+  --green:#3ECF8E;
+  --amber:#F0B429;
+  --red:#F4584E;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+  --radius:10px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  background:radial-gradient(circle at 15% 0%, #101828 0%, var(--bg) 45%);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:14px;
+  line-height:1.5;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit; font-size:13px;}
+::selection{background:var(--accent); color:#06110F;}
+
+/* ---------- Shell ---------- */
+#app{display:flex; min-height:100vh;}
+.sidebar{
+  width:230px; flex-shrink:0; background:var(--panel);
+  border-right:1px solid var(--border);
+  display:flex; flex-direction:column;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.brand{
+  padding:22px 20px 16px; border-bottom:1px solid var(--border);
+}
+.brand .mark{font-family:var(--font-display); font-weight:700; font-size:19px; letter-spacing:0.5px; color:var(--text);}
+.brand .mark span{color:var(--accent);}
+.brand .sub{font-family:var(--font-mono); font-size:10px; color:var(--text-faint); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px;}
+nav{padding:14px 10px; flex:1;}
+.nav-item{
+  display:flex; align-items:center; gap:10px;
+  padding:9px 12px; border-radius:8px; color:var(--text-dim);
+  font-size:13px; font-weight:500; cursor:pointer; margin-bottom:2px;
+  transition:background .12s, color .12s; user-select:none;
+}
+.nav-item svg{width:16px; height:16px; flex-shrink:0; opacity:.85;}
+.nav-item:hover{background:var(--panel-2); color:var(--text);}
+.nav-item.active{background:linear-gradient(90deg, rgba(79,216,196,.14), transparent); color:var(--accent); box-shadow:inset 2px 0 0 var(--accent);}
+.nav-group-label{font-family:var(--font-mono); font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-faint); padding:14px 12px 6px;}
+.sidebar-foot{padding:14px; border-top:1px solid var(--border); font-size:11px; color:var(--text-faint);}
+
+.main{flex:1; min-width:0; display:flex; flex-direction:column;}
+.disclaimer-bar{
+  background:#1B1408; border-bottom:1px solid #3A2A0A; color:#E8C777;
+  font-size:11.5px; padding:8px 24px; display:flex; align-items:center; gap:8px;
+}
+.disclaimer-bar b{color:#F0B429;}
+.content{padding:28px 32px 60px; max-width:1280px;}
+.page-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:22px; flex-wrap:wrap; gap:12px;}
+.page-head h1{font-family:var(--font-display); font-size:24px; font-weight:600;}
+.page-head p{color:var(--text-dim); font-size:13px; margin-top:4px; max-width:620px;}
+
+/* ---------- Cards / grid ---------- */
+.grid{display:grid; gap:14px;}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+.grid.cols-2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:1000px){.grid.cols-3,.grid.cols-4{grid-template-columns:repeat(2,1fr);}}
+
+.card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px;}
+.card.tight{padding:14px;}
+.card h3{font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--text-dim); font-weight:600; margin-bottom:10px;}
+.score-card .val{font-family:var(--font-mono); font-size:32px; font-weight:600; color:var(--text);}
+.score-card .bureau{font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.8px; margin-top:2px;}
+.score-card .bar-track{height:5px; background:var(--panel-2); border-radius:4px; margin-top:10px; overflow:hidden;}
+.score-card .bar-fill{height:100%; border-radius:4px;}
+
+.metric{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px;}
+.metric .label{font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.5px;}
+.metric .value{font-family:var(--font-mono); font-size:20px; font-weight:600; margin-top:5px;}
+.metric .value.flag{color:var(--red);}
+.metric .value.ok{color:var(--green);}
+.metric input{background:transparent; border:none; color:var(--text); font-family:var(--font-mono); font-size:20px; font-weight:600; width:100%; padding:0; margin-top:4px;}
+.metric input:focus{outline:none; border-bottom:1px solid var(--accent);}
+
+/* Gauge */
+.gauge-wrap{display:flex; align-items:center; gap:22px;}
+.gauge-num{font-family:var(--font-display); font-size:36px; font-weight:700;}
+.gauge-sub{color:var(--text-dim); font-size:12px; margin-top:2px;}
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+  padding:8px 14px; border-radius:8px; font-size:12.5px; font-weight:600;
+  transition:border-color .12s, background .12s;
+}
+.btn:hover{border-color:var(--accent); }
+.btn.primary{background:linear-gradient(135deg, var(--accent), #2FB6A6); color:#06140F; border:none;}
+.btn.primary:hover{filter:brightness(1.08);}
+.btn.danger{color:var(--red); border-color:#4A2222;}
+.btn.small{padding:5px 10px; font-size:11.5px;}
+.btn:disabled{opacity:.4; cursor:not-allowed;}
+.btn-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+
+/* Forms */
+.field{margin-bottom:12px;}
+.field label{display:block; font-size:11.5px; color:var(--text-dim); margin-bottom:5px; text-transform:uppercase; letter-spacing:.4px;}
+.field input, .field select, .field textarea{
+  width:100%; background:var(--panel-2); border:1px solid var(--border); color:var(--text);
+  padding:9px 11px; border-radius:7px;
+}
+.field textarea{min-height:90px; resize:vertical; font-family:var(--font-mono); font-size:12.5px; line-height:1.6;}
+.field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--accent);}
+.field-row{display:flex; gap:10px;}
+.field-row > .field{flex:1;}
+
+/* Table-ish list */
+.list-row{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 14px; border:1px solid var(--border); border-radius:8px; background:var(--panel);
+  margin-bottom:8px; cursor:pointer; transition:border-color .12s;
+}
+.list-row:hover{border-color:var(--accent);}
+.list-row .title{font-weight:600; font-size:13.5px;}
+.list-row .meta{font-size:11.5px; color:var(--text-dim); margin-top:2px;}
+.pill{
+  font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.5px;
+  padding:3px 9px; border-radius:20px; white-space:nowrap;
+}
+.pill.leave{background:#152A22; color:var(--green);}
+.pill.pay{background:#2A2410; color:var(--amber);}
+.pill.dispute{background:#2E1717; color:var(--red);}
+.pill.wait{background:#16202F; color:var(--accent-2);}
+.pill.neutral{background:var(--panel-2); color:var(--text-dim);}
+
+/* Kanban */
+.kanban{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+.kanban-col{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:12px; min-height:220px;}
+.kanban-col h4{font-size:11.5px; text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px; display:flex; align-items:center; gap:6px;}
+.kanban-card{background:var(--panel-2); border:1px solid var(--border); border-radius:7px; padding:9px 10px; margin-bottom:8px; font-size:12.5px;}
+.kanban-card .acc-name{font-weight:600;}
+.kanban-card select{margin-top:6px; width:100%; font-size:11px; padding:4px 6px;}
+@media(max-width:900px){.kanban{grid-template-columns:repeat(2,1fr);}}
+
+/* Timeline */
+.tl{position:relative; padding-left:20px; margin-top:10px;}
+.tl::before{content:''; position:absolute; left:5px; top:4px; bottom:4px; width:1px; background:var(--border);}
+.tl-item{position:relative; padding-bottom:16px;}
+.tl-item::before{content:''; position:absolute; left:-19px; top:3px; width:9px; height:9px; border-radius:50%; background:var(--accent); border:2px solid var(--bg);}
+.tl-date{font-family:var(--font-mono); font-size:11px; color:var(--text-faint);}
+.tl-label{font-size:13px; margin-top:1px;}
+
+/* Chat / AI assistant */
+.chat-box{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:16px; max-width:720px;}
+.chat-msg{margin-bottom:14px; max-width:88%;}
+.chat-msg.ai{}
+.chat-msg.user{margin-left:auto;}
+.chat-bubble{padding:10px 13px; border-radius:10px; font-size:13px; line-height:1.55;}
+.chat-msg.ai .chat-bubble{background:var(--panel-2); border:1px solid var(--border); border-top-left-radius:2px;}
+.chat-msg.user .chat-bubble{background:linear-gradient(135deg,#213A55,#1B2C44); border-top-right-radius:2px;}
+.chat-input-row{display:flex; gap:8px; margin-top:10px;}
+.chat-input-row input{flex:1;}
+.quick-replies{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+.quick-replies button{background:var(--panel-2); border:1px solid var(--border); color:var(--accent); padding:6px 12px; border-radius:20px; font-size:12px;}
+.quick-replies button:hover{border-color:var(--accent);}
+
+/* Evidence vault */
+.evidence-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:10px; margin-top:10px;}
+.evidence-tile{background:var(--panel-2); border:1px solid var(--border); border-radius:8px; padding:10px; text-align:center; position:relative;}
+.evidence-tile img{width:100%; height:64px; object-fit:cover; border-radius:5px; margin-bottom:6px;}
+.evidence-tile .ico{width:100%; height:64px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:6px;}
+.evidence-tile .name{font-size:10.5px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.evidence-tile .rm{position:absolute; top:4px; right:4px; background:#2E1717; color:var(--red); border:none; border-radius:50%; width:18px; height:18px; font-size:11px; line-height:1;}
+
+/* Accordion (education) */
+.accordion-item{border:1px solid var(--border); border-radius:8px; margin-bottom:8px; overflow:hidden; background:var(--panel);}
+.accordion-head{padding:13px 16px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:600; font-size:13.5px;}
+.accordion-body{padding:0 16px 16px; color:var(--text-dim); font-size:13px; line-height:1.65; display:none;}
+.accordion-body.open{display:block;}
+.accordion-body .example{background:var(--panel-2); border-left:2px solid var(--accent); padding:10px 12px; margin-top:10px; font-family:var(--font-mono); font-size:11.5px; color:var(--text);}
+
+/* Tabs within page */
+.subtabs{display:flex; gap:6px; margin-bottom:16px; border-bottom:1px solid var(--border); flex-wrap:wrap;}
+.subtab{padding:8px 4px; margin-right:14px; font-size:13px; color:var(--text-dim); cursor:pointer; border-bottom:2px solid transparent; font-weight:500;}
+.subtab.active{color:var(--accent); border-color:var(--accent);}
+
+.empty{color:var(--text-faint); font-size:13px; padding:20px; text-align:center; border:1px dashed var(--border); border-radius:8px;}
+.badge-dot{width:7px; height:7px; border-radius:50%; display:inline-block;}
+.hint{font-size:11.5px; color:var(--text-faint); margin-top:6px;}
+.section-sep{height:1px; background:var(--border); margin:22px 0;}
+.two-col{display:grid; grid-template-columns:1.3fr 1fr; gap:20px;}
+@media(max-width:1000px){.two-col{grid-template-columns:1fr;}}
+.loading{color:var(--accent); font-size:12.5px; font-family:var(--font-mono);}
+.modal-bg{position:fixed; inset:0; background:rgba(5,7,12,.7); display:flex; align-items:center; justify-content:center; z-index:50; padding:20px;}
+.modal{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:22px; max-width:520px; width:100%; max-height:85vh; overflow-y:auto;}
+.close-x{position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-dim); font-size:18px;}
+::-webkit-scrollbar{width:8px; height:8px;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:4px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* =========================================================
+   CONFIG — edit bureau contact details here if they change.
+   This is the single source of truth used everywhere in the
+   app (letters, envelopes, dashboard) instead of hardcoding
+   addresses inline throughout the codebase.
+========================================================= */
+const CONFIG = {
+  bureaus: {
+    experian: { name:"Experian", address:"Experian\nP.O. Box 4500\nAllen, TX 75013", phone:"1-888-397-3742", disputeUrl:"https://www.experian.com/disputes/" },
+    equifax:  { name:"Equifax",  address:"Equifax Information Services LLC\nP.O. Box 740256\nAtlanta, GA 30374-0256", phone:"1-866-349-5191", disputeUrl:"https://www.equifax.com/personal/credit-report-services/credit-dispute/" },
+    transunion:{ name:"TransUnion", address:"TransUnion Consumer Solutions\nP.O. Box 2000\nChester, PA 19016-2000", phone:"1-800-916-8800", disputeUrl:"https://www.transunion.com/credit-disputes/dispute-your-credit" }
+  },
+  cfpb: { name:"Consumer Financial Protection Bureau", url:"https://www.consumerfinance.gov/complaint/" },
+  aiModel: "claude-sonnet-4-6"
+};
+
+/* =========================================================
+   STATE — everything lives in memory only. Nothing is sent
+   anywhere except the optional AI drafting calls below. Use
+   Export/Import (Settings tab) to save or restore your file
+   between sessions, since this tool has no server storage.
+========================================================= */
+let state = {
+  scores: { experian:0, equifax:0, transunion:0, goal:720 },
+  metrics: { collections:0, latePayments:0, chargeOffs:0, utilization:0, totalDebt:0, oldestAccountYears:0, dti:0, recentInquiries:0, businessScore:0 },
+  fundingChecklist: { util30:false, remove2collections:false, avgAge:false, twoTradelines:false, dtiOk:false, noRecentInquiries:false },
+  accounts: [],
+  disputes: [],
+  cfpbComplaints: [],
+  nextIds: { account:1, dispute:1, complaint:1 }
+};
+
+let ui = { tab:'dashboard', activeDisputeId:null, disputeSubtab:'letter', assistantStep:0, assistantAnswers:{}, analyzerResult:null, analyzerLoading:false };
+
+function uid(kind){ return kind + '-' + (state.nextIds[kind]++); }
+function el(html){ const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+function esc(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtMoney(n){ n = Number(n)||0; return '$' + n.toLocaleString(); }
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+
+/* =========================================================
+   AI CALL — uses the built-in completions endpoint available
+   to this artifact. No API key is ever entered by the user.
+========================================================= */
+async function callAI(systemPrompt, userPrompt){
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: CONFIG.aiModel,
+      max_tokens: 1500,
+      system: systemPrompt,
+      messages: [{ role:"user", content: userPrompt }]
+    })
+  });
+  const data = await res.json();
+  if (data && data.content) {
+    return data.content.map(c => c.text || '').join('\n').trim();
+  }
+  throw new Error('AI response unavailable');
+}
+
+/* =========================================================
+   ICONS (minimal inline SVG, stroke-based)
+========================================================= */
+const ICONS = {
+  dashboard:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+  accounts:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h12"/></svg>',
+  disputes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h13l3 3v13H4z"/><path d="M9 9h7M9 13h7M9 17h4"/></svg>',
+  assistant:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 21l4-4 4 4M9 10h.01M15 10h.01"/></svg>',
+  analyzer:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10" cy="10" r="6"/><path d="M20 20l-5-5"/></svg>',
+  funding:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 6.5c0-1.9-2.2-3.5-5-3.5S7 4.6 7 6.5 9.2 10 12 10s5 1.6 5 3.5-2.2 3.5-5 3.5-5-1.6-5-3.5"/></svg>',
+  cfpb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"/></svg>',
+  education:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5 12 3l9 3.5-9 3.5-9-3.5Z"/><path d="M6 9.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3V9.5"/></svg>',
+  settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.5.7.9 1.3 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.4 1Z"/></svg>'
+};
+
+/* =========================================================
+   NAV
+========================================================= */
+const NAV = [
+  { id:'dashboard', label:'Dashboard' },
+  { id:'accounts', label:'Accounts & Strategy' },
+  { id:'disputes', label:'Disputes' },
+  { id:'assistant', label:'AI Dispute Assistant' },
+  { id:'analyzer', label:'Report Analyzer' },
+  { id:'funding', label:'Funding Readiness' },
+  { id:'cfpb', label:'CFPB Complaints' },
+  { id:'education', label:'Credit Education' },
+  { id:'settings', label:'Settings & Data' }
+];
+
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  const sidebar = el(`
+    <div class="sidebar">
+      <div class="brand">
+        <div class="mark">CASE<span>FILE</span></div>
+        <div class="sub">Credit &amp; Compliance Case Manager</div>
+      </div>
+      <nav id="nav"></nav>
+      <div class="sidebar-foot">Not legal advice.<br>Organizational &amp; drafting tool only.</div>
+    </div>
+  `);
+  const navEl = sidebar.querySelector('#nav');
+  NAV.forEach(item => {
+    const row = el(`<div class="nav-item ${ui.tab===item.id?'active':''}">${ICONS[item.id]}<span>${item.label}</span></div>`);
+    row.onclick = () => { ui.tab = item.id; render(); };
+    navEl.appendChild(row);
+  });
+
+  const main = el(`
+    <div class="main">
+      <div class="disclaimer-bar">⚠ <b>Not legal advice.</b>&nbsp; CASEFILE helps you organize, draft, and track credit disputes. It does not replace an attorney or a credit counselor, and it does not guarantee results with any bureau or furnisher.</div>
+      <div class="content" id="content"></div>
+    </div>
+  `);
+  app.appendChild(sidebar);
+  app.appendChild(main);
+
+  const content = main.querySelector('#content');
+  const renderers = {
+    dashboard: renderDashboard, accounts: renderAccounts, disputes: renderDisputes,
+    assistant: renderAssistant, analyzer: renderAnalyzer, funding: renderFunding,
+    cfpb: renderCfpb, education: renderEducation, settings: renderSettings
+  };
+  content.appendChild(renderers[ui.tab]());
+}
+
+/* =========================================================
+   FUNDING READINESS CALC (shared by Dashboard + Funding tab)
+========================================================= */
+function fundingScore(){
+  const c = state.fundingChecklist;
+  const total = Object.keys(c).length;
+  const done = Object.values(c).filter(Boolean).length;
+  return Math.round((done/total)*100);
+}
+function scoreColor(v){
+  if(v>=740) return 'var(--green)';
+  if(v>=670) return 'var(--accent)';
+  if(v>=580) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+function gaugeSVG(pct, size=120, color='var(--accent)'){
+  const r = (size/2)-10, c = 2*Math.PI*r, off = c*(1-pct/100);
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--panel-2)" stroke-width="10"/>
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="10"
+      stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round"
+      transform="rotate(-90 ${size/2} ${size/2})"/>
+  </svg>`;
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+function renderDashboard(){
+  const s = state.scores, m = state.metrics, fp = fundingScore();
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`
+    <div class="page-head">
+      <div><h1>Command Center</h1><p>Live snapshot of your scores, negative items, and how close you are to your funding goal.</p></div>
+      <button class="btn primary" id="exportPdfDash">Export Summary PDF</button>
+    </div>
+  `));
+
+  const scores = el(`<div class="grid cols-3" style="margin-bottom:14px;"></div>`);
+  [['experian','Experian'],['equifax','Equifax'],['transunion','TransUnion']].forEach(([k,label])=>{
+    const val = s[k];
+    const pct = Math.min(100, Math.max(0,(val-300)/(850-300)*100));
+    scores.appendChild(el(`
+      <div class="card score-card">
+        <h3>${label}</h3>
+        <div class="val" style="color:${scoreColor(val)}">${val||'—'}</div>
+        <div class="bureau">Goal: ${s.goal}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${scoreColor(val)}"></div></div>
+      </div>
+    `));
+  });
+  wrap.appendChild(scores);
+
+  const metricsGrid = el(`<div class="grid cols-4" style="margin-bottom:20px;"></div>`);
+  const metricDefs = [
+    ['collections','Total Collections', m.collections, m.collections>0],
+    ['latePayments','Late Payments', m.latePayments, m.latePayments>0],
+    ['chargeOffs','Charge Offs', m.chargeOffs, m.chargeOffs>0],
+    ['utilization','Utilization %', m.utilization+'%', m.utilization>30],
+    ['totalDebt','Total Debt', fmtMoney(m.totalDebt), false],
+    ['oldestAccountYears','Oldest Account (yrs)', m.oldestAccountYears, false],
+    ['dti','Debt-to-Income %', m.dti+'%', m.dti>40],
+    ['recentInquiries','Recent Inquiries', m.recentInquiries, m.recentInquiries>3]
+  ];
+  metricDefs.forEach(([key,label,val,flag])=>{
+    metricsGrid.appendChild(el(`
+      <div class="metric"><div class="label">${label}</div><div class="value ${flag?'flag':''}">${val}</div></div>
+    `));
+  });
+  wrap.appendChild(metricsGrid);
+
+  const bottom = el(`<div class="two-col"></div>`);
+  bottom.appendChild(el(`
+    <div class="card">
+      <h3>Goal Progress</h3>
+      <p style="color:var(--text-dim); font-size:13px; margin-bottom:12px;">Average current score vs. your goal score.</p>
+      ${(()=>{
+        const avg = Math.round((s.experian+s.equifax+s.transunion)/3) || 0;
+        const gap = s.goal - avg;
+        const pct = Math.min(100, Math.max(0, (avg-300)/(s.goal-300)*100 || 0));
+        return `<div style="display:flex; align-items:center; gap:18px;">
+          <div><div style="font-family:var(--font-mono); font-size:28px; font-weight:600;">${avg||'—'}</div><div class="hint">current average</div></div>
+          <div style="flex:1;"><div class="bar-track" style="height:8px;"><div class="bar-fill" style="width:${pct}%; background:${scoreColor(avg)};"></div></div><div class="hint">${gap>0? gap+' points to goal' : 'Goal reached'}</div></div>
+          <div><div style="font-family:var(--font-mono); font-size:28px; font-weight:600; color:var(--accent);">${s.goal}</div><div class="hint">goal</div></div>
+        </div>`;
+      })()}
+    </div>
+  `));
+  bottom.appendChild(el(`
+    <div class="card" style="display:flex; align-items:center; justify-content:center; gap:20px;">
+      <div style="position:relative; width:120px; height:120px;">
+        ${gaugeSVG(fp,120,scoreColor(300+fp*5.5))}
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div class="gauge-num">${fp}%</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:6px;">Funding Readiness</h3>
+        <p style="color:var(--text-dim); font-size:12.5px; max-width:220px;">Based on your funding checklist. Open the Funding Readiness tab to update it.</p>
+      </div>
+    </div>
+  `));
+  wrap.appendChild(bottom);
+
+  wrap.querySelector('#exportPdfDash').onclick = () => exportDashboardPdf();
+  return wrap;
+}
+
+function exportDashboardPdf(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const s = state.scores, m = state.metrics, fp = fundingScore();
+  let y = 18;
+  doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('CASEFILE — Credit Summary', 14, y); y+=6;
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120);
+  doc.text('Organizational summary only — not a credit report or legal document.', 14, y); y+=10;
+  doc.setTextColor(0); doc.setFontSize(11);
+  doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, y); y+=10;
+  doc.setFont('helvetica','bold'); doc.text('Scores', 14, y); y+=6; doc.setFont('helvetica','normal');
+  doc.text(`Experian: ${s.experian||'-'}   Equifax: ${s.equifax||'-'}   TransUnion: ${s.transunion||'-'}   Goal: ${s.goal}`, 14, y); y+=10;
+  doc.setFont('helvetica','bold'); doc.text('Negative Items & Metrics', 14, y); y+=6; doc.setFont('helvetica','normal');
+  [['Collections',m.collections],['Late Payments',m.latePayments],['Charge Offs',m.chargeOffs],
+   ['Utilization',m.utilization+'%'],['Total Debt',fmtMoney(m.totalDebt)],['Oldest Account (yrs)',m.oldestAccountYears],
+   ['DTI',m.dti+'%'],['Recent Inquiries',m.recentInquiries]].forEach(([k,v])=>{ doc.text(`${k}: ${v}`, 14, y); y+=6; });
+  y+=4; doc.setFont('helvetica','bold'); doc.text(`Funding Readiness: ${fp}%`, 14, y); y+=10;
+  doc.setFont('helvetica','bold'); doc.text('Open Disputes', 14, y); y+=6; doc.setFont('helvetica','normal');
+  if(state.disputes.length===0){ doc.text('None on file.', 14, y); y+=6; }
+  state.disputes.forEach(d=>{ doc.text(`- ${d.accountName} / ${CONFIG.bureaus[d.bureau].name} — ${d.status}`, 14, y); y+=6; });
+  doc.save('casefile-summary.pdf');
+}
+
+/* =========================================================
+   ACCOUNTS & STRATEGY BOARD
+========================================================= */
+const STRATEGY = { leave:{label:'Leave Alone', cls:'leave'}, pay:{label:'Pay First', cls:'pay'}, dispute:{label:'Dispute Immediately', cls:'dispute'}, wait:{label:'Wait Until Utilization Drops', cls:'wait'} };
+
+function renderAccounts(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`
+    <div class="page-head">
+      <div><h1>Accounts &amp; Strategy Board</h1><p>Not every negative item should be disputed. Sort each account into a lane, or ask AI for a suggestion.</p></div>
+      <button class="btn primary" id="addAcc">+ Add Account</button>
+    </div>
+  `));
+
+  const board = el(`<div class="kanban"></div>`);
+  Object.entries(STRATEGY).forEach(([key,def])=>{
+    const col = el(`<div class="kanban-col"><h4><span class="badge-dot" style="background:var(--${key==='leave'?'green':key==='pay'?'amber':key==='dispute'?'red':'accent-2'})"></span> ${def.label}</h4><div class="cards"></div></div>`);
+    const cardsEl = col.querySelector('.cards');
+    const accts = state.accounts.filter(a => (a.category||'dispute') === key);
+    if(accts.length===0) cardsEl.appendChild(el(`<div class="hint">No accounts here yet.</div>`));
+    accts.forEach(a=>{
+      const c = el(`
+        <div class="kanban-card">
+          <div class="acc-name">${esc(a.name)}</div>
+          <div class="hint">${esc(a.type)} · ${fmtMoney(a.balance)}${a.aiNote? '<br>AI: '+esc(a.aiNote):''}</div>
+          <select>${Object.entries(STRATEGY).map(([k,d])=>`<option value="${k}" ${k===key?'selected':''}>${d.label}</option>`).join('')}</select>
+        </div>
+      `);
+      c.querySelector('select').onchange = (e)=>{ a.category = e.target.value; render(); };
+      cardsEl.appendChild(c);
+    });
+    board.appendChild(col);
+  });
+  wrap.appendChild(board);
+
+  wrap.appendChild(el(`<div class="section-sep"></div>`));
+  const listHead = el(`<h1 style="font-size:16px; margin-bottom:10px;">All Accounts</h1>`);
+  wrap.appendChild(listHead);
+  const list = el(`<div></div>`);
+  if(state.accounts.length===0){ list.appendChild(el(`<div class="empty">No accounts added yet. Click "+ Add Account" to start.</div>`)); }
+  state.accounts.forEach(a=>{
+    const row = el(`
+      <div class="list-row">
+        <div>
+          <div class="title">${esc(a.name)} <span class="pill ${STRATEGY[a.category||'dispute'].cls}">${STRATEGY[a.category||'dispute'].label}</span></div>
+          <div class="meta">${esc(a.type)} · Balance ${fmtMoney(a.balance)} · Status: ${esc(a.status)}</div>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn small" data-ai>Ask AI</button>
+          <button class="btn small" data-dispute>Start Dispute</button>
+          <button class="btn small danger" data-del>Remove</button>
+        </div>
+      </div>
+    `);
+    row.querySelector('[data-del]').onclick = (e)=>{ e.stopPropagation(); state.accounts = state.accounts.filter(x=>x.id!==a.id); render(); };
+    row.querySelector('[data-dispute]').onclick = (e)=>{ e.stopPropagation(); startDisputeForAccount(a); };
+    row.querySelector('[data-ai]').onclick = async (e)=>{
+      e.stopPropagation();
+      const btn = e.target; btn.textContent='Thinking…'; btn.disabled = true;
+      try{
+        const resp = await callAI(
+          "You are a credit strategy assistant. Given one tradeline's details, respond with ONLY a JSON object: {\"category\":\"leave|pay|dispute|wait\",\"reason\":\"one short sentence\"}. Categories: leave = accurate and not worth disputing; pay = pay down or resolve first; dispute = dispute immediately as likely inaccurate/unverifiable; wait = wait until utilization drops before acting.",
+          `Account: ${a.name}\nType: ${a.type}\nBalance: ${a.balance}\nStatus: ${a.status}\nNotes: ${a.notes||'none'}`
+        );
+        const parsed = JSON.parse(resp.replace(/```json|```/g,'').trim());
+        a.category = parsed.category; a.aiNote = parsed.reason;
+      }catch(err){ alert('AI suggestion unavailable right now.'); }
+      render();
+    };
+    list.appendChild(row);
+  });
+  wrap.appendChild(list);
+
+  wrap.querySelector('#addAcc').onclick = () => openAccountModal();
+  return wrap;
+}
+
+function openAccountModal(){
+  const bg = el(`
+    <div class="modal-bg">
+      <div class="modal" style="position:relative;">
+        <button class="close-x">✕</button>
+        <h3 style="margin-bottom:14px;">Add Account</h3>
+        <div class="field"><label>Account / Creditor Name</label><input id="mName" placeholder="e.g. Portfolio Recovery Associates"></div>
+        <div class="field-row">
+          <div class="field"><label>Type</label><select id="mType"><option>Collection</option><option>Charge Off</option><option>Late Payment</option><option>Credit Card</option><option>Loan</option><option>Other</option></select></div>
+          <div class="field"><label>Balance</label><input id="mBalance" type="number" placeholder="0"></div>
+        </div>
+        <div class="field"><label>Status</label><input id="mStatus" placeholder="e.g. Unpaid, disputed, verified..."></div>
+        <div class="field"><label>Notes</label><textarea id="mNotes" placeholder="Anything relevant — when it appeared, whether you recognize it, etc."></textarea></div>
+        <div class="btn-row"><button class="btn primary" id="mSave">Save Account</button></div>
+      </div>
+    </div>
+  `);
+  document.body.appendChild(bg);
+  bg.querySelector('.close-x').onclick = ()=> bg.remove();
+  bg.onclick = (e)=>{ if(e.target===bg) bg.remove(); };
+  bg.querySelector('#mSave').onclick = ()=>{
+    const name = bg.querySelector('#mName').value.trim();
+    if(!name){ alert('Please enter a name.'); return; }
+    state.accounts.push({
+      id: uid('account'), name, type: bg.querySelector('#mType').value,
+      balance: Number(bg.querySelector('#mBalance').value)||0,
+      status: bg.querySelector('#mStatus').value || 'Unresolved',
+      notes: bg.querySelector('#mNotes').value, category:'dispute'
+    });
+    bg.remove(); render();
+  };
+}
+
+/* =========================================================
+   DISPUTES (list + detail: letter, evidence, timeline, mail)
+========================================================= */
+function startDisputeForAccount(account){
+  const d = {
+    id: uid('dispute'), accountId: account.id, accountName: account.name,
+    bureau: 'experian', reason: '', letterText: '', status: 'Draft',
+    timeline: [], evidence: [], certifiedMail: { tracking:'', delivered:'', signature:'', receiptData:null }
+  };
+  state.disputes.push(d);
+  ui.tab = 'disputes'; ui.activeDisputeId = d.id; ui.disputeSubtab='letter';
+  render();
+}
+
+function renderDisputes(){
+  const wrap = el(`<div></div>`);
+  if(ui.activeDisputeId){
+    const d = state.disputes.find(x=>x.id===ui.activeDisputeId);
+    if(d) return renderDisputeDetail(d);
+  }
+  wrap.appendChild(el(`
+    <div class="page-head">
+      <div><h1>Disputes</h1><p>Every dispute keeps its own letter, evidence, timeline, and certified-mail record together.</p></div>
+      <button class="btn primary" id="newDispute">+ New Dispute</button>
+    </div>
+  `));
+  const list = el(`<div></div>`);
+  if(state.disputes.length===0) list.appendChild(el(`<div class="empty">No disputes yet. Add an account on the Strategy Board, or click "+ New Dispute".</div>`));
+  state.disputes.forEach(d=>{
+    const statusColor = d.status==='Deleted'?'var(--green)': d.status==='No Response'||d.status==='Method of Verification Sent'?'var(--amber)': 'var(--text-dim)';
+    const row = el(`
+      <div class="list-row">
+        <div><div class="title">${esc(d.accountName)} → ${CONFIG.bureaus[d.bureau].name}</div>
+        <div class="meta">${d.evidence.length} file(s) attached · ${d.timeline.length} timeline event(s)</div></div>
+        <span class="pill neutral" style="color:${statusColor}">${esc(d.status)}</span>
+      </div>
+    `);
+    row.onclick = ()=>{ ui.activeDisputeId = d.id; ui.disputeSubtab='letter'; render(); };
+    list.appendChild(row);
+  });
+  wrap.appendChild(list);
+  wrap.querySelector('#newDispute').onclick = ()=> openNewDisputeModal();
+  return wrap;
+}
+
+function openNewDisputeModal(){
+  if(state.accounts.length===0){
+    if(confirm('No accounts on file yet. Add one now?')) openAccountModal();
+    return;
+  }
+  const bg = el(`
+    <div class="modal-bg"><div class="modal" style="position:relative;">
+      <button class="close-x">✕</button>
+      <h3 style="margin-bottom:14px;">New Dispute</h3>
+      <div class="field"><label>Account</label><select id="dAcc">${state.accounts.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join('')}</select></div>
+      <div class="field"><label>Bureau</label><select id="dBureau">${Object.entries(CONFIG.bureaus).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('')}</select></div>
+      <div class="btn-row"><button class="btn primary" id="dCreate">Create Dispute</button></div>
+    </div></div>
+  `);
+  document.body.appendChild(bg);
+  bg.querySelector('.close-x').onclick = ()=>bg.remove();
+  bg.onclick = e=>{ if(e.target===bg) bg.remove(); };
+  bg.querySelector('#dCreate').onclick = ()=>{
+    const acc = state.accounts.find(a=>a.id===bg.querySelector('#dAcc').value);
+    const d = { id: uid('dispute'), accountId: acc.id, accountName: acc.name, bureau: bg.querySelector('#dBureau').value,
+      reason:'', letterText:'', status:'Draft', timeline:[], evidence:[], certifiedMail:{tracking:'',delivered:'',signature:'',receiptData:null} };
+    state.disputes.push(d); bg.remove();
+    ui.activeDisputeId = d.id; ui.disputeSubtab='letter'; render();
+  };
+}
+
+function renderDisputeDetail(d){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`
+    <div class="page-head">
+      <div>
+        <div style="font-size:12px; color:var(--accent); cursor:pointer; margin-bottom:6px;" id="backBtn">← All Disputes</div>
+        <h1>${esc(d.accountName)}</h1>
+        <p>${CONFIG.bureaus[d.bureau].name} · <span id="statusLabel">${esc(d.status)}</span></p>
+      </div>
+      <select id="statusSelect" style="background:var(--panel-2); border:1px solid var(--border); color:var(--text); padding:8px 10px; border-radius:8px;">
+        ${['Draft','Initial Dispute Sent','Received by Bureau','30 Days Passed','No Response','Method of Verification Sent','Verified','Deleted'].map(s=>`<option ${s===d.status?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </div>
+  `));
+  wrap.querySelector('#backBtn').onclick = ()=>{ ui.activeDisputeId=null; render(); };
+  wrap.querySelector('#statusSelect').onchange = (e)=>{ d.status = e.target.value; render(); };
+
+  const subtabs = el(`<div class="subtabs"></div>`);
+  [['letter','Letter'],['evidence','Evidence Vault'],['timeline','Timeline'],['mail','Certified Mail']].forEach(([id,label])=>{
+    const t = el(`<div class="subtab ${ui.disputeSubtab===id?'active':''}">${label}</div>`);
+    t.onclick = ()=>{ ui.disputeSubtab=id; render(); };
+    subtabs.appendChild(t);
+  });
+  wrap.appendChild(subtabs);
+
+  const body = el(`<div></div>`);
+  if(ui.disputeSubtab==='letter') body.appendChild(renderLetterTab(d));
+  if(ui.disputeSubtab==='evidence') body.appendChild(renderEvidenceTab(d));
+  if(ui.disputeSubtab==='timeline') body.appendChild(renderTimelineTab(d));
+  if(ui.disputeSubtab==='mail') body.appendChild(renderMailTab(d));
+  wrap.appendChild(body);
+  return wrap;
+}
+
+function renderLetterTab(d){
+  const wrap = el(`<div class="two-col"></div>`);
+  const left = el(`
+    <div class="card">
+      <div class="field"><label>Reason for dispute</label><textarea id="letterReason" placeholder="e.g. This is not my account / balance is incorrect / account is past the 7-year reporting period / I paid this in full...">${esc(d.reason)}</textarea></div>
+      <div class="btn-row">
+        <button class="btn primary" id="genLetter">Draft with AI</button>
+        <button class="btn" id="openWizard">Use Guided Assistant</button>
+      </div>
+      <div id="letterLoading" class="loading" style="margin-top:8px; display:none;">Drafting your letter…</div>
+      <div class="field" style="margin-top:16px;"><label>Letter</label><textarea id="letterText" style="min-height:340px;">${esc(d.letterText)}</textarea></div>
+      <div class="btn-row">
+        <button class="btn" id="saveLetter">Save</button>
+        <button class="btn" id="pdfLetter">Export PDF</button>
+        <button class="btn" id="emailLetter">Email Letter</button>
+      </div>
+    </div>
+  `);
+  const right = el(`
+    <div class="card">
+      <h3>Mailing Info (from Config)</h3>
+      <p style="white-space:pre-line; font-size:13px; margin-bottom:8px;">${esc(CONFIG.bureaus[d.bureau].address)}</p>
+      <p class="hint">Phone: ${CONFIG.bureaus[d.bureau].phone}</p>
+      <p class="hint"><a href="${CONFIG.bureaus[d.bureau].disputeUrl}" target="_blank" rel="noopener">Online dispute portal ↗</a></p>
+      <div class="section-sep"></div>
+      <h3>Tips</h3>
+      <p class="hint">Send by certified mail with return receipt so you can prove delivery. Log the tracking number in the Certified Mail tab once you mail it.</p>
+    </div>
+  `);
+  wrap.appendChild(left); wrap.appendChild(right);
+
+  left.querySelector('#letterText').oninput = (e)=>{ d.letterText = e.target.value; };
+  left.querySelector('#letterReason').oninput = (e)=>{ d.reason = e.target.value; };
+  left.querySelector('#saveLetter').onclick = ()=>{ d.letterText = left.querySelector('#letterText').value; alert('Saved.'); };
+  left.querySelector('#openWizard').onclick = ()=>{ ui.tab='assistant'; ui.assistantAnswers={ disputeId:d.id }; ui.assistantStep=0; render(); };
+  left.querySelector('#pdfLetter').onclick = ()=> exportLetterPdf(d, left.querySelector('#letterText').value);
+  left.querySelector('#emailLetter').onclick = ()=> emailText('Credit Dispute — ' + d.accountName, left.querySelector('#letterText').value);
+  left.querySelector('#genLetter').onclick = async ()=>{
+    const reason = left.querySelector('#letterReason').value.trim();
+    if(!reason){ alert('Add a reason first so the AI knows what to write.'); return; }
+    const loadingEl = left.querySelector('#letterLoading'); loadingEl.style.display='block';
+    try{
+      const letter = await callAI(
+        "You draft formal, factual consumer credit dispute letters under the FCRA. Keep it professional, one page, no legal threats, no fabricated facts — use only what the user provides. Include a clear request: investigate and correct or delete the item. Do not include a signature block placeholder beyond '[Your Name]'.",
+        `Write a dispute letter to ${CONFIG.bureaus[d.bureau].name} at this address:\n${CONFIG.bureaus[d.bureau].address}\n\nAccount: ${d.accountName}\nReason for dispute: ${reason}\nToday's date: ${todayISO()}`
+      );
+      d.letterText = letter;
+      left.querySelector('#letterText').value = letter;
+    }catch(e){ alert('AI drafting is unavailable right now — you can still write the letter manually.'); }
+    loadingEl.style.display='none';
+  };
+  return wrap;
+}
+
+function exportLetterPdf(d, text){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const lines = doc.splitTextToSize(text || '(empty letter)', 180);
+  doc.setFontSize(11);
+  doc.text(lines, 15, 20);
+  doc.save(`dispute-${d.accountName.replace(/\s+/g,'_')}-${d.bureau}.pdf`);
+}
+function emailText(subject, body){
+  const max = 1500;
+  const truncated = body.length > max;
+  const mailBody = truncated ? body.slice(0,max) + '\n\n[Letter truncated for email length — export the PDF and attach it instead.]' : body;
+  window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailBody)}`;
+}
+
+function renderEvidenceTab(d){
+  const wrap = el(`<div class="card"></div>`);
+  wrap.appendChild(el(`<h3>Evidence Vault</h3><p class="hint" style="margin-bottom:10px;">Attach the ID, bills, reports, and paperwork tied to this specific dispute. Files stay in this browser session — download or export them before you close the tab.</p>`));
+  const suggestions = ['Driver\'s License','Utility Bill','Credit Report PDF','Payment Receipt','Bankruptcy Paperwork','Police Report','Identity Theft Report','Court Document'];
+  const sugRow = el(`<div class="quick-replies" style="margin-bottom:10px;"></div>`);
+  suggestions.forEach(s=>{ const b = el(`<button type="button">+ ${s}</button>`); b.onclick = ()=> triggerUpload(d, s); sugRow.appendChild(b); });
+  wrap.appendChild(sugRow);
+
+  const fileInput = el(`<input type="file" id="fileInput" multiple style="display:none">`);
+  wrap.appendChild(fileInput);
+  const addBtn = el(`<button class="btn">+ Attach File(s)</button>`);
+  addBtn.onclick = ()=> fileInput.click();
+  wrap.appendChild(addBtn);
+  fileInput.onchange = (e)=> handleFiles(d, e.target.files, null);
+
+  const grid = el(`<div class="evidence-grid"></div>`);
+  if(d.evidence.length===0) grid.appendChild(el(`<div class="empty" style="grid-column:1/-1;">No files attached yet.</div>`));
+  d.evidence.forEach((f,idx)=>{
+    const isImg = f.type && f.type.startsWith('image/');
+    const tile = el(`
+      <div class="evidence-tile">
+        <button class="rm">✕</button>
+        ${isImg ? `<img src="${f.data}">` : `<div class="ico">📄</div>`}
+        <div class="name">${esc(f.label||f.name)}</div>
+      </div>
+    `);
+    tile.querySelector('.rm').onclick = ()=>{ d.evidence.splice(idx,1); render(); };
+    grid.appendChild(tile);
+  });
+  wrap.appendChild(grid);
+  return wrap;
+}
+function triggerUpload(d, label){
+  const inp = document.createElement('input'); inp.type='file';
+  inp.onchange = (e)=> handleFiles(d, e.target.files, label);
+  inp.click();
+}
+function handleFiles(d, files, label){
+  Array.from(files).forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = ()=>{ d.evidence.push({ name:file.name, label: label||file.name, type:file.type, data:reader.result }); render(); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderTimelineTab(d){
+  const wrap = el(`<div class="card"></div>`);
+  wrap.appendChild(el(`<h3>Dispute Timeline</h3>`));
+  const quick = el(`<div class="quick-replies" style="margin-bottom:12px;"></div>`);
+  ['Initial Dispute Sent','Received by Bureau','30 Days Passed','No Response','Method of Verification Sent','Verified','Deleted'].forEach(label=>{
+    const b = el(`<button type="button">+ ${label}</button>`);
+    b.onclick = ()=>{ d.timeline.push({date: todayISO(), label}); d.timeline.sort((a,b)=>a.date.localeCompare(b.date)); render(); };
+    quick.appendChild(b);
+  });
+  wrap.appendChild(quick);
+
+  const addRow = el(`
+    <div class="field-row" style="align-items:flex-end;">
+      <div class="field"><label>Date</label><input type="date" id="tlDate" value="${todayISO()}"></div>
+      <div class="field" style="flex:2;"><label>Event</label><input id="tlLabel" placeholder="Custom event..."></div>
+      <button class="btn" id="tlAdd" style="margin-bottom:12px;">Add</button>
+    </div>
+  `);
+  addRow.querySelector('#tlAdd').onclick = ()=>{
+    const label = addRow.querySelector('#tlLabel').value.trim();
+    if(!label) return;
+    d.timeline.push({date: addRow.querySelector('#tlDate').value, label});
+    d.timeline.sort((a,b)=>a.date.localeCompare(b.date));
+    render();
+  };
+  wrap.appendChild(addRow);
+
+  const tl = el(`<div class="tl"></div>`);
+  if(d.timeline.length===0) tl.appendChild(el(`<div class="empty">No events logged yet.</div>`));
+  d.timeline.forEach((t,idx)=>{
+    const item = el(`<div class="tl-item"><div class="tl-date">${t.date}</div><div class="tl-label">${esc(t.label)} <span style="cursor:pointer; color:var(--red); font-size:11px;">✕</span></div></div>`);
+    item.querySelector('span').onclick = ()=>{ d.timeline.splice(idx,1); render(); };
+    tl.appendChild(item);
+  });
+  wrap.appendChild(tl);
+  return wrap;
+}
+
+function renderMailTab(d){
+  const cm = d.certifiedMail;
+  const wrap = el(`<div class="card" style="max-width:520px;"></div>`);
+  wrap.appendChild(el(`<h3>Certified Mail Tracker</h3><p class="hint" style="margin-bottom:12px;">No more wondering if they received it — log the USPS details here.</p>`));
+  const f1 = el(`<div class="field"><label>USPS Tracking Number</label><input id="cmTrack" value="${esc(cm.tracking)}"></div>`);
+  const f2 = el(`<div class="field"><label>Delivered Date</label><input id="cmDate" type="date" value="${esc(cm.delivered)}"></div>`);
+  const f3 = el(`<div class="field"><label>Signature (name on receipt)</label><input id="cmSig" value="${esc(cm.signature)}"></div>`);
+  [f1,f2,f3].forEach(f=>wrap.appendChild(f));
+  f1.querySelector('input').oninput = e=> cm.tracking = e.target.value;
+  f2.querySelector('input').oninput = e=> cm.delivered = e.target.value;
+  f3.querySelector('input').oninput = e=> cm.signature = e.target.value;
+
+  const photoField = el(`<div class="field"><label>Receipt Photo</label></div>`);
+  const photoBtn = el(`<button class="btn">Upload Receipt Photo</button>`);
+  const photoInput = el(`<input type="file" accept="image/*" style="display:none">`);
+  photoBtn.onclick = ()=> photoInput.click();
+  photoInput.onchange = (e)=>{
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ cm.receiptData = reader.result; render(); };
+    reader.readAsDataURL(file);
+  };
+  photoField.appendChild(photoBtn); photoField.appendChild(photoInput);
+  if(cm.receiptData) photoField.appendChild(el(`<img src="${cm.receiptData}" style="max-width:100%; margin-top:10px; border-radius:8px; border:1px solid var(--border);">`));
+  wrap.appendChild(photoField);
+  return wrap;
+}
+
+/* =========================================================
+   AI DISPUTE ASSISTANT (guided Q&A wizard)
+========================================================= */
+const WIZARD_QUESTIONS = [
+  { key:'account', q:"What account are we disputing? (Name it, and which bureau.)" },
+  { key:'inaccurate', q:"Why is it inaccurate? Be as specific as you can." },
+  { key:'paid', q:"Did you ever pay this account, in full or in part?" },
+  { key:'identityTheft', q:"Is this related to identity theft?" }
+];
+
+function renderAssistant(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<div class="page-head"><div><h1>AI Dispute Assistant</h1><p>Answer a few questions and CASEFILE drafts the letter for you.</p></div></div>`));
+
+  const box = el(`<div class="chat-box"><div class="messages"></div></div>`);
+  const messages = box.querySelector('.messages');
+  const step = ui.assistantStep;
+
+  for(let i=0;i<step;i++){
+    messages.appendChild(el(`<div class="chat-msg ai"><div class="chat-bubble">${esc(WIZARD_QUESTIONS[i].q)}</div></div>`));
+    messages.appendChild(el(`<div class="chat-msg user"><div class="chat-bubble">${esc(ui.assistantAnswers[WIZARD_QUESTIONS[i].key]||'')}</div></div>`));
+  }
+
+  if(step < WIZARD_QUESTIONS.length){
+    messages.appendChild(el(`<div class="chat-msg ai"><div class="chat-bubble">${esc(WIZARD_QUESTIONS[step].q)}</div></div>`));
+    const inputRow = el(`<div class="chat-input-row"><input id="wizInput" placeholder="Type your answer..."><button class="btn primary">Next</button></div>`);
+    const goNext = ()=>{
+      const val = inputRow.querySelector('#wizInput').value.trim();
+      if(!val) return;
+      ui.assistantAnswers[WIZARD_QUESTIONS[step].key] = val;
+      ui.assistantStep++;
+      render();
+    };
+    inputRow.querySelector('button').onclick = goNext;
+    inputRow.querySelector('input').onkeydown = (e)=>{ if(e.key==='Enter') goNext(); };
+    box.appendChild(inputRow);
+    if(WIZARD_QUESTIONS[step].key==='paid' || WIZARD_QUESTIONS[step].key==='identityTheft'){
+      const quick = el(`<div class="quick-replies"></div>`);
+      ['Yes','No'].forEach(v=>{ const b = el(`<button type="button">${v}</button>`); b.onclick = ()=>{ ui.assistantAnswers[WIZARD_QUESTIONS[step].key]=v; ui.assistantStep++; render(); }; quick.appendChild(b); });
+      box.appendChild(quick);
+    }
+  } else {
+    messages.appendChild(el(`<div class="chat-msg ai"><div class="chat-bubble">Got it — drafting your letter now.</div></div>`));
+    box.appendChild(el(`<div id="wizResult"></div>`));
+  }
+  wrap.appendChild(box);
+
+  if(step >= WIZARD_QUESTIONS.length){
+    const resultEl = box.querySelector('#wizResult');
+    resultEl.innerHTML = `<div class="loading">Drafting…</div>`;
+    (async ()=>{
+      const a = ui.assistantAnswers;
+      let letter = '';
+      try{
+        letter = await callAI(
+          "You draft formal FCRA credit dispute letters. Professional, factual, one page, no fabricated details, no legal threats. Sign off with '[Your Name]'.",
+          `Account/bureau: ${a.account}\nWhy it's inaccurate: ${a.inaccurate}\nEver paid: ${a.paid}\nIdentity theft related: ${a.identityTheft}\nToday's date: ${todayISO()}`
+        );
+      }catch(e){ letter = 'AI drafting unavailable right now. You can write the letter manually in the Disputes tab.'; }
+      resultEl.innerHTML = '';
+      const ta = el(`<div class="field"><label>Draft Letter</label><textarea style="min-height:280px;">${esc(letter)}</textarea></div>`);
+      resultEl.appendChild(ta);
+      const btnRow = el(`<div class="btn-row"></div>`);
+      const saveBtn = el(`<button class="btn primary">Save to a Dispute</button>`);
+      const restartBtn = el(`<button class="btn">Start Over</button>`);
+      const pdfBtn = el(`<button class="btn">Export PDF</button>`);
+      btnRow.appendChild(saveBtn); btnRow.appendChild(pdfBtn); btnRow.appendChild(restartBtn);
+      resultEl.appendChild(btnRow);
+      pdfBtn.onclick = ()=> exportLetterPdf({accountName:'assistant-draft', bureau:'experian'}, ta.querySelector('textarea').value);
+      restartBtn.onclick = ()=>{ ui.assistantStep=0; ui.assistantAnswers={}; render(); };
+      saveBtn.onclick = ()=>{
+        if(state.accounts.length===0){ alert('Add an account first (Accounts & Strategy tab), then save the letter to it.'); return; }
+        const options = state.accounts.map(acc=>acc.name).join(', ');
+        const name = prompt('Save to which account? Type the exact name:\n'+options);
+        const acc = state.accounts.find(x=>x.name===name);
+        if(!acc){ alert('No matching account found.'); return; }
+        const d = { id: uid('dispute'), accountId: acc.id, accountName: acc.name, bureau:'experian', reason: a.inaccurate,
+          letterText: ta.querySelector('textarea').value, status:'Draft', timeline:[], evidence:[], certifiedMail:{tracking:'',delivered:'',signature:'',receiptData:null} };
+        state.disputes.push(d);
+        ui.tab='disputes'; ui.activeDisputeId=d.id; ui.disputeSubtab='letter'; ui.assistantStep=0; ui.assistantAnswers={};
+        render();
+      };
+    })();
+  }
+  return wrap;
+}
+
+/* =========================================================
+   CREDIT REPORT ANALYZER
+========================================================= */
+function renderAnalyzer(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<div class="page-head"><div><h1>Credit Report Analyzer</h1><p>Paste the text of your credit report (or a section of it) and CASEFILE flags likely issues.</p></div></div>`));
+  const card = el(`
+    <div class="card">
+      <div class="field"><textarea id="reportText" placeholder="Paste report text here..." style="min-height:180px;"></textarea></div>
+      <div class="btn-row"><button class="btn primary" id="analyzeBtn">Analyze Report</button></div>
+      <div id="analyzeLoading" class="loading" style="display:none; margin-top:10px;">Reading your report…</div>
+      <div id="analyzeResult" style="margin-top:16px;"></div>
+    </div>
+  `);
+  wrap.appendChild(card);
+
+  if(ui.analyzerResult){ card.querySelector('#analyzeResult').innerHTML = ''; card.querySelector('#analyzeResult').appendChild(renderAnalyzerResult(ui.analyzerResult)); }
+
+  card.querySelector('#analyzeBtn').onclick = async ()=>{
+    const text = card.querySelector('#reportText').value.trim();
+    if(!text){ alert('Paste some report text first.'); return; }
+    card.querySelector('#analyzeLoading').style.display='block';
+    try{
+      const resp = await callAI(
+        "You analyze consumer credit report text for a non-lawyer. Return ONLY valid JSON: {\"issues\":[{\"type\":\"duplicate|incorrect_balance|obsolete_collection|late_payment|utilization|mixed_file|possible_fcra\",\"detail\":\"short description\"}],\"checklist\":[\"short actionable checklist item\", \"...\"]}. Only flag what the text actually supports — do not invent accounts.",
+        text
+      );
+      const parsed = JSON.parse(resp.replace(/```json|```/g,'').trim());
+      ui.analyzerResult = parsed;
+    }catch(e){ alert('Analysis unavailable right now — check your connection and try again.'); }
+    render();
+  };
+  return wrap;
+}
+function renderAnalyzerResult(result){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<h3 style="margin-bottom:8px;">Flagged Issues</h3>`));
+  if(!result.issues || result.issues.length===0) wrap.appendChild(el(`<div class="empty">No issues detected in the text provided.</div>`));
+  (result.issues||[]).forEach(i=>{
+    wrap.appendChild(el(`<div class="list-row" style="cursor:default;"><div><div class="title">${esc(i.type.replace(/_/g,' '))}</div><div class="meta">${esc(i.detail)}</div></div></div>`));
+  });
+  wrap.appendChild(el(`<h3 style="margin:16px 0 8px;">Suggested Dispute Checklist</h3>`));
+  const cl = el(`<div></div>`);
+  (result.checklist||[]).forEach(c=> cl.appendChild(el(`<div class="list-row" style="cursor:default;"><div class="title" style="font-weight:500;">☐ ${esc(c)}</div></div>`)));
+  wrap.appendChild(cl);
+  return wrap;
+}
+
+/* =========================================================
+   FUNDING READINESS
+========================================================= */
+const FUNDING_ITEMS = [
+  ['util30','Utilization under 30%'],
+  ['remove2collections','Remove 2 collections'],
+  ['avgAge','Increase average account age'],
+  ['twoTradelines','Add 2 positive trade lines'],
+  ['dtiOk','DTI under 40%'],
+  ['noRecentInquiries','No new inquiries in last 6 months']
+];
+function renderFunding(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<div class="page-head"><div><h1>Funding Readiness</h1><p>Track what stands between your file and being funding-ready.</p></div></div>`));
+  const fp = fundingScore();
+  const top = el(`<div class="card" style="display:flex; align-items:center; gap:24px; margin-bottom:18px;"></div>`);
+  top.appendChild(el(`<div style="position:relative; width:130px; height:130px;">${gaugeSVG(fp,130,scoreColor(300+fp*5.5))}<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;"><div class="gauge-num">${fp}%</div></div></div>`));
+  const m = state.metrics, s = state.scores;
+  top.appendChild(el(`
+    <div class="grid cols-2" style="flex:1;">
+      <div class="metric"><div class="label">Personal Score (avg)</div><div class="value">${Math.round((s.experian+s.equifax+s.transunion)/3)||'—'}</div></div>
+      <div class="metric"><div class="label">Business Score</div><div class="value">${m.businessScore||'—'}</div></div>
+      <div class="metric"><div class="label">Utilization</div><div class="value ${m.utilization>30?'flag':'ok'}">${m.utilization}%</div></div>
+      <div class="metric"><div class="label">Oldest Account</div><div class="value">${m.oldestAccountYears} yrs</div></div>
+      <div class="metric"><div class="label">DTI</div><div class="value ${m.dti>40?'flag':'ok'}">${m.dti}%</div></div>
+      <div class="metric"><div class="label">Recent Inquiries</div><div class="value ${m.recentInquiries>3?'flag':'ok'}">${m.recentInquiries}</div></div>
+    </div>
+  `));
+  wrap.appendChild(top);
+
+  const checklist = el(`<div class="card"><h3>What's Needed</h3></div>`);
+  FUNDING_ITEMS.forEach(([key,label])=>{
+    const row = el(`<label style="display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); cursor:pointer;"><input type="checkbox" ${state.fundingChecklist[key]?'checked':''}> <span>${label}</span></label>`);
+    row.querySelector('input').onchange = (e)=>{ state.fundingChecklist[key]=e.target.checked; render(); };
+    checklist.appendChild(row);
+  });
+  wrap.appendChild(checklist);
+  return wrap;
+}
+
+/* =========================================================
+   CFPB COMPLAINT GENERATOR
+========================================================= */
+function renderCfpb(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<div class="page-head"><div><h1>CFPB Complaints</h1><p>If a bureau fails to respond within the required window, generate a complaint from your dispute history.</p></div></div>`));
+
+  const eligible = state.disputes.filter(d=> ['No Response','Method of Verification Sent','Verified'].includes(d.status));
+  const picker = el(`<div class="card" style="margin-bottom:18px;"><h3>Generate From a Dispute</h3></div>`);
+  if(eligible.length===0){
+    picker.appendChild(el(`<p class="hint">No disputes are currently flagged No Response / MOV Sent / Verified. You can still generate a complaint manually below.</p>`));
+  }
+  const sel = el(`<select style="margin-top:8px; background:var(--panel-2); border:1px solid var(--border); color:var(--text); padding:8px; border-radius:7px; width:100%;">
+    <option value="">— choose a dispute —</option>
+    ${state.disputes.map(d=>`<option value="${d.id}">${esc(d.accountName)} → ${CONFIG.bureaus[d.bureau].name} (${d.status})</option>`).join('')}
+  </select>`);
+  picker.appendChild(sel);
+  const genBtn = el(`<button class="btn primary" style="margin-top:10px;">Draft CFPB Complaint</button>`);
+  const loading = el(`<div class="loading" style="display:none; margin-top:8px;">Drafting complaint…</div>`);
+  picker.appendChild(genBtn); picker.appendChild(loading);
+  genBtn.onclick = async ()=>{
+    const d = state.disputes.find(x=>x.id===sel.value);
+    if(!d){ alert('Choose a dispute first.'); return; }
+    loading.style.display='block';
+    try{
+      const timelineStr = d.timeline.map(t=>`${t.date}: ${t.label}`).join('; ') || 'none logged';
+      const text = await callAI(
+        "You draft factual, professional CFPB consumer complaints. Structure: what happened, what the company should do, and a timeline. No legal threats, no fabricated facts.",
+        `Bureau: ${CONFIG.bureaus[d.bureau].name}\nAccount: ${d.accountName}\nDispute reason: ${d.reason}\nStatus: ${d.status}\nTimeline: ${timelineStr}\nToday: ${todayISO()}`
+      );
+      state.cfpbComplaints.push({ id: uid('complaint'), disputeId: d.id, text, created: todayISO() });
+    }catch(e){ alert('Drafting unavailable right now.'); }
+    loading.style.display='none';
+    render();
+  };
+  wrap.appendChild(picker);
+
+  wrap.appendChild(el(`<h1 style="font-size:16px; margin-bottom:10px;">Saved Complaints</h1>`));
+  if(state.cfpbComplaints.length===0) wrap.appendChild(el(`<div class="empty">None yet.</div>`));
+  state.cfpbComplaints.forEach(c=>{
+    const card = el(`
+      <div class="card" style="margin-bottom:12px;">
+        <div class="hint">Created ${c.created}</div>
+        <div class="field"><textarea style="min-height:160px;">${esc(c.text)}</textarea></div>
+        <div class="btn-row">
+          <button class="btn" data-pdf>Export PDF</button>
+          <button class="btn" data-email>Email</button>
+          <a class="btn" href="${CONFIG.cfpb.url}" target="_blank" rel="noopener">Open CFPB Complaint Form ↗</a>
+        </div>
+      </div>
+    `);
+    card.querySelector('textarea').oninput = e=> c.text = e.target.value;
+    card.querySelector('[data-pdf]').onclick = ()=>{
+      const { jsPDF } = window.jspdf; const doc = new jsPDF();
+      const lines = doc.splitTextToSize(c.text, 180); doc.setFontSize(11); doc.text(lines, 15, 20);
+      doc.save('cfpb-complaint.pdf');
+    };
+    card.querySelector('[data-email]').onclick = ()=> emailText('CFPB Complaint Draft', c.text);
+    wrap.appendChild(card);
+  });
+  return wrap;
+}
+
+/* =========================================================
+   CREDIT EDUCATION
+========================================================= */
+const EDU = [
+  { t:'FCRA — Fair Credit Reporting Act', body:"The federal law that governs how credit bureaus collect, share, and correct information about you. It gives you the right to dispute inaccurate items and requires bureaus to investigate within a set timeframe.", example:"If a bureau doesn't complete its investigation within the required window, that delay itself can become part of a CFPB complaint." },
+  { t:'FDCPA — Fair Debt Collection Practices Act', body:"Regulates how third-party debt collectors can contact and pursue you. It restricts harassment, false statements, and contact at unreasonable hours, and gives you the right to request debt validation.", example:"You have the right to request the collector prove the debt is yours and the amount is accurate before you pay anything." },
+  { t:'CFPB Complaints', body:"The Consumer Financial Protection Bureau accepts complaints against bureaus, collectors, and furnishers when the normal dispute process breaks down. Complaints are routed to the company, which must respond.", example:"Typical trigger: a bureau 'verifies' a disputed item without ever showing what it actually checked." },
+  { t:'Charge Offs', body:"An accounting entry a creditor makes when they've written off a debt as unlikely to be collected — it does not mean you no longer owe it, and it can stay on your report for up to seven years from the original delinquency date.", example:"A charge-off from 2019 typically drops off your report by 2026, regardless of collection activity since." },
+  { t:'Collections', body:"When a debt is sold or assigned to a collection agency, a new tradeline often appears. If the original account is inaccurate or the collector can't validate it, it may be disputable.", example:"Ask: does the collection amount match the original creditor's last reported balance? Mismatches are a common, disputable error." },
+  { t:'Goodwill Letters', body:"A request — not a legal demand — asking a creditor to remove an accurate late payment as a courtesy, usually after you've since paid on time consistently.", example:"Most effective after 6–12 months of on-time payments following an isolated late payment." },
+  { t:'Pay for Delete', body:"An informal negotiation where you offer payment in exchange for the collector removing the tradeline entirely, rather than just marking it paid. Get any agreement in writing before you pay.", example:"Bureaus don't require collectors to honor these agreements, so a written commitment matters." },
+  { t:'Validation Letters', body:"A written request under the FDCPA asking a debt collector to prove they have the right to collect the debt and that the amount is accurate, sent within 30 days of first contact for the strongest protection.", example:"If a collector can't validate, continued collection attempts may itself be a violation worth reporting." }
+];
+function renderEducation(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<div class="page-head"><div><h1>Credit Education</h1><p>Plain-language explainers — not legal advice.</p></div></div>`));
+  EDU.forEach((item,idx)=>{
+    const acc = el(`
+      <div class="accordion-item">
+        <div class="accordion-head"><span>${item.t}</span><span>+</span></div>
+        <div class="accordion-body"><p>${item.body}</p><div class="example">${item.example}</div></div>
+      </div>
+    `);
+    acc.querySelector('.accordion-head').onclick = ()=>{
+      const body = acc.querySelector('.accordion-body');
+      body.classList.toggle('open');
+      acc.querySelector('.accordion-head span:last-child').textContent = body.classList.contains('open') ? '–' : '+';
+    };
+    wrap.appendChild(acc);
+  });
+  return wrap;
+}
+
+/* =========================================================
+   SETTINGS: score/metric inputs, bureau config, data export/import
+========================================================= */
+function renderSettings(){
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<div class="page-head"><div><h1>Settings &amp; Data</h1><p>Enter your current numbers, review bureau contact config, and manage your data.</p></div></div>`));
+
+  const scoreCard = el(`<div class="card" style="margin-bottom:16px;"><h3>Scores &amp; Goal</h3></div>`);
+  const scoreGrid = el(`<div class="grid cols-4"></div>`);
+  [['experian','Experian'],['equifax','Equifax'],['transunion','TransUnion'],['goal','Goal Score']].forEach(([k,label])=>{
+    const m = el(`<div class="metric"><div class="label">${label}</div><input type="number" min="300" max="850" value="${state.scores[k]}"></div>`);
+    m.querySelector('input').oninput = (e)=>{ state.scores[k] = Number(e.target.value)||0; };
+    scoreGrid.appendChild(m);
+  });
+  scoreCard.appendChild(scoreGrid);
+  wrap.appendChild(scoreCard);
+
+  const metricCard = el(`<div class="card" style="margin-bottom:16px;"><h3>Report Metrics</h3></div>`);
+  const metricGrid = el(`<div class="grid cols-4"></div>`);
+  [['collections','Collections'],['latePayments','Late Payments'],['chargeOffs','Charge Offs'],['utilization','Utilization %'],
+   ['totalDebt','Total Debt'],['oldestAccountYears','Oldest Acct (yrs)'],['dti','DTI %'],['recentInquiries','Recent Inquiries'],['businessScore','Business Score']]
+   .forEach(([k,label])=>{
+    const m = el(`<div class="metric"><div class="label">${label}</div><input type="number" value="${state.metrics[k]}"></div>`);
+    m.querySelector('input').oninput = (e)=>{ state.metrics[k] = Number(e.target.value)||0; };
+    metricGrid.appendChild(m);
+  });
+  metricCard.appendChild(metricGrid);
+  wrap.appendChild(metricCard);
+
+  const cfgCard = el(`<div class="card" style="margin-bottom:16px;"><h3>Bureau Configuration</h3><p class="hint" style="margin-bottom:10px;">Loaded from the CONFIG object at the top of the file — edit there if a bureau updates its address.</p></div>`);
+  Object.entries(CONFIG.bureaus).forEach(([k,v])=>{
+    cfgCard.appendChild(el(`<div class="list-row" style="cursor:default;"><div><div class="title">${v.name}</div><div class="meta" style="white-space:pre-line;">${v.address} · ${v.phone}</div></div></div>`));
+  });
+  wrap.appendChild(cfgCard);
+
+  const dataCard = el(`
+    <div class="card">
+      <h3>Your Data</h3>
+      <p class="hint" style="margin-bottom:12px;">This tool has no backend — everything lives in this browser tab only and is lost on refresh. Export a save file before you close the tab, and import it next time.</p>
+      <div class="btn-row">
+        <button class="btn primary" id="exportData">Export Data (.json)</button>
+        <button class="btn" id="importData">Import Data</button>
+        <button class="btn danger" id="resetData">Reset All Data</button>
+      </div>
+      <input type="file" id="importFile" accept=".json" style="display:none">
+    </div>
+  `);
+  dataCard.querySelector('#exportData').onclick = ()=>{
+    const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'casefile-data.json'; a.click();
+  };
+  dataCard.querySelector('#importData').onclick = ()=> dataCard.querySelector('#importFile').click();
+  dataCard.querySelector('#importFile').onchange = (e)=>{
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ try{ state = JSON.parse(reader.result); render(); }catch(err){ alert('Could not read that file.'); } };
+    reader.readAsText(file);
+  };
+  dataCard.querySelector('#resetData').onclick = ()=>{
+    if(confirm('This clears everything in the current session. Export first if you want to keep it. Continue?')){
+      state = { scores:{experian:0,equifax:0,transunion:0,goal:720}, metrics:{collections:0,latePayments:0,chargeOffs:0,utilization:0,totalDebt:0,oldestAccountYears:0,dti:0,recentInquiries:0,businessScore:0},
+        fundingChecklist:{util30:false,remove2collections:false,avgAge:false,twoTradelines:false,dtiOk:false,noRecentInquiries:false},
+        accounts:[], disputes:[], cfpbComplaints:[], nextIds:{account:1,dispute:1,complaint:1} };
+      render();
+    }
+  };
+  wrap.appendChild(dataCard);
+  return wrap;
+}
+
+render();
+</script>
+</body>
+</html>
