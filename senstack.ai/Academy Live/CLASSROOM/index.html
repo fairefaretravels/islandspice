@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Classroom — Learn How to Learn AI™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#22243B;
+    --ink-soft:#4A4C63;
+    --paper:#FAF5EA;
+    --panel:#F1EAD9;
+    --panel-line:#E4D9C1;
+    --gold:#E7A33E;
+    --gold-deep:#C87F1F;
+    --sage:#6F8F6B;
+    --sage-deep:#4F6E4B;
+    --coral:#E1617A;
+    --white:#FFFDF8;
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:650;
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px;
+    height:1.5px;
+    background:var(--sage-deep);
+    display:inline-block;
+  }
+
+  .confidence-mark{
+    position:relative;
+    white-space:nowrap;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .confidence-mark svg{
+    position:absolute;
+    left:0; bottom:-9px;
+    width:100%; height:10px;
+    overflow:visible;
+  }
+  .confidence-mark path{
+    stroke:var(--gold);
+    stroke-width:3;
+    fill:none;
+    stroke-linecap:round;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,245,234,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:18px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .back-link{
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  .back-link:hover{ color:var(--ink); }
+  .nav-cta{
+    background:var(--ink); color:var(--white);
+    padding:10px 20px; border-radius:100px;
+    font-weight:700; font-size:14px;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--gold-deep);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:80px 32px 60px;
+    overflow:hidden;
+    text-align:center;
+    background:
+      radial-gradient(ellipse 700px 420px at 82% -10%, rgba(231,163,62,0.20), transparent 60%),
+      radial-gradient(ellipse 600px 400px at -5% 100%, rgba(111,143,107,0.16), transparent 60%);
+  }
+  .hero h1{
+    font-size:clamp(36px, 5.6vw, 58px);
+    line-height:1.05;
+    margin-top:18px;
+    letter-spacing:-0.02em;
+  }
+  .hero-sub{
+    margin:20px auto 0;
+    max-width:520px;
+    font-size:18px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- MODULES ---------- */
+  .modules{ padding:70px 32px 110px; }
+  .module-grid{
+    max-width:var(--max); margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:22px;
+  }
+  .module-card{
+    background:var(--white);
+    border:1px solid var(--panel-line);
+    border-radius:22px;
+    padding:34px 30px;
+    display:flex; flex-direction:column; gap:14px;
+    position:relative;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .module-card.live{ border-color:var(--gold); }
+  .module-card.live:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 30px -18px rgba(34,36,59,0.35);
+  }
+  .module-card.locked{ opacity:0.6; }
+  .module-num{
+    font-family:'Fraunces',serif;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+  }
+  .module-card.locked .module-num{ color:var(--ink-soft); }
+  .module-card h3{ font-size:26px; }
+  .module-card p.desc{ color:var(--ink-soft); font-size:15px; }
+  .module-tasks{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top:4px;
+  }
+  .module-tasks span{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    padding:6px 12px;
+    border-radius:100px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .module-cta{
+    margin-top:auto;
+    align-self:flex-start;
+    background:var(--gold);
+    color:var(--ink);
+    font-weight:800;
+    font-size:14.5px;
+    padding:12px 24px;
+    border-radius:100px;
+    border:2px solid var(--gold);
+    box-shadow:0 3px 0 var(--gold-deep);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .module-cta:hover{ transform:translateY(2px); box-shadow:0 1px 0 var(--gold-deep); }
+  .module-status{
+    align-self:flex-start;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    padding:8px 18px;
+    border-radius:100px;
+  }
+  @media (max-width:760px){ .module-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--white);
+    padding:60px 32px 36px;
+  }
+  .footer-inner{
+    max-width:var(--max); margin:0 auto;
+    text-align:center;
+  }
+  .footer-sig{
+    font-family:'Fraunces',serif;
+    font-size:clamp(22px, 2.6vw, 30px);
+    line-height:1.4;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .footer-sig .no{ color:#8D8FAA; }
+  .footer-brand{
+    margin-top:32px;
+    font-size:15px;
+    font-weight:700;
+  }
+  .footer-brand .confidence-mark{ color:var(--white); }
+  .footer-bottom{
+    margin-top:32px;
+    padding-top:22px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    font-size:12.5px;
+    color:#8D8FAA;
+  }
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">🎓 Learn How to Learn AI™</div>
+    <a href="../index.html" class="back-link">← Back to Home</a>
+    <a href="../COACHING/Promo/index.html" class="nav-cta">Book Coaching</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="eyebrow">The Classroom</span>
+  <h1>Your Path to <span class="confidence-mark">AI Confidence™<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2,6 Q15,2 28,6 T54,6 T80,6 T98,5"/></svg></span></h1>
+  <p class="hero-sub">Four modules. One challenge at a time. Start with Module 1 — everything else unlocks as you go.</p>
+</section>
+
+<!-- MODULES -->
+<section class="modules">
+  <div class="module-grid">
+
+    <div class="module-card live">
+      <span class="module-num">Module 1 · Week One</span>
+      <h3>AI Basics</h3>
+      <p class="desc">Start here. Five Challenges that take you from "I don't get AI" to a real assistant prompt you'll use every day.</p>
+      <div class="module-tasks">
+        <span>AI Basics</span>
+        <span>Better Prompts</span>
+        <span>Personal Assistant</span>
+        <span>Save One Hour</span>
+        <span>Daily Planning</span>
+      </div>
+      <a href="Module-1/index.html" class="module-cta">Enter Module 1 →</a>
+    </div>
+
+    <div class="module-card locked">
+      <span class="module-num">Module 2 · Week Two</span>
+      <h3>AI at Work</h3>
+      <p class="desc">Put your new questions to work in your actual job — emails, documents, a week's work in an afternoon.</p>
+      <span class="module-status">Coming Soon</span>
+    </div>
+
+    <div class="module-card locked">
+      <span class="module-num">Module 3 · Week Three</span>
+      <h3>AI for Business</h3>
+      <p class="desc">Plan, market, and launch a basic business presence — like you've got a team behind you.</p>
+      <span class="module-status">Coming Soon</span>
+    </div>
+
+    <div class="module-card locked">
+      <span class="module-num">Module 4 · Week Four</span>
+      <h3>AI Creator</h3>
+      <p class="desc">Make things — images, music, video — and finish with your capstone project.</p>
+      <span class="module-status">Coming Soon</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-sig">
+      <span class="no">Don't chase tools.</span><br>
+      Learn the skill.<br>
+      <span class="no">The tools will change.</span><br>
+      The skill stays forever.
+    </p>
+    <div class="footer-brand">
+      🎓 Learn How to Learn AI™ — building
+      <span class="confidence-mark">AI Confidence™<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2,6 Q15,2 28,6 T54,6 T80,6 T98,5"/></svg></span>,
+      one challenge at a time.
+    </div>
+    <div class="footer-bottom">© 2026 Learn How to Learn AI™.</div>
+  </div>
+</footer>
+
+</body>
+</html>
