@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn How to Learn AI — Rundowns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --panel:#141414;
+    --panel-line:#242019;
+    --gold:#C8963E;
+    --gold-light:#c8a96e;
+    --text:#f3efe7;
+    --text-dim:#9a9488;
+    --good:#4a7c59;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:radial-gradient(ellipse at top, #171310 0%, #0a0a0a 60%);
+    color:var(--text);
+    font-family:'Barlow Condensed', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:56px 20px 80px;
+    position:relative;
+  }
+  .display{font-family:'Bebas Neue', sans-serif; letter-spacing:0.04em;}
+  .eyebrow{
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Bebas Neue';
+    font-size:clamp(38px, 6vw, 64px);
+    color:var(--gold-light);
+    margin:0 0 6px 0;
+    text-align:center;
+  }
+  .tagline{
+    color:var(--text-dim);
+    font-size:19px;
+    max-width:580px;
+    text-align:center;
+    margin:0 0 48px 0;
+    line-height:1.4;
+  }
+
+  .module-block{
+    width:100%;
+    max-width:1000px;
+    margin-bottom:52px;
+  }
+  .module-header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+    border-bottom:1px solid var(--panel-line);
+    padding-bottom:12px;
+  }
+  .module-header .m-eyebrow{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    color:var(--gold);
+  }
+  .module-header .m-title{
+    font-family:'Bebas Neue';
+    font-size:28px;
+    color:var(--gold-light);
+    margin-left:10px;
+  }
+  .module-header .m-status{
+    font-size:13px;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .module-header .m-status.complete{color:var(--good);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:18px;
+    width:100%;
+  }
+  a.card{
+    display:block;
+    text-decoration:none;
+    color:var(--text);
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:10px;
+    padding:22px 22px 20px;
+    position:relative;
+    transition:border-color 0.15s, transform 0.15s;
+  }
+  a.card:hover{border-color:var(--gold); transform:translateY(-2px);}
+  a.card:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  a.card.capstone{border-color:var(--good);}
+  a.card.capstone:hover{border-color:var(--gold);}
+  .card .num{
+    font-family:'Bebas Neue';
+    font-size:15px;
+    color:var(--gold);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:8px;
+  }
+  .card .title{
+    font-size:24px;
+    font-weight:600;
+    line-height:1.15;
+    margin-bottom:6px;
+  }
+  .card .sub{
+    font-size:15px;
+    color:var(--text-dim);
+    line-height:1.3;
+  }
+  .footer-line{
+    margin-top:8px;
+    color:var(--text-dim);
+    font-size:14px;
+    text-align:center;
+    max-width:520px;
+    line-height:1.5;
+  }
+  .footer-line strong{color:var(--gold-light); font-weight:600;}
+
+  /* ---------- CLASSROOM / COACHING BUTTONS ---------- */
+  .classroom-link{
+    position:fixed;
+    top:24px;
+    right:24px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:transparent;
+    color:var(--gold-light);
+    border:1px solid var(--panel-line);
+    padding:10px 18px;
+    border-radius:100px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    transition:border-color 0.15s, background 0.15s, color 0.15s;
+    z-index:10;
+  }
+  .classroom-link:hover{
+    border-color:var(--gold);
+    background:rgba(200,150,62,0.08);
+    color:var(--gold);
+  }
+  .classroom-link:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+  .classroom-cta{
+    margin:-24px 0 48px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--gold);
+    color:#0a0a0a;
+    padding:12px 26px;
+    border-radius:100px;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:700;
+    transition:background 0.15s, transform 0.15s;
+  }
+  .classroom-cta:hover{ background:var(--gold-light); transform:translateY(-1px); }
+  .classroom-cta:focus-visible{ outline:2px solid var(--gold-light); outline-offset:3px; }
+
+  @media (max-width:480px){
+    .tagline{font-size:16px;}
+    .classroom-link{
+      position:static;
+      margin-bottom:28px;
+    }
+    .module-header{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+  <a class="classroom-link" href="COACHING/index.html">🎓 COACHING</a>
+
+  <div class="eyebrow">Learn How to Learn AI</div>
+  <h1>Live Rundowns</h1>
+  <p class="tagline">Stop memorizing prompts. Learn how to solve problems with AI. Ten Challenges across two modules, one per day, each ending in something real.</p>
+
+  <a class="classroom-cta" href="CLASSROOM/Module-1/index.html">🎓 Go to the Classroom →</a>
+
+  <div class="module-block">
+    <div class="module-header">
+      <div><span class="m-eyebrow">Module 1</span><span class="m-title display">AI for You</span></div>
+      <span class="m-status complete">Complete</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="day1-rundown.html">
+        <span class="num">Challenge 01</span>
+        <div class="title">Teach AI About You</div>
+        <div class="sub">Meet Your AI — build your personal assistant prompt.</div>
+      </a>
+      <a class="card" href="day2-rundown.html">
+        <span class="num">Challenge 02</span>
+        <div class="title">Save Yourself One Hour</div>
+        <div class="sub">AI for Everyday Life — build your AI life planner.</div>
+      </a>
+      <a class="card" href="day3-rundown.html">
+        <span class="num">Challenge 03</span>
+        <div class="title">Build Something You Need</div>
+        <div class="sub">AI for Work — a week's work in one afternoon.</div>
+      </a>
+      <a class="card" href="day4-rundown.html">
+        <span class="num">Challenge 04</span>
+        <div class="title">Make Your First Dollar with AI</div>
+        <div class="sub">AI for Business — launch a basic business presence.</div>
+      </a>
+      <a class="card" href="day5-rundown.html">
+        <span class="num">Challenge 05</span>
+        <div class="title">Teach Someone Else</div>
+        <div class="sub">AI for Creativity — one complete piece, then pass it on.</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="module-block">
+    <div class="module-header">
+      <div><span class="m-eyebrow">Module 2 · Week Two</span><span class="m-title display">AI at Work</span></div>
+      <span class="m-status">In progress</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="day6-rundown.html">
+        <span class="num">Challenge 06</span>
+        <div class="title">Inbox Zero, Sort Of</div>
+        <div class="sub">Email & messages — draft, sort, and respond in your own voice, faster.</div>
+      </a>
+      <a class="card" href="day7-rundown.html">
+        <span class="num">Challenge 07</span>
+        <div class="title">Numbers Without the Headache</div>
+        <div class="sub">Spreadsheets & data — organize a real mess into something you can actually read.</div>
+      </a>
+      <a class="card" href="day8-rundown.html">
+        <span class="num">Challenge 08</span>
+        <div class="title">Documents on Demand</div>
+        <div class="sub">Reports, memos, proposals — a first draft in minutes, not a Sunday afternoon.</div>
+      </a>
+      <a class="card" href="day9-rundown.html">
+        <span class="num">Challenge 09</span>
+        <div class="title">Meeting Recovery</div>
+        <div class="sub">Notes into summaries, summaries into action items — before you forget what was said.</div>
+      </a>
+      <a class="card capstone" href="day10-rundown.html">
+        <span class="num">Challenge 10 · Module Capstone</span>
+        <div class="title">A Week's Work in One Afternoon</div>
+        <div class="sub">Bring it all together — clear a real backlog of work in a single sitting.</div>
+      </a>
+    </div>
+  </div>
+
+  <p class="footer-line">"<strong>I'm not teaching you ChatGPT. I'm teaching you how to learn any AI that comes out next year.</strong>"</p>
+</body>
+</html>
