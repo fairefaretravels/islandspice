@@ -1,169 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn How to Learn AI™ | 30-Day AI Partner Challenge</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn How to Learn AI — 1-on-1 Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a08;
+    --panel:#131018;
+    --panel-line:#2a2333;
+    --purple:#8B5CF6;
+    --purple-deep:#4c2889;
+    --yellow:#F4C430;
+    --teal:#22B8C4;
+    --green:#3ECF5D;
+    --white:#F5F3EF;
+    --dim:#a8a2b0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% 0%, rgba(139,92,246,0.28), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 10% 100%, rgba(139,92,246,0.14), transparent 60%),
+      var(--bg);
+    color:var(--white);
+    font-family:'Barlow Condensed', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:0 0 80px;
+  }
+  .display{font-family:'Bebas Neue', sans-serif; letter-spacing:0.03em;}
+
+  /* HERO */
+  .hero{
+    max-width:820px;
+    width:100%;
+    padding:64px 24px 20px;
+    text-align:center;
+  }
+  .marker{
+    display:inline-block;
+    background:var(--yellow);
+    color:#151016;
+    padding:6px 18px;
+    transform:rotate(-1.5deg);
+    font-size:18px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    font-weight:800;
+    border-radius:3px;
+  }
+  h1.hero-title{
+    font-size:clamp(46px, 9vw, 84px);
+    margin:14px 0 6px;
+    line-height:0.95;
+    color:var(--white);
+    text-shadow:0 0 40px rgba(139,92,246,0.55);
+  }
+  h1.hero-title .accent{color:var(--purple);}
+  .hero-sub{
+    font-size:clamp(17px, 2.6vw, 21px);
+    color:var(--dim);
+    max-width:560px;
+    margin:14px auto 0;
+    line-height:1.4;
+  }
+
+  /* BENEFITS ROW */
+  .benefits{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:900px;
+    width:100%;
+    padding:30px 20px 6px;
+  }
+  .benefit{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:10px;
+    padding:14px 18px;
+    flex:1 1 240px;
+  }
+  .benefit .icon{
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;flex-shrink:0;
+  }
+  .benefit.purple .icon{background:var(--purple);}
+  .benefit.teal .icon{background:var(--teal);}
+  .benefit.green .icon{background:var(--green);}
+  .benefit .label{font-size:16px;line-height:1.15;text-align:left;}
+  .benefit .label .top{display:block;color:var(--white); font-weight:600;}
+  .benefit.purple .label .bottom{color:var(--purple);}
+  .benefit.teal .label .bottom{color:var(--teal);}
+  .benefit.green .label .bottom{color:var(--green);}
+  .benefit .label .bottom{font-weight:700; text-transform:uppercase; letter-spacing:0.02em;}
+
+  /* COACHING CARD */
+  .coaching-card{
+    max-width:640px;
+    width:calc(100% - 40px);
+    margin:44px 0 0;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:16px;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .coaching-card .eyebrow{
+    color:var(--purple);
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    margin-bottom:8px;
+  }
+  .coaching-card h2{
+    font-family:'Bebas Neue';
+    font-size:38px;
+    margin:0 0 14px;
+    color:var(--white);
+  }
+  .coaching-card p{
+    color:var(--dim);
+    font-size:18px;
+    line-height:1.5;
+    max-width:480px;
+    margin:0 auto 26px;
+  }
+  ul.includes{
+    list-style:none;
+    padding:0;
+    margin:0 0 30px;
+    text-align:left;
+    max-width:420px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  ul.includes li{
+    font-size:17px;
+    padding:8px 0 8px 28px;
+    position:relative;
+    color:var(--white);
+  }
+  ul.includes li::before{
+    content:"→";
+    position:absolute;
+    left:0;
+    color:var(--purple);
+    font-weight:700;
+  }
+
+  .btn{
+    display:inline-block;
+    width:100%;
+    max-width:420px;
+    text-align:center;
+    text-decoration:none;
+    font-family:'Barlow Condensed';
+    font-weight:700;
+    font-size:19px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    border-radius:9px;
+    padding:16px 20px;
+    margin-bottom:14px;
+    transition:transform 0.12s, filter 0.12s;
+  }
+  .btn:hover{transform:translateY(-1px); filter:brightness(1.08);}
+  .btn:focus-visible{outline:2px solid var(--white); outline-offset:3px;}
+  .btn-primary{
+    background:linear-gradient(90deg, var(--purple), #B98CFF);
+    color:#151016;
+  }
+  .btn-secondary{
+    background:transparent;
+    border:1.5px solid var(--panel-line);
+    color:var(--white);
+  }
+  .btn-secondary:hover{border-color:var(--purple);}
+
+  .cashapp{
+    margin-top:6px;
+    font-size:16px;
+    color:var(--dim);
+  }
+  .cashapp .tag{
+    color:var(--green);
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+
+  .placeholder-note{
+    display:inline-block;
+    margin-top:6px;
+    font-size:12px;
+    color:#e2a33b;
+    background:rgba(226,163,59,0.1);
+    border:1px solid rgba(226,163,59,0.35);
+    padding:3px 9px;
+    border-radius:5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+
+  /* CLASSROOM CARD */
+  .classroom-card{
+    max-width:640px;
+    width:calc(100% - 40px);
+    margin:20px 0 0;
+    background:transparent;
+    border:1px dashed var(--panel-line);
+    border-radius:16px;
+    padding:26px 32px;
+    text-align:center;
+  }
+  .classroom-card h3{
+    font-family:'Bebas Neue';
+    font-size:26px;
+    margin:0 0 6px;
+    color:var(--dim);
+  }
+  .classroom-card p{
+    color:var(--dim);
+    font-size:16px;
+    margin:0 0 18px;
+  }
+
+  footer{
+    margin-top:52px;
+    max-width:520px;
+    text-align:center;
+    color:var(--dim);
+    font-size:15px;
+    line-height:1.5;
+    padding:0 24px;
+  }
+  footer strong{color:var(--purple);}
+
+  @media (max-width:480px){
+    .coaching-card, .classroom-card{padding:26px 20px;}
+  }
+  .booking-steps{
+    margin-top:30px;
+    padding:28px;
+    background:#ffffff;
+    color:#222;
+    border:2px solid var(--yellow);
+    border-radius:16px;
+    text-align:left;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.booking-steps h3{
+    margin:0 0 18px;
+    color:#111;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    letter-spacing:.03em;
+}
+
+.booking-steps ol{
+    margin:0;
+    padding-left:24px;
+}
+
+.booking-steps li{
+    color:#333;
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:10px;
+}
+
+.booking-steps a{
+    color:var(--purple);
+    font-weight:700;
+    text-decoration:none;
+}
+
+.booking-steps a:hover{
+    text-decoration:underline;
+}
+
+.booking-steps .note{
+    margin-top:24px;
+    padding:18px;
+    background:#FFF7DD;
+    border-left:6px solid var(--yellow);
+    border-radius:10px;
+    color:#222;
+    font-size:17px;
+    line-height:1.6;
+}
+  .hero-image{
+    display:block;
+    width:100%;
+    max-width:650px;
+    margin:0 auto 30px;
+    border-radius:20px;
+    border:3px solid var(--purple);
+    box-shadow:0 20px 60px rgba(139,92,246,.35);
+}
+</style>
 </head>
 <body>
-<header class="hero">
-    <div class="hero-content">
-        <img src="YTT1.PNG" alt="Learn How to Learn AI" class="hero-image">
-        <p class="eyebrow">AI Partner Challenge</p>
-        <h1>
-            Learn How to Learn AI™
-        </h1>
-        <h2>
-            30-Day AI Partner Challenge
-        </h2>
-        <p>
-            Learn the skill. The tools will change.
-            Build an AI partnership that grows with you.
-        </p>
-        <a href="#challenge" class="btn primary">
-            Start Day 1 →
-        </a>
+
+  <div class="hero">
+
+    <img src="YTT1.PNG" alt="Learn How to Learn AI" class="hero-image">
+
+    <span class="marker">Learn How to Learn AI™</span>
+
+    <h1 class="hero-title">
+        AI <span class="accent">COACHING</span>
+    </h1>
+
+    <p class="hero-sub">
+        Get personalized AI coaching designed around your goals. Learn how to use AI to build your business, create content, automate your workflow, and confidently use AI every day.
+    </p>
+
+</div>
+
+  <div class="benefits">
+    <div class="benefit purple">
+      <div class="icon">🧠</div>
+      <div class="label"><span class="top">Solve problems</span><span class="bottom">Faster</span></div>
     </div>
-</header>
-<section id="challenge" class="section">
-    <div class="container">
-        <div class="center">
-            <p class="eyebrow">
-                Your AI Learning Journey
-            </p>
-            <h2>
-                AI Partner Challenge
-            </h2>
-            <p>
-                Ten days designed to help you understand,
-                communicate with, and build alongside AI.
-            </p>
-        </div>
-        <div class="challenge-grid">
-            <a href="day1" class="challenge-card">Day 1</a>
-            <a href="day2" class="challenge-card">Day 2</a>
-            <a href="day3" class="challenge-card">Day 3</a>
-            <a href="day4" class="challenge-card">Day 4</a>
-            <a href="day5" class="challenge-card">Day 5</a>
-            <a href="day6" class="challenge-card">Day 6</a>
-            <a href="day7" class="challenge-card">Day 7</a>
-            <a href="day8" class="challenge-card">Day 8</a>
-            <a href="day9" class="challenge-card">Day 9</a>
-            <a href="day10" class="challenge-card">Day 10</a>
-        </div>
+    <div class="benefit teal">
+      <div class="icon">⏱️</div>
+      <div class="label"><span class="top">Save time</span><span class="bottom">Every day</span></div>
     </div>
-</section>
-<section class="section coaching">
-<div class="container">
-<div class="center">
-<h2>
-Ready for More?
-</h2>
-<p>
-Choose the level of support that fits your journey.
-</p>
-</div>
-<div class="offer-grid">
-<div class="offer-card">
-<h3>
-📅 Free Consultation
-</h3>
-<p>
-30-minute strategy call to discover your next move.
-</p>
-<a href="https://koalendar.com/e/senstack" class="btn secondary">
-Book Now
-</a>
-</div>
-<div class="offer-card featured">
-<h3>
-💜 1-on-1 Coaching
-</h3>
-<h4>
-$30
-</h4>
-<ul>
-<li>90-minute session</li>
-<li>Personalized AI coaching</li>
-<li>Screen sharing</li>
-<li>Action plan</li>
-</ul>
-<a href="https://www.paypal.com/ncp/payment/429N8UGKBX6XU" class="btn primary">
-Book Session
-</a>
-</div>
-<div class="offer-card">
-<span class="badge">
-Best Value
-</span>
-<h3>
-⭐ Unlimited Coaching
-</h3>
-<h4>
-$100
-</h4>
-<p>
-6 Months
-</p>
-<ul>
-<li>Unlimited 90-minute sessions</li>
-<li>Priority support</li>
-<li>Long-term AI guidance</li>
-</ul>
-<a href="https://checkout.square.site/merchant/ML0M8XESVEH6E/checkout/4AVYTSOEF3EEXPTCRK52KBJ7" class="btn primary">
-Join Now
-</a>
-</div>
-</div>
-</div>
-</section>
-<section class="purchase">
-<div class="container">
-<div class="purchase-card">
-<h2>
-After You Purchase
-</h2>
+    <div class="benefit green">
+      <div class="icon">💵</div>
+      <div class="label"><span class="top">Build. Create.</span><span class="bottom">Make money</span></div>
+    </div>
+  </div>
+
+  <div class="coaching-card">
+
+    <div class="eyebrow">🔥 Founding Member Pricing • Limited Time</div>
+
+    <h2>Choose Your Coaching Plan</h2>
+
+    <p>
+        Whether you need help with one project or want an AI coach by your side,
+        choose the option that fits your goals. Every session is personalized to
+        your business, career, content, or everyday life.
+    </p>
+
+    <ul class="includes">
+        <li>✅ Live one-on-one coaching</li>
+        <li>✅ Screen sharing and hands-on guidance</li>
+        <li>✅ Personalized AI prompts and resources</li>
+        <li>✅ Action plan tailored to your goals</li>
+        <li>✅ Follow-up notes after every session</li>
+    </ul>
+
+    <!-- Single Session -->
+
+    <a href="https://www.paypal.com/ncp/payment/429N8UGKBX6XU"
+       class="btn btn-primary">
+        🚀 Book One 1 hour Session — $30
+    </a>
+
+    <!-- Membership -->
+
+    <a href="https://checkout.square.site/merchant/ML0M8XESVEH6E/checkout/4AVYTSOEF3EEXPTCRK52KBJ7"
+       class="btn btn-secondary">
+        💎 Unlimited Coaching for 6 Months — $100
+    </a>
+
+    <div class="booking-steps">
+
+<h3>📧 After You Purchase</h3>
+
 <ol>
-<li>Purchase your plan.</li>
-<li>
-Email your receipt to:
-<br>
-<strong>
-houseofmedia.marketing@gmail.com
-</strong>
-</li>
-<li>
-Include your name and purchase email.
-</li>
-<li>
-Receive your private booking link.
-</li>
+
+<li>Complete your payment.</li>
+
+<li>Email your receipt or screenshot of payment to
+<strong>houseofmedia.marketing@gmail.com</strong>.</li>
+
+<li>Include your name and the email address used to purchase.</li>
+
+<li>We'll verify your payment and send your private scheduling link within 24 hours.</li>
+
 </ol>
+
+<div class="note">
+
+<strong>Single Session</strong><br>
+$30 • One private 1-hour coaching session
+
+<br><br>
+
+<strong>Unlimited Membership</strong><br>
+$100 • Unlimited 90-minute coaching sessions for 6 months
+
 </div>
+
 </div>
-</section>
-<section class="classroom">
-<div class="container center">
-<h2>
-Ready to Learn?
-</h2>
-<a href="#" class="btn primary large">
-Continue Learning →
-</a>
-</div>
-</section>
-<footer>
-<h3>
-Learn How to Learn AI™
-</h3>
-<p>
-Don't chase tools.<br>
-Learn the skill.
-</p>
-<p>
-© 2026 Saneca Mack
-</p>
-</footer>
+    
+
+    <p class="cashapp">Prefer CashApp? Send to <span class="tag">$morefire</span></p>
+  </div>
+
+  <div class="classroom-card">
+    <h3>Already Enrolled?</h3>
+    <p>Head to the classroom to catch up on any Challenge.</p>
+    <a href="CLASSROOM/index.html" class="btn btn-secondary" id="classroomBtn">Go to the Classroom</a>
+    
+  </div>
+
+  <footer>
+    "<strong>I'm not teaching you ChatGPT. I'm teaching you how to learn any AI that comes out next year.</strong>"
+  </footer>
+
 </body>
 </html>
