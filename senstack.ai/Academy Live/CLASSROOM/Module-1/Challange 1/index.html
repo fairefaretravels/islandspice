@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn How to Learn AI™ — Build AI Confidence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#22243B;
+    --ink-soft:#4A4C63;
+    --paper:#FAF5EA;
+    --panel:#F1EAD9;
+    --panel-line:#E4D9C1;
+    --gold:#E7A33E;
+    --gold-deep:#C87F1F;
+    --sage:#6F8F6B;
+    --sage-deep:#4F6E4B;
+    --coral:#E1617A;
+    --white:#FFFDF8;
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:650;
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px;
+    height:1.5px;
+    background:var(--sage-deep);
+    display:inline-block;
+  }
+
+  /* brand squiggle mark used under "AI Confidence" wherever it appears */
+  .confidence-mark{
+    position:relative;
+    white-space:nowrap;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .confidence-mark svg{
+    position:absolute;
+    left:0; bottom:-9px;
+    width:100%; height:10px;
+    overflow:visible;
+  }
+  .confidence-mark path{
+    stroke:var(--gold);
+    stroke-width:3;
+    fill:none;
+    stroke-linecap:round;
+  }
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,245,234,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:18px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .nav-links{
+    display:flex; gap:28px;
+    font-size:14.5px; font-weight:600;
+    color:var(--ink-soft);
+    align-items:center;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links .nav-coaching{
+    color:var(--coral);
+    font-weight:800;
+  }
+  .nav-links .nav-coaching:hover{ color:var(--gold-deep); }
+  .nav-cta{
+    background:var(--ink); color:var(--white);
+    padding:10px 20px; border-radius:100px;
+    font-weight:700; font-size:14px;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--gold-deep);}
+  @media (max-width:860px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:96px 32px 120px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 700px 420px at 82% -10%, rgba(231,163,62,0.20), transparent 60%),
+      radial-gradient(ellipse 600px 400px at -5% 100%, rgba(111,143,107,0.16), transparent 60%);
+  }
+  .hero-inner{
+    max-width:var(--max); margin:0 auto;
+    text-align:center;
+  }
+  .hero h1.headline{
+    font-size:clamp(40px, 6.2vw, 78px);
+    line-height:1.03;
+    margin-top:22px;
+    letter-spacing:-0.02em;
+  }
+  .hero h1.headline em{
+    font-style:normal;
+    color:var(--sage-deep);
+  }
+  .hero-sub{
+    margin:26px auto 0;
+    max-width:560px;
+    font-size:19px;
+    color:var(--ink-soft);
+  }
+  .hero-sub strong{color:var(--ink); font-weight:700;}
+  .hero-ctas{
+    margin-top:38px;
+    display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--ink);
+    font-weight:800;
+    font-size:16px;
+    padding:16px 32px;
+    border-radius:100px;
+    border:2px solid var(--gold);
+    box-shadow:0 4px 0 var(--gold-deep);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{ transform:translateY(2px); box-shadow:0 2px 0 var(--gold-deep); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--ink);
+    font-weight:700;
+    font-size:16px;
+    padding:16px 30px;
+    border-radius:100px;
+    border:2px solid var(--ink);
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-secondary:hover{ background:var(--ink); color:var(--white); }
+
+  .day-stack{
+    margin-top:64px;
+    display:flex; justify-content:center; gap:0;
+    flex-wrap:wrap;
+    font-family:'Fraunces',serif;
+  }
+  .day-stack span{
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink-soft);
+    padding:0 18px;
+    border-right:1px solid var(--panel-line);
+  }
+  .day-stack span:last-child{border-right:none;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{ padding:100px 32px; }
+  .section-head{
+    max-width:640px;
+    margin:0 auto 56px;
+    text-align:center;
+  }
+  .section-head h2{
+    font-size:clamp(30px, 4vw, 44px);
+    margin-top:14px;
+  }
+  .section-head p{
+    margin-top:16px;
+    color:var(--ink-soft);
+    font-size:17px;
+  }
+
+  /* ---------- CARDS: what you'll learn ---------- */
+  .card-grid{
+    max-width:var(--max); margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  .learn-card{
+    background:var(--white);
+    border:1px solid var(--panel-line);
+    border-radius:20px;
+    padding:32px 28px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .learn-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 30px -18px rgba(34,36,59,0.35);
+    border-color:var(--gold);
+  }
+  .learn-card .icon{
+    font-size:30px;
+    width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--panel);
+    border-radius:14px;
+    margin-bottom:18px;
+  }
+  .learn-card h3{ font-size:20px; margin-bottom:10px; }
+  .learn-card ul{
+    margin:0; padding:0; list-style:none;
+    color:var(--ink-soft); font-size:15px;
+  }
+  .learn-card ul li{
+    padding-left:16px;
+    position:relative;
+    margin-bottom:4px;
+  }
+  .learn-card ul li::before{
+    content:"—";
+    position:absolute; left:0; color:var(--gold-deep);
+  }
+  .learn-card p.desc{ color:var(--ink-soft); font-size:15px; }
+  @media (max-width:900px){ .card-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .card-grid{grid-template-columns:1fr;} }
+
+  /* ---------- ROADMAP / TRAIL ---------- */
+  .roadmap{
+    background:var(--ink);
+    color:var(--white);
+    padding:110px 32px;
+    position:relative;
+  }
+  .roadmap .section-head h2, .roadmap .eyebrow{ color:var(--white); }
+  .roadmap .eyebrow{ color:#F0C77E; }
+  .roadmap .eyebrow::before{ background:#F0C77E; }
+  .roadmap .section-head p{ color:#C7C8DA; }
+
+  .trail{
+    position:relative;
+    max-width:760px;
+    margin:70px auto 0;
+  }
+  .trail-line{
+    position:absolute;
+    left:29px; top:10px; bottom:10px;
+    width:2px;
+    background:repeating-linear-gradient(to bottom, #6A6C89 0, #6A6C89 8px, transparent 8px, transparent 16px);
+  }
+  .stop{
+    position:relative;
+    padding-left:80px;
+    margin-bottom:56px;
+  }
+  .stop:last-child{margin-bottom:0;}
+  .stop-marker{
+    position:absolute;
+    left:0; top:0;
+    width:60px; height:60px;
+    border-radius:50%;
+    background:var(--gold);
+    color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif;
+    font-weight:800;
+    font-size:15px;
+    border:3px solid var(--ink);
+    box-shadow:0 0 0 3px #6A6C89;
+    text-align:center;
+    line-height:1.1;
+  }
+  .stop.grad .stop-marker{
+    background:var(--sage);
+    font-size:22px;
+  }
+  .stop h3{
+    color:var(--white);
+    font-size:22px;
+    margin-bottom:6px;
+  }
+  .stop .stop-label{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#9A9BB5;
+    margin-bottom:6px;
+    display:block;
+  }
+  .stop-tasks{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top:14px;
+  }
+  .stop-tasks span{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    padding:6px 12px;
+    border-radius:100px;
+    font-size:13.5px;
+    color:#E4E4F0;
+  }
+  .stop p.stop-desc{ color:#C7C8DA; font-size:15px; margin-top:4px; }
+
+  /* ---------- COACH ---------- */
+  .coach{
+    padding:110px 32px;
+  }
+  .coach-inner{
+    max-width:var(--max); margin:0 auto;
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:64px;
+    align-items:center;
+  }
+  .coach-photo{
+    aspect-ratio:4/5;
+    border-radius:24px;
+    background:linear-gradient(155deg, var(--panel), #E8DCC3);
+    border:1px solid var(--panel-line);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    gap:10px;
+    color:var(--ink-soft);
+    font-size:14px;
+    font-weight:600;
+    position:relative;
+  }
+  .coach-photo .avatar-mark{
+    width:88px; height:88px;
+    border-radius:50%;
+    background:var(--white);
+    border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif;
+    font-size:32px;
+    font-weight:700;
+    color:var(--gold-deep);
+  }
+  .coach-badge{
+    position:absolute; bottom:20px; left:20px; right:20px;
+    background:var(--white);
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:13px;
+    color:var(--ink-soft);
+    border:1px solid var(--panel-line);
+  }
+  .coach-text .eyebrow{margin-bottom:16px;}
+  .coach-text h2{font-size:clamp(28px,3.4vw,38px); margin-bottom:22px;}
+  .coach-text p{
+    color:var(--ink-soft);
+    font-size:17px;
+    margin-bottom:16px;
+  }
+  .coach-text p strong{color:var(--ink);}
+  @media (max-width:860px){
+    .coach-inner{grid-template-columns:1fr; gap:36px;}
+    .coach-photo{max-width:320px; margin:0 auto;}
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects{ padding:100px 32px; background:var(--panel); }
+  .project-grid{
+    max-width:var(--max); margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+  }
+  .project-card{
+    background:var(--white);
+    border:1px solid var(--panel-line);
+    border-radius:18px;
+    padding:26px 20px;
+    text-align:left;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .project-card:hover{ transform:translateY(-3px); border-color:var(--sage); }
+  .project-card .icon{ font-size:26px; margin-bottom:14px; }
+  .project-card h4{ font-size:16px; margin-bottom:6px; }
+  .project-card p{ font-size:13.5px; color:var(--ink-soft); }
+  .project-note{
+    max-width:var(--max); margin:34px auto 0;
+    text-align:center;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  @media (max-width:900px){ .project-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .project-grid{grid-template-columns:1fr;} }
+
+  /* ---------- OFFICE HOURS ---------- */
+  .office{ padding:100px 32px; }
+  .office-grid{
+    max-width:var(--max); margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .office-card{
+    border-radius:22px;
+    padding:40px 36px;
+    display:flex; flex-direction:column; gap:18px;
+  }
+  .office-card.live{
+    background:var(--sage);
+    color:var(--white);
+  }
+  .office-card.private{
+    background:var(--ink);
+    color:var(--white);
+  }
+  .office-card h3{ color:var(--white); font-size:26px; }
+  .office-card p{ color:rgba(255,255,255,0.82); font-size:15.5px; }
+  .office-card .btn-white{
+    align-self:flex-start;
+    background:var(--white);
+    color:var(--ink);
+    font-weight:800;
+    padding:13px 26px;
+    border-radius:100px;
+    font-size:14.5px;
+    margin-top:8px;
+  }
+  .office-card .btn-white:hover{ background:var(--gold); }
+  @media (max-width:760px){ .office-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--white);
+    padding:72px 32px 36px;
+  }
+  .footer-inner{
+    max-width:var(--max); margin:0 auto;
+    text-align:center;
+  }
+  .footer-sig{
+    font-family:'Fraunces',serif;
+    font-size:clamp(24px, 3vw, 34px);
+    line-height:1.4;
+    max-width:560px;
+    margin:0 auto;
+  }
+  .footer-sig .no{ color:#8D8FAA; }
+  .footer-brand{
+    margin-top:36px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+  .footer-brand .confidence-mark{ color:var(--white); }
+  .footer-links{
+    margin-top:28px;
+    display:flex; gap:26px; justify-content:center; flex-wrap:wrap;
+    font-size:14px; color:#B7B8CC;
+  }
+  .footer-links a:hover{ color:var(--white); }
+  .footer-links .footer-coaching{ color:#F0899E; font-weight:800; }
+  .footer-links .footer-coaching:hover{ color:var(--gold); }
+  .footer-bottom{
+    margin-top:40px;
+    padding-top:24px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    font-size:12.5px;
+    color:#8D8FAA;
+  }
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">🎓 Learn How to Learn AI™</div>
+    <nav class="nav-links">
+      <a href="#learn">What You'll Learn</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#coach">Coach</a>
+      <a href="#projects">Projects</a>
+      <a href="#office">Office Hours</a>
+      <a href="COACHING/Promo/index.html" class="nav-coaching">Need 1-on-1 Coaching?</a>
+    </nav>
+    <a href="CLASSROOM/Module-1/challenge-1/index.html" class="nav-cta">Start Challenge 1</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">The AI Academy That Builds Confidence</span>
+    <h1 class="headline">One Day.<br>One Challenge.<br><em>Real Skills. Real Results.</em></h1>
+    <p class="hero-sub">You don't need to be technical.<br><strong>You just need to know what question to ask next.</strong></p>
+    <div class="hero-ctas">
+      <a href="CLASSROOM/Module-1/challenge-1/index.html" class="btn-primary">Start Challenge 1 →</a>
+      <a href="#coach" class="btn-secondary">▶ Watch Preview</a>
+    </div>
+    <div class="day-stack">
+      <span>Day 1 — First Win</span>
+      <span>Week 4 — AI Creator</span>
+      <span>Day 30 — Graduation</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="section" id="learn">
+  <div class="section-head reveal">
+    <span class="eyebrow">What You'll Learn</span>
+    <h2>Six ways AI shows up in real life</h2>
+    <p>Not six apps to memorize. Six situations where knowing what to ask changes what you can do.</p>
+  </div>
+  <div class="card-grid">
+
+    <div class="learn-card reveal">
+      <div class="icon">🧠</div>
+      <h3>Think with AI</h3>
+      <p class="desc">Learn how to ask better questions — the one skill every other skill on this page depends on.</p>
+    </div>
+
+    <div class="learn-card reveal">
+      <div class="icon">💼</div>
+      <h3>Grow Your Career</h3>
+      <ul>
+        <li>Resumes</li>
+        <li>Interviews</li>
+        <li>Productivity</li>
+      </ul>
+    </div>
+
+    <div class="learn-card reveal">
+      <div class="icon">🚀</div>
+      <h3>Start a Business</h3>
+      <ul>
+        <li>Marketing</li>
+        <li>Websites</li>
+        <li>Planning</li>
+      </ul>
+    </div>
+
+    <div class="learn-card reveal">
+      <div class="icon">🎥</div>
+      <h3>Create Content</h3>
+      <ul>
+        <li>YouTube</li>
+        <li>TikTok</li>
+        <li>Images &amp; Video</li>
+      </ul>
+    </div>
+
+    <div class="learn-card reveal">
+      <div class="icon">⚙️</div>
+      <h3>Automate Your Life</h3>
+      <ul>
+        <li>Email</li>
+        <li>Scheduling</li>
+        <li>Research &amp; Organization</li>
+      </ul>
+    </div>
+
+    <div class="learn-card reveal">
+      <div class="icon">🤝</div>
+      <h3>Get Coaching</h3>
+      <ul>
+        <li>Live Office Hours</li>
+        <li>Private Sessions</li>
+        <li>Community</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap" id="roadmap">
+  <div class="section-head reveal">
+    <span class="eyebrow">The 30-Day Roadmap</span>
+    <h2>One trail. Four weeks. A finish line.</h2>
+    <p>Every stop builds on the one before it — you're never asked to do something you haven't already practiced.</p>
+  </div>
+
+  <div class="trail">
+    <div class="trail-line"></div>
+
+    <div class="stop reveal">
+      <div class="stop-marker">Wk<br>1</div>
+      <span class="stop-label">Week One</span>
+      <h3>AI Basics</h3>
+      <p class="stop-desc">Set the foundation — no jargon, no wasted motion.</p>
+      <div class="stop-tasks">
+        <span>✔ AI Basics</span>
+        <span>✔ Better Prompts</span>
+        <span>✔ Personal Assistant</span>
+        <span>✔ Save One Hour</span>
+        <span>✔ Daily Planning</span>
+      </div>
+    </div>
+
+    <div class="stop reveal">
+      <div class="stop-marker">Wk<br>2</div>
+      <span class="stop-label">Week Two</span>
+      <h3>AI at Work</h3>
+      <p class="stop-desc">Put your new questions to work in your actual job.</p>
+    </div>
+
+    <div class="stop reveal">
+      <div class="stop-marker">Wk<br>3</div>
+      <span class="stop-label">Week Three</span>
+      <h3>AI for Business</h3>
+      <p class="stop-desc">Plan, market, and build like you've got a team behind you.</p>
+    </div>
+
+    <div class="stop reveal">
+      <div class="stop-marker">Wk<br>4</div>
+      <span class="stop-label">Week Four</span>
+      <h3>AI Creator</h3>
+      <p class="stop-desc">Make things — videos, images, content — with a clear process.</p>
+    </div>
+
+    <div class="stop grad reveal">
+      <div class="stop-marker">🎓</div>
+      <span class="stop-label">Day 30</span>
+      <h3>Graduation</h3>
+      <p class="stop-desc">You don't just finish a course. You leave with <span class="confidence-mark">AI Confidence™<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2,6 Q15,2 28,6 T54,6 T80,6 T98,5"/></svg></span> — the kind that outlasts any one tool.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- COACH -->
+<section class="coach" id="coach">
+  <div class="coach-inner">
+    <div class="coach-photo reveal">
+      <div class="avatar-mark">S</div>
+      <span>Photo of Saneca goes here</span>
+      <div class="coach-badge">Friendly, unposed photo works best — this is the face students will trust on Day 1.</div>
+    </div>
+    <div class="coach-text reveal">
+      <span class="eyebrow">Meet Your Coach</span>
+      <h2>Hi, I'm Saneca.</h2>
+      <p>I created Learn How to Learn AI because I believe AI shouldn't feel intimidating.</p>
+      <p><strong>My goal isn't to teach you one app.</strong> My goal is to help you become confident enough to learn any AI tool that comes next.</p>
+      <p>Whether you're starting a business, changing careers, creating content, or simply trying to save time, this academy is built around real projects — not lectures.</p>
+      <p>Because the thing you're really building here isn't a skillset. It's <span class="confidence-mark">AI Confidence™<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2,6 Q15,2 28,6 T54,6 T80,6 T98,5"/></svg></span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-head reveal">
+    <span class="eyebrow">Student Projects</span>
+    <h2>What you'll actually build</h2>
+    <p>No testimonials yet — just the real work. As students complete Challenge 1, their projects replace these (with permission).</p>
+  </div>
+  <div class="project-grid">
+    <div class="project-card reveal"><div class="icon">🤖</div><h4>Personal AI Assistant</h4><p>Built during Week One</p></div>
+    <div class="project-card reveal"><div class="icon">🗓️</div><h4>Daily Planner</h4><p>Built during Week One</p></div>
+    <div class="project-card reveal"><div class="icon">📄</div><h4>Resume</h4><p>Built during Week Two</p></div>
+    <div class="project-card reveal"><div class="icon">📊</div><h4>Business Plan</h4><p>Built during Week Three</p></div>
+    <div class="project-card reveal"><div class="icon">🌐</div><h4>Website</h4><p>Built during Week Three</p></div>
+    <div class="project-card reveal"><div class="icon">📅</div><h4>Marketing Calendar</h4><p>Built during Week Three</p></div>
+    <div class="project-card reveal"><div class="icon">🎬</div><h4>YouTube Script</h4><p>Built during Week Four</p></div>
+    <div class="project-card reveal"><div class="icon">🎓</div><h4>Your Project Here</h4><p>Complete Challenge 1 to claim this spot</p></div>
+  </div>
+  <p class="project-note">First 100 students: your work could be the example the next 100 see first.</p>
+</section>
+
+<!-- OFFICE HOURS -->
+<section class="office" id="office">
+  <div class="section-head reveal">
+    <span class="eyebrow">Office Hours</span>
+    <h2>Stuck on a challenge? Get unstuck.</h2>
+  </div>
+  <div class="office-grid">
+    <div class="office-card live reveal">
+      <h3>Live Office Hours</h3>
+      <p>Drop into a group session with other students. Bring your question, leave with your next step.</p>
+      <a href="#" class="btn-white">Join Live Office Hours</a>
+    </div>
+    <div class="office-card private reveal">
+      <h3>Need 1-on-1 Coaching?</h3>
+      <p>One-on-one time with Saneca to work through your specific project or challenge.</p>
+      <a href="COACHING/Promo/index.html" class="btn-white">Book a Private Session</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-sig">
+      <span class="no">Don't chase tools.</span><br>
+      Learn the skill.<br>
+      <span class="no">The tools will change.</span><br>
+      The skill stays forever.
+    </p>
+    <div class="footer-brand">
+      🎓 Learn How to Learn AI™ — building
+      <span class="confidence-mark">AI Confidence™<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2,6 Q15,2 28,6 T54,6 T80,6 T98,5"/></svg></span>,
+      one challenge at a time.
+    </div>
+    <div class="footer-links">
+      <a href="#learn">What You'll Learn</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#coach">Coach</a>
+      <a href="#projects">Projects</a>
+      <a href="#office">Office Hours</a>
+      <a href="COACHING/Promo/index.html" class="footer-coaching">Need 1-on-1 Coaching?</a>
+    </div>
+    <div class="footer-bottom">© 2026 Learn How to Learn AI™. Goal: help the first 100 students say "I finally get it."</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
