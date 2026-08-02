@@ -1,0 +1,168 @@
+https://github.com/<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge 7 — Numbers Without the Headache — Learn How to Learn AI™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#22243B; --ink-soft:#4A4C63; --paper:#FAF5EA; --panel:#F1EAD9; --panel-line:#E4D9C1;
+    --gold:#E7A33E; --gold-deep:#C87F1F; --sage:#6F8F6B; --sage-deep:#4F6E4B; --coral:#E1617A;
+    --white:#FFFDF8; --max:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3,h4{ font-family:'Fraunces',serif; font-weight:650; letter-spacing:-0.01em; margin:0; color:var(--ink); }
+  p{margin:0;} a{color:inherit; text-decoration:none;}
+
+  .eyebrow{ font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage-deep); display:inline-flex; align-items:center; gap:8px; }
+  .eyebrow::before{ content:""; width:16px; height:1.5px; background:var(--sage-deep); display:inline-block; }
+  .confidence-mark{ position:relative; white-space:nowrap; font-weight:700; color:var(--ink); }
+  .confidence-mark svg{ position:absolute; left:0; bottom:-9px; width:100%; height:10px; overflow:visible; }
+  .confidence-mark path{ stroke:var(--gold); stroke-width:3; fill:none; stroke-linecap:round; }
+
+  header.nav{ position:sticky; top:0; z-index:50; background:rgba(250,245,234,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--panel-line); }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 32px; max-width:var(--max); margin:0 auto; }
+  .logo{ font-family:'Fraunces',serif; font-weight:700; font-size:18px; display:flex; align-items:center; gap:8px; }
+  .back-link{ font-size:14px; font-weight:600; color:var(--ink-soft); }
+  .back-link:hover{ color:var(--ink); }
+  .nav-cta{ background:var(--ink); color:var(--white); padding:10px 20px; border-radius:100px; font-weight:700; font-size:14px; white-space:nowrap; }
+  .nav-cta:hover{background:var(--gold-deep);}
+
+  .lesson-hero{ padding:70px 32px 40px; text-align:center; background:radial-gradient(ellipse 700px 420px at 82% -10%, rgba(231,163,62,0.20), transparent 60%), radial-gradient(ellipse 600px 400px at -5% 100%, rgba(111,143,107,0.16), transparent 60%); }
+  .lesson-hero h1{ font-size:clamp(32px, 5vw, 48px); line-height:1.06; margin-top:14px; letter-spacing:-0.02em; }
+  .hook{ margin:18px auto 0; max-width:560px; font-size:18.5px; color:var(--ink-soft); }
+  .hook strong{ color:var(--ink); }
+
+  .content-wrap{ max-width:740px; margin:0 auto; padding:0 32px; }
+  .block{ margin:64px auto; }
+  .block h2{ font-size:clamp(24px, 3.2vw, 32px); margin-top:10px; margin-bottom:16px; }
+  .block p.lead{ font-size:17px; color:var(--ink-soft); margin-bottom:14px; }
+  .block p.lead strong{ color:var(--ink); }
+
+  .prompt-box{ background:var(--panel); border:1px solid var(--panel-line); border-radius:14px; padding:20px 22px; font-size:15.5px; color:var(--ink); margin:18px 0; }
+  .prompt-box .tag{ font-size:11.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold-deep); display:block; margin-bottom:8px; }
+  .prompt-box.good{ border-color:var(--sage); background:#EEF2EA; }
+  .prompt-box.good .tag{ color:var(--sage-deep); }
+
+  .challenge-callout{ background:var(--ink); color:var(--white); border-radius:20px; padding:36px 32px; }
+  .challenge-callout .eyebrow{ color:#F0C77E; }
+  .challenge-callout .eyebrow::before{ background:#F0C77E; }
+  .challenge-callout h2{ color:var(--white); margin-top:10px; }
+  .challenge-callout p{ color:#C7C8DA; font-size:16.5px; margin-top:12px; }
+  .time-badge{ display:inline-block; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:6px 14px; border-radius:100px; font-size:13px; margin-top:16px; font-weight:600; }
+
+  .reflection-list{ list-style:none; }
+  .reflection-list li{ padding:16px 0; border-bottom:1px solid var(--panel-line); font-size:16.5px; color:var(--ink-soft); }
+  .reflection-list li:last-child{ border-bottom:none; }
+  .reflection-list li strong{ color:var(--ink); }
+
+  .page-nav{ display:flex; justify-content:space-between; align-items:center; padding:20px 32px 60px; max-width:820px; margin:0 auto; gap:16px; flex-wrap:wrap; }
+  .page-nav a{ font-weight:700; font-size:15px; color:var(--ink-soft); }
+  .page-nav a:hover{ color:var(--gold-deep); }
+  .page-nav a.next{ margin-left:auto; }
+
+  footer{ background:var(--ink); color:var(--white); padding:60px 32px 36px; }
+  .footer-inner{ max-width:var(--max); margin:0 auto; text-align:center; }
+  .footer-sig{ font-family:'Fraunces',serif; font-size:clamp(22px, 2.6vw, 30px); line-height:1.4; max-width:520px; margin:0 auto; }
+  .footer-sig .no{ color:#8D8FAA; }
+  .footer-brand{ margin-top:32px; font-size:15px; font-weight:700; }
+  .footer-brand .confidence-mark{ color:var(--white); }
+  .footer-bottom{ margin-top:32px; padding-top:22px; border-top:1px solid rgba(255,255,255,0.12); font-size:12.5px; color:#8D8FAA; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">🎓 Learn How to Learn AI™</div>
+    <a href="../index.html" class="back-link">← Module 2</a>
+    <a href="../../../COACHING/Promo/index.html" class="nav-cta">Book Coaching</a>
+  </div>
+</header>
+
+<section class="lesson-hero">
+  <span class="eyebrow">Module 2 · Challenge 7</span>
+  <h1>Numbers Without the Headache</h1>
+  <p class="hook">You don't need to become a spreadsheet person. You just need to hand off the sorting so you can get to the decision <strong>faster.</strong></p>
+</section>
+
+<div class="content-wrap">
+
+  <div class="block">
+    <span class="eyebrow">The Story</span>
+    <h2>The expense sheet nobody wants to open</h2>
+    <p class="lead">Picture a spreadsheet that's been growing for three months — rows added whenever someone remembered, categories that don't match, a few duplicate entries, totals nobody trusts anymore. Everyone's got one of these. A budget, an inventory list, a client tracker.</p>
+    <p class="lead">The instinct is to avoid it until it becomes an emergency. But here's the thing — the sheet isn't actually hard. It's just messy, and untangling mess by hand is slow and tedious in a way that makes people procrastinate.</p>
+    <p class="lead">The fix isn't a fancier spreadsheet tool. It's handing the untangling part to AI, and keeping the actual decision — what do I do about this — for yourself.</p>
+  </div>
+
+  <div class="block">
+    <span class="eyebrow">The Lesson</span>
+    <h2>Name the decision, not just the data</h2>
+    <p class="lead">Don't just say "clean this up." Say what you're actually trying to decide — "am I overspending in one category," "which clients haven't paid," "what's actually left in the budget." That target decision tells it how to organize everything.</p>
+    <p class="lead"><strong>The move:</strong> paste the messy data in as-is, name the real decision you're trying to make, and ask it to organize toward that — flagging anything that looks off.</p>
+  </div>
+
+  <div class="block">
+    <span class="eyebrow">Try It Now</span>
+    <h2>Vague vs. specific</h2>
+    <div class="prompt-box">
+      <span class="tag">Vague</span>
+      "Clean up this spreadsheet." <em>[pastes messy data]</em>
+    </div>
+    <p class="lead">It'll tidy formatting, maybe. It has no idea what "clean" should serve.</p>
+    <div class="prompt-box good">
+      <span class="tag">Specific</span>
+      "Here's my last 3 months of expenses, pasted as-is, categories are inconsistent: [paste data]. I need to know if I'm overspending on supplies compared to the first month. Organize this by category and month, flag any duplicate entries, and tell me the trend on supplies specifically."
+    </div>
+    <p class="lead">Now it's not just tidying — it's answering the actual question you had.</p>
+  </div>
+
+  <div class="block challenge-callout">
+    <span class="eyebrow">Your Challenge Today</span>
+    <h2>Untangle one real mess</h2>
+    <p>Find the one spreadsheet or data pile you've been avoiding. Paste it in as-is, name the real decision you need to make from it, and let it organize toward that answer.</p>
+    <span class="time-badge">⏱ Under an hour</span>
+  </div>
+
+  <div class="block">
+    <span class="eyebrow">Reflection</span>
+    <h2>Before you move on</h2>
+    <ul class="reflection-list">
+      <li><strong>What surprised you</strong> about what it flagged in your data?</li>
+      <li><strong>What worked</strong> — did naming the decision change what it gave you back?</li>
+      <li><strong>What would you do differently</strong> — what decision would you name more precisely next time?</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="page-nav">
+  <a href="../challenge-6/index.html">← Challenge 6: Inbox Zero, Sort Of</a>
+  <a href="../challenge-8/index.html" class="next">Challenge 8: Documents on Demand →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-sig">
+      <span class="no">Don't chase tools.</span><br>
+      Learn the skill.<br>
+      <span class="no">The tools will change.</span><br>
+      The skill stays forever.
+    </p>
+    <div class="footer-brand">
+      🎓 Learn How to Learn AI™ — building
+      <span class="confidence-mark">AI Confidence™<svg viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2,6 Q15,2 28,6 T54,6 T80,6 T98,5"/></svg></span>,
+      one challenge at a time.
+    </div>
+    <div class="footer-bottom">© 2026 Learn How to Learn AI™.</div>
+  </div>
+</footer>
+
+</body>
+</html>
