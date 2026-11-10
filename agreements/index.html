@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24452f">
 <title>Agreements & Waivers | Mack Magic</title>
 
 <style>
@@ -14,7 +15,9 @@
   --burnt: #a9683e;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -29,6 +32,11 @@ header {
   text-align: center;
   padding: 25px;
   border-bottom: 5px solid var(--gold);
+}
+
+header h2 {
+  margin-bottom: 5px;
+  font-family: Georgia, serif;
 }
 
 main {
@@ -53,6 +61,7 @@ h1 {
 
 .button {
   display: block;
+  width: 100%;
   max-width: 450px;
   margin: 18px auto;
   padding: 19px;
@@ -63,10 +72,103 @@ h1 {
   text-decoration: none;
   font-weight: bold;
   font-size: 17px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 
 .button:hover {
   background: var(--burnt);
+}
+
+.button.secondary {
+  background: var(--burnt);
+}
+
+.button.secondary:hover {
+  background: var(--green);
+}
+
+/* WAIVER POPUP */
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 25, 17, .82);
+  padding: 18px;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-overlay.show {
+  display: flex;
+}
+
+.popup {
+  position: relative;
+  width: 100%;
+  max-width: 490px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fffaf0;
+  border: 3px solid var(--gold);
+  border-radius: 16px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 15px 45px rgba(0,0,0,.35);
+  animation: popupIn .3s ease;
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popup h2 {
+  font-family: Georgia, serif;
+  font-size: 29px;
+  color: var(--green);
+  margin: 10px 0;
+}
+
+.popup p {
+  line-height: 1.65;
+}
+
+.popup-divider {
+  width: 75px;
+  height: 3px;
+  background: var(--gold);
+  margin: 18px auto;
+}
+
+.popup-note {
+  background: var(--cream);
+  border-left: 4px solid var(--burnt);
+  padding: 13px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.close-popup {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--green);
+  font-size: 29px;
+  cursor: pointer;
+  width: auto;
+  padding: 3px 8px;
 }
 
 footer {
@@ -74,6 +176,21 @@ footer {
   color: var(--cream);
   text-align: center;
   padding: 25px;
+  line-height: 1.8;
+}
+
+@media(max-width: 550px) {
+  main {
+    margin: 30px auto;
+  }
+
+  .card {
+    padding: 27px 17px;
+  }
+
+  .popup {
+    padding: 35px 19px 25px;
+  }
 }
 </style>
 </head>
@@ -104,13 +221,14 @@ footer {
       then complete the online waiver.
     </p>
 
-    <a class="button" href="/" target="_blank">
+    <a class="button" href="/">
       SIGN YOUR AGREEMENT
     </a>
 
-    <a class="button" href="/waiver" target="_blank">
-      COMPLETE ONLINE WAIVER
-    </a>
+    <button class="button secondary" type="button"
+      onclick="openWaiverPopup()">
+      OPEN ONLINE WAIVER
+    </button>
 
     <p>
       Please make sure both steps are completed
@@ -120,6 +238,106 @@ footer {
   </div>
 
 </main>
+
+<footer>
+  Mack Magic Mobile Bar · Events and More
+  <br>470-774-2370
+  <br>houseofmedia.marketing@gmail.com
+</footer>
+
+<!-- WAIVER WELCOME POPUP -->
+
+<div class="popup-overlay" id="waiverPopup"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="popupTitle">
+
+  <div class="popup">
+
+    <button class="close-popup"
+      type="button"
+      onclick="closeWaiverPopup()"
+      aria-label="Close popup">
+      &times;
+    </button>
+
+    <p style="color:var(--burnt);font-weight:bold;">
+      MACK MAGIC MOBILE BAR
+    </p>
+
+    <h2 id="popupTitle">Before Your Event...</h2>
+
+    <div class="popup-divider"></div>
+
+    <p>
+      We're excited to be part of your special occasion!
+      Before your scheduled event, please complete your
+      online customer waiver.
+    </p>
+
+    <div class="popup-note">
+      <strong>Please have the following ready:</strong>
+      <ul>
+        <li>Your contact information</li>
+        <li>Your event details</li>
+        <li>Any allergies or special considerations</li>
+        <li>Your typed signature</li>
+      </ul>
+    </div>
+
+    <p>
+      Completing this step helps us prepare for your event.
+    </p>
+
+    <a class="button"
+       href="/waiver/">
+       CONTINUE TO ONLINE WAIVER
+    </a>
+
+    <button class="button secondary"
+      type="button"
+      onclick="closeWaiverPopup()">
+      I'LL COMPLETE IT LATER
+    </button>
+
+  </div>
+</div>
+
+<script>
+const waiverPopup = document.getElementById("waiverPopup");
+
+function openWaiverPopup() {
+  waiverPopup.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closeWaiverPopup() {
+  waiverPopup.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+// Show welcome popup when the page opens
+window.addEventListener("load", function() {
+  setTimeout(openWaiverPopup, 500);
+});
+
+// Close popup when clicking outside the box
+waiverPopup.addEventListener("click", function(event) {
+  if (event.target === waiverPopup) {
+    closeWaiverPopup();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeWaiverPopup();
+  }
+});
+</script>
+
+</body>
+</html>
 
 <footer>
   Mack Magic Mobile Bar · Events and More
