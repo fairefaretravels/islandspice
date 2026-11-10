@@ -295,7 +295,7 @@ main {
 
   <div class="logo-frame">
     <video
-      src="MMslide.mp4"
+      src="mmlogo-card.png"
       autoplay
       muted
       loop
@@ -355,7 +355,10 @@ main {
             Bartending
           </option>
 
-
+          <option value="dj">
+            DJ Services
+          </option>
+          
           <option value="mc-host">
             MC & Host Services
           </option>
@@ -387,6 +390,7 @@ main {
 </footer>
 
 <script>
+
 const serviceSelect = document.getElementById("serviceSelect");
 
 serviceSelect.addEventListener("change", function() {
@@ -395,14 +399,28 @@ serviceSelect.addEventListener("change", function() {
 
   if (!service) return;
 
-  window.location.href =
-    "/special-occations/" + encodeURIComponent(service);
+  const destinations = {
+
+    "bartending": "/special-occations/bartending-dj",
+
+    "dj": "/special-occations/bartending-dj",
+
+    "mc-host": "/special-occations/bartending-dj",
+
+    "face-painting": "/special-occations/face-painting"
+
+  };
+
+  const destination = destinations[service];
+
+  if (destination) {
+
+    window.location.href = destination;
+
+  }
 
 });
+
 </script>
-
-<script src="langsync-widget.js" defer></script>
-<script src="text-translate-widget.js" defer></script>
-
 </body>
 </html>
