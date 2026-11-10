@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17191d">
+<title>Mack Magic | Face Painting Agreement</title>
+
+<style>
+:root {
+  --dark: #17191d;
+  --gold: #d8ad62;
+  --cream: #faf8f2;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #ecebe7;
+  color: var(--dark);
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 760px;
+  margin: auto;
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px #0001;
+}
+
+header {
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
+header p { margin: 8px 0; color: #777; }
+.gold { color: #a67b35; }
+
+h2 {
+  font-size: 16px;
+  margin-top: 30px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 15px 0 6px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background: white;
+}
+
+textarea { min-height: 100px; resize: vertical; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.notice {
+  background: var(--cream);
+  border-left: 4px solid var(--gold);
+  padding: 15px;
+  margin: 20px 0;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.terms { font-size: 14px; line-height: 1.7; }
+.signature { margin-top: 30px; }
+
+button {
+  border: none;
+  border-radius: 7px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.submit-btn {
+  background: var(--dark);
+  color: white;
+}
+
+.print-btn {
+  background: var(--cream);
+  color: var(--dark);
+  border: 1px solid var(--gold);
+}
+
+button:hover { opacity: .85; }
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  margin-top: 30px;
+}
+
+@media(max-width:550px) {
+  body { padding: 8px; }
+  .container { padding: 20px 16px; }
+  .grid { grid-template-columns: 1fr; gap: 0; }
+  header h1 { font-size: 25px; }
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .container { box-shadow: none; }
+  button { display: none; }
+  input, textarea, select {
+    border: none;
+    border-bottom: 1px solid #aaa;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <h1>MACK MAGIC</h1>
+  <p class="gold">MOBILE BAR • EVENTS AND MORE</p>
+  <h3>FACE PAINTING SERVICE AGREEMENT</h3>
+  <p>Professional Entertainment & Event Services</p>
+  <p>470-774-2370</p>
+  <p>houseofmedia.marketing@gmail.com</p>
+</header>
+
+<!-- EMAIL SUBMISSION -->
+<form
+  id="agreement"
+  action="https://formsubmit.co/houseofmedia.marketing@gmail.com"
+  method="POST"
+>
+
+<input type="hidden" name="_subject"
+value="New Mack Magic Face Painting Agreement">
+
+<input type="hidden" name="_template" value="table">
+
+<h2>1. Client Information</h2>
+
+<div class="grid">
+  <div>
+    <label>Client Name</label>
+    <input name="Client Name" required>
+  </div>
+  <div>
+    <label>Phone Number</label>
+    <input name="Phone Number" type="tel" required>
+  </div>
+</div>
+
+<label>Email Address</label>
+<input name="Client Email" type="email" required>
+
+<h2>2. Event Information</h2>
+
+<div class="grid">
+  <div>
+    <label>Event Date</label>
+    <input name="Event Date" type="date" required>
+  </div>
+  <div>
+    <label>Event Type</label>
+    <input name="Event Type" placeholder="Birthday, festival, etc.">
+  </div>
+  <div>
+    <label>Start Time</label>
+    <input name="Start Time" type="time" required>
+  </div>
+  <div>
+    <label>End Time</label>
+    <input name="End Time" type="time" required>
+  </div>
+</div>
+
+<label>Event Location / Venue Name</label>
+<input name="Venue Name" required>
+
+<label>Complete Event Address</label>
+<textarea name="Event Address" required
+placeholder="Street address, city, state and ZIP code"></textarea>
+
+<div class="grid">
+  <div>
+    <label>Estimated Number of Guests</label>
+    <input name="Number of Guests" type="number" min="1">
+  </div>
+  <div>
+    <label>Age Group</label>
+    <select name="Age Group">
+      <option value="">Select one</option>
+      <option>Children</option>
+      <option>Adults</option>
+      <option>Children and Adults</option>
+    </select>
+  </div>
+</div>
+
+<h2>3. Special Requests & Instructions</h2>
+
+<label>Requested Designs / Themes</label>
+<textarea name="Requested Designs"
+placeholder="Butterflies, superheroes, princesses, team colors, etc."></textarea>
+
+<label>Special Requests or Event Instructions</label>
+<textarea name="Special Instructions"
+placeholder="Parking instructions, setup requirements, allergies, sensitivities, venue restrictions, or other details."></textarea>
+
+<h2>4. Service & Payment Details</h2>
+
+<div class="notice">
+  <strong>Face Painting Service Rate: $75 per hour</strong><br>
+  Your deposit will be credited toward the agreed service total.
+</div>
+
+<div class="grid">
+  <div>
+    <label>Agreed Service Hours</label>
+    <input name="Service Hours" id="hours"
+    type="number" min="1" step="0.5" required>
+  </div>
+  <div>
+    <label>Hourly Rate ($)</label>
+    <input name="Hourly Rate" value="75" readonly>
+  </div>
+  <div>
+    <label>Total Service Cost ($)</label>
+    <input name="Total Service Cost" id="total" readonly>
+  </div>
+  <div>
+    <label>Deposit Received ($)</label>
+    <input name="Deposit Received" id="deposit"
+    type="number" min="0" step="0.01" required>
+  </div>
+</div>
+
+<label>Deposit Payment Date</label>
+<input name="Deposit Date" type="date">
+
+<label>Payment Method</label>
+<select name="Payment Method">
+  <option value="">Select payment method</option>
+  <option>PayPal</option>
+  <option>Cash App</option>
+  <option>Cash</option>
+  <option>Other</option>
+</select>
+
+<div class="grid">
+  <div>
+    <label>Remaining Balance ($)</label>
+    <input name="Remaining Balance" id="balance" readonly>
+  </div>
+  <div>
+    <label>Balance Due Date</label>
+    <input name="Balance Due Date" type="date">
+  </div>
+</div>
+
+<h2>5. Service Agreement & Policies</h2>
+
+<div class="terms">
+
+<p><strong>Booking Confirmation:</strong>
+The deposit received will be credited toward the agreed service total.</p>
+
+<p><strong>Event Preparation:</strong>
+The client agrees to provide accurate event information, including location, schedule, and estimated guests.</p>
+
+<p><strong>Setup:</strong>
+The client agrees to provide a suitable work area with adequate lighting, seating, and reasonable access.</p>
+
+<p><strong>Safety:</strong>
+The client must communicate known skin sensitivities, allergies, or other relevant concerns before services begin. Mack Magic reserves the right to decline an application when safety is a concern.</p>
+
+<p><strong>Changes:</strong>
+Changes to event dates, times, location, or service duration must be communicated and mutually agreed upon.</p>
+
+<p><strong>Cancellation / Rescheduling:</strong>
+Cancellations and rescheduling requests must be communicated as early as possible. Any applicable deposit refund, transfer, or cancellation arrangements must be agreed upon in writing.</p>
+
+<p><strong>Payment:</strong>
+The remaining balance is due according to the payment terms recorded in this agreement.</p>
+
+</div>
+
+<h2>6. Agreement & Electronic Signatures</h2>
+
+<div class="notice">
+  By submitting this agreement, the client confirms that they have reviewed and agree to the event details, service arrangements, payment information, and policies listed above. The typed name below is intended as an electronic signature.
+</div>
+
+<div class="signature">
+
+<label>Client Printed Name</label>
+<input name="Client Printed Name" required>
+
+<label>Client Electronic Signature (Type Full Name)</label>
+<input name="Client Electronic Signature" required>
+
+<label>Date Signed</label>
+<input name="Client Signature Date" type="date" required>
+
+</div>
+
+<label>
+  <input type="checkbox" name="Agreement Accepted"
+  value="Yes, I agree to the terms" required
+  style="width:auto; margin-right:8px;">
+  I have read and agree to this service agreement.
+</label>
+
+<button type="submit" class="submit-btn">
+  SUBMIT AGREEMENT
+</button>
+
+<button type="button" class="print-btn"
+onclick="window.print()">
+  PRINT / SAVE AS PDF
+</button>
+
+</form>
+
+<footer>
+  MACK MAGIC MOBILE BAR • EVENTS AND MORE<br>
+  470-774-2370<br>
+  houseofmedia.marketing@gmail.com
+</footer>
+
+</div>
+
+<script>
+const hours = document.getElementById("hours");
+const deposit = document.getElementById("deposit");
+const total = document.getElementById("total");
+const balance = document.getElementById("balance");
+
+function calculate() {
+  const serviceTotal = (Number(hours.value) || 0) * 75;
+  const paid = Number(deposit.value) || 0;
+
+  total.value = serviceTotal.toFixed(2);
+  balance.value = (serviceTotal - paid).toFixed(2);
+}
+
+hours.addEventListener("input", calculate);
+deposit.addEventListener("input", calculate);
+
+document.getElementById("agreement").addEventListener("submit", function(e) {
+  calculate();
+
+  if (Number(deposit.value) > Number(total.value)) {
+    e.preventDefault();
+    alert("The deposit cannot exceed the total service cost. Please check the amounts.");
+  }
+});
+</script>
+
+</body>
+</html>
