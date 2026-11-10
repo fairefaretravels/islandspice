@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24452f">
+
+<title>Online Waiver | Mack Magic Mobile Bar</title>
+
+<style>
+:root {
+  --green: #24452f;
+  --gold: #c6a15b;
+  --cream: #f1e5ce;
+  --burnt: #a9683e;
+  --dark: #20251f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 25px 15px;
+  background: var(--cream);
+  color: var(--dark);
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 760px;
+  margin: 25px auto;
+  background: #fffaf1;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.09);
+}
+
+header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gold);
+}
+
+header h1 {
+  color: var(--green);
+  margin-bottom: 8px;
+  font-size: 30px;
+}
+
+header p {
+  color: var(--burnt);
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+h2 {
+  color: var(--green);
+  font-size: 19px;
+  margin-top: 28px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 16px 0 7px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #b9ad99;
+  border-radius: 7px;
+  font-size: 16px;
+  background: white;
+}
+
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.waiver-text {
+  background: #f5eddf;
+  border-left: 5px solid var(--gold);
+  padding: 18px;
+  line-height: 1.6;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px 0;
+  line-height: 1.5;
+}
+
+.check-row input {
+  width: 20px;
+  min-width: 20px;
+  margin-top: 3px;
+}
+
+button {
+  width: 100%;
+  padding: 17px;
+  margin-top: 24px;
+  background: var(--green);
+  color: white;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #345c3e;
+}
+
+.small {
+  text-align: center;
+  font-size: 13px;
+  color: #665d50;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  margin-top: 25px;
+  color: var(--green);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media(max-width: 550px) {
+  .container {
+    padding: 21px 17px;
+    margin: 5px auto;
+  }
+
+  header h1 {
+    font-size: 25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <h1>MACK MAGIC</h1>
+  <p>MOBILE BAR – EVENTS AND MORE</p>
+  <h2>ONLINE CUSTOMER WAIVER</h2>
+  <p>Please complete this form before your scheduled event.</p>
+</header>
+
+<form id="waiverForm">
+
+<h2>1. Customer Information</h2>
+
+<label for="customerName">Full Name *</label>
+<input id="customerName" name="customerName" required>
+
+<label for="email">Email Address *</label>
+<input type="email" id="email" name="email" required>
+
+<label for="phone">Phone Number *</label>
+<input type="tel" id="phone" name="phone" required>
+
+<h2>2. Event Information</h2>
+
+<label for="eventName">Event Name or Occasion *</label>
+<input id="eventName" name="eventName" required>
+
+<label for="eventDate">Event Date *</label>
+<input type="date" id="eventDate" name="eventDate" required>
+
+<label for="eventLocation">Event Location *</label>
+<input id="eventLocation" name="eventLocation" required>
+
+<label for="service">Service Booked *</label>
+<select id="service" name="service" required>
+  <option value="">Select a service</option>
+  <option>Face Painting</option>
+  <option>Mobile Bar / Bartending</option>
+  <option>Event Catering</option>
+  <option>Personal Chef</option>
+  <option>Wedding Services</option>
+  <option>MC / Host Services</option>
+  <option>Wait Staff / Event Assistance</option>
+  <option>Other</option>
+</select>
+
+<h2>3. Waiver and Release Acknowledgment</h2>
+
+<div class="waiver-text">
+
+<p>
+I understand that participation in activities and services provided
+by Mack Magic Mobile Bar – Events and More may involve certain
+risks, including accidental injury, allergic reactions, spills,
+or other unforeseen incidents.
+</p>
+
+<p>
+I acknowledge that I am responsible for providing accurate
+information about relevant allergies, sensitivities, medical
+concerns, and other conditions that may affect participation.
+</p>
+
+<p>
+I understand that I should follow all reasonable safety instructions
+provided by the event staff and that children must be supervised
+by a responsible parent or guardian.
+</p>
+
+<p>
+I acknowledge that this form does not replace any separate service
+agreement, booking contract, or additional consent form that may
+be required for the services selected.
+</p>
+
+<p>
+By signing below, I confirm that I have read and understand this
+acknowledgment and that the information I have provided is accurate.
+</p>
+
+</div>
+
+<div class="check-row">
+  <input type="checkbox" id="agree" required>
+  <label for="agree" style="margin:0">
+    I have read and agree to the waiver acknowledgment above. *
+  </label>
+</div>
+
+<div class="check-row">
+  <input type="checkbox" id="adult" required>
+  <label for="adult" style="margin:0">
+    I confirm that I am at least 18 years old, or I am the parent
+    or legal guardian completing this form for a minor. *
+  </label>
+</div>
+
+<h2>4. Additional Information</h2>
+
+<label for="notes">Allergies, sensitivities, or additional notes</label>
+<textarea id="notes" name="notes"
+placeholder="Please provide any information we should know."></textarea>
+
+<label for="signature">Type Your Full Legal Name as Your Signature *</label>
+<input id="signature" name="signature" required
+placeholder="Enter your full name">
+
+<label for="signedDate">Date Signed *</label>
+<input type="date" id="signedDate" name="signedDate" required>
+
+<button type="submit">SUBMIT COMPLETED WAIVER</button>
+
+</form>
+
+<p class="small">
+Your completed waiver will be prepared in an email addressed to
+Mack Magic Mobile Bar – Events and More. Please press SEND in your
+email app to complete the submission.
+</p>
+
+<footer>
+  Mack Magic Mobile Bar – Events and More<br>
+  470-774-2370<br>
+  houseofmedia.marketing@gmail.com
+</footer>
+
+</div>
+
+<script>
+const form = document.getElementById("waiverForm");
+
+document.getElementById("signedDate").value =
+  new Date().toISOString().split("T")[0];
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  if (!form.reportValidity()) return;
+
+  const fields = [
+    ["Customer Name", "customerName"],
+    ["Email", "email"],
+    ["Phone", "phone"],
+    ["Event", "eventName"],
+    ["Event Date", "eventDate"],
+    ["Event Location", "eventLocation"],
+    ["Service Booked", "service"],
+    ["Additional Notes", "notes"],
+    ["Typed Signature", "signature"],
+    ["Date Signed", "signedDate"]
+  ];
+
+  let message = "MACK MAGIC MOBILE BAR – EVENTS AND MORE\n";
+  message += "COMPLETED CUSTOMER WAIVER\n\n";
+
+  fields.forEach(([label, id]) => {
+    const value = document.getElementById(id).value || "None provided";
+    message += label + ": " + value + "\n";
+  });
+
+  message += "\nWaiver acknowledgment: Accepted";
+  message += "\nAge / Guardian confirmation: Accepted";
+  message += "\n\nCustomer checked both required agreement boxes.";
+
+  const subject = encodeURIComponent(
+    "Completed Customer Waiver - " +
+    document.getElementById("customerName").value
+  );
+
+  const body = encodeURIComponent(message);
+
+  window.location.href =
+    "mailto:houseofmedia.marketing@gmail.com" +
+    "?subject=" + subject +
+    "&body=" + body;
+});
+</script>
+
+</body>
+</html>
