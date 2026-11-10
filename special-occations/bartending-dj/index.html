@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24452f">
+
+<title>Bartending & DJ Services | Mack Magic</title>
+
+<style>
+:root {
+  --green: #24452f;
+  --gold: #c6a15b;
+  --cream: #f1e5ce;
+  --burnt: #a9683e;
+  --white: #fffaf0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--green);
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: var(--green);
+  color: var(--cream);
+  text-align: center;
+  padding: 35px 15px;
+  border-bottom: 5px solid var(--gold);
+}
+
+header h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  margin: 0;
+}
+
+header p {
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+main {
+  max-width: 1050px;
+  margin: auto;
+  padding: 30px 18px 60px;
+}
+
+.intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 20px auto 45px;
+  line-height: 1.7;
+}
+
+.section-title {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 55px 0 10px;
+}
+
+.section-description {
+  text-align: center;
+  margin: 0 auto 28px;
+  max-width: 650px;
+  line-height: 1.6;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: var(--white);
+  border: 2px solid var(--gold);
+  border-radius: 13px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,.07);
+}
+
+.card-image {
+  height: 190px;
+  background: #d8c8a9;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card h3 {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  margin: 5px 0 12px;
+}
+
+.card p {
+  line-height: 1.6;
+  font-size: 14px;
+  flex: 1;
+}
+
+.card-link {
+  display: block;
+  margin-top: 18px;
+  padding: 14px 10px;
+  background: var(--green);
+  color: white;
+  text-decoration: none;
+  border: 2px solid var(--gold);
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.card-link:hover {
+  background: var(--burnt);
+}
+
+.divider {
+  height: 3px;
+  width: 100px;
+  background: var(--gold);
+  margin: 18px auto 30px;
+}
+
+.booking {
+  background: var(--green);
+  color: var(--cream);
+  border: 3px solid var(--gold);
+  border-radius: 14px;
+  padding: 35px 20px;
+  margin-top: 65px;
+  text-align: center;
+}
+
+.booking h2 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+}
+
+.booking p {
+  line-height: 1.7;
+}
+
+.booking a {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--green);
+  padding: 16px 25px;
+  margin-top: 12px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.booking a:hover {
+  background: var(--cream);
+}
+
+footer {
+  background: var(--green);
+  color: var(--cream);
+  text-align: center;
+  padding: 28px 15px;
+  line-height: 1.8;
+  border-top: 5px solid var(--gold);
+}
+
+@media(max-width: 550px) {
+  main {
+    padding: 20px 13px 45px;
+  }
+
+  .card-image {
+    height: 210px;
+  }
+
+  .booking a {
+    display: block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Mack Magic</h1>
+  <p>MOBILE BAR · EVENTS AND MORE</p>
+  <h2>Bartending & DJ Services</h2>
+</header>
+
+<main>
+
+  <div class="intro">
+    <h2>Make Your Event Memorable</h2>
+    <p>
+      From professional bartending to music and entertainment,
+      Mack Magic brings the atmosphere together.
+      Explore our services and choose the experience
+      that fits your celebration.
+    </p>
+  </div>
+
+  <!-- DJ SERVICES -->
+
+  <section>
+
+    <h2 class="section-title">DJ Services</h2>
+
+    <div class="divider"></div>
+
+    <p class="section-description">
+      Set the mood, keep the energy moving, and give your
+      guests a reason to remember the celebration.
+    </p>
+
+    <div class="cards">
+
+      <article class="card">
+
+        <div class="card-image">
+          <img
+            src="/DJ.PNG"
+            alt="DJ entertainment setup">
+        </div>
+
+        <div class="card-content">
+          <h3>DJ Services</h3>
+
+          <p>
+            Professional music and entertainment for
+            parties, celebrations, and special occasions.
+          </p>
+
+          <a class="card-link" href="/DJ/">
+            VIEW DJ PRICING
+          </a>
+        </div>
+
+      </article>
+
+      <article class="card">
+
+        <div class="card-image">
+          <img
+            src="/MACK.PNG"
+            alt="Mack Magic DJ service">
+        </div>
+
+        <div class="card-content">
+          <h3>Mack Magic DJ Experience</h3>
+
+          <p>
+            Explore the Mack Magic entertainment experience
+            and available booking options.
+          </p>
+
+          <a class="card-link" href="/MACK/">
+            VIEW MACK PRICING
+          </a>
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- BARTENDING SERVICES -->
+
+  <section>
+
+    <h2 class="section-title">Bartending Services</h2>
+
+    <div class="divider"></div>
+
+    <p class="section-description">
+      Bring the bar experience to your event with
+      bartending options designed for your occasion.
+    </p>
+
+    <div class="cards">
+
+      <article class="card">
+
+        <div class="card-image">
+          <img
+            src="/Traditional.PNG"
+            alt="Traditional bartending service">
+        </div>
+
+        <div class="card-content">
+          <h3>Traditional Bartending</h3>
+
+          <p>
+            A classic bartending experience for private
+            parties, celebrations, and special events.
+          </p>
+
+          <a class="card-link" href="/Traditional/">
+            VIEW TRADITIONAL PRICING
+          </a>
+        </div>
+
+      </article>
+
+      <article class="card">
+
+        <div class="card-image">
+          <img
+            src="/Cantina.PNG"
+            alt="Cantina bartending service">
+        </div>
+
+        <div class="card-content">
+          <h3>Cantina Experience</h3>
+
+          <p>
+            Explore our cantina-style bar service
+            and event experience.
+          </p>
+
+          <a class="card-link" href="/Cantina/">
+            VIEW CANTINA PRICING
+          </a>
+        </div>
+
+      </article>
+
+      <article class="card">
+
+        <div class="card-image">
+          <img
+            src="/Bar.PNG"
+            alt="Mack Magic mobile bar">
+        </div>
+
+        <div class="card-content">
+          <h3>All Bartending Options</h3>
+
+          <p>
+            Visit our pricing page to explore
+            additional service and package information.
+          </p>
+
+          <a class="card-link" href="/Pricing/">
+            VIEW ALL PRICING
+          </a>
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- BOOKING -->
+
+  <section class="booking">
+
+    <h2>Ready to Book Mack Magic?</h2>
+
+    <p>
+      Choose your service, review your pricing,
+      and complete your booking agreement to get started.
+    </p>
+
+    <a href="/agreements/ent/">
+      LOCK IN YOUR EVENT DATE
+    </a>
+
+  </section>
+
+</main>
+
+<footer>
+  Mack Magic Mobile Bar – Events and More
+  <br>
+  470-774-2370
+  <br>
+  houseofmedia.marketing@gmail.com
+</footer>
+
+</body>
+</html>
