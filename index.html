@@ -160,6 +160,26 @@ main {
   letter-spacing: .16em;
   text-transform: uppercase;
 }
+  .arcade-btn {
+  border-color: #c6a15b;
+}
+
+.arcade-btn .label {
+  color: #c6a15b;
+}
+
+.arcade-btn .sub {
+  color: #ead9bd;
+}
+
+.arcade-btn:hover {
+  background: #c6a15b;
+}
+
+.arcade-btn:hover .label,
+.arcade-btn:hover .sub {
+  color: #183b2b;
+}
 /* SPECIAL OCCASIONS */
 .special-section {
   margin-top: 12px;
@@ -426,6 +446,7 @@ main {
     font-size: 12px;
   }
 }
+  
 </style>
 </head>
 <body>
@@ -451,14 +472,21 @@ main {
   </div>
   <!-- MAIN NAVIGATION -->
   <nav class="menu" aria-label="Main navigation">
-    <a class="btn" href="/Pricing">
-      <span class="label">Pricing</span>
-      <span class="sub">Packages & Add-ons</span>
-    </a>
-    <a class="btn" href="/DJ">
-      <span class="label">DJ & Song Requests</span>
-      <span class="sub">Plan Your Playlist</span>
-    </a>
+  <a class="btn" href="/Pricing">
+    <span class="label">Pricing</span>
+    <span class="sub">Packages & Add-ons</span>
+  </a>
+
+  <a class="btn" href="/DJ">
+    <span class="label">DJ & Song Requests</span>
+    <span class="sub">Plan Your Playlist</span>
+  </a>
+
+  <a class="btn arcade-btn" href="https://fairefaretravels.github.io/BattleGames/">
+    <span class="label">SENSTACK ARCADE</span>
+    <span class="sub">Play Games Now</span>
+  </a>
+</nav>
     <!-- SPECIAL OCCASIONS DROPDOWN -->
     <section class="special-section">
       <div class="special-title">Explore Our Services</div>
