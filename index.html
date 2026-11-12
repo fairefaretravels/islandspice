@@ -1,11 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>Mack Magic Mobile Bar | Bartending, DJ & Event Services</title>
+
+<meta name="description" content="Make every celebration memorable with Mack Magic Mobile Bar. Explore mobile bartending, DJ entertainment, MC and hosting, face painting, and event services.">
+
+<meta name="keywords" content="Mack Magic, Mack Magic Mobile Bar, mobile bartending, event bartending, DJ services, event entertainment, MC services, face painting, special occasions">
+
+<meta name="author" content="Mack Magic Mobile Bar - Events & More">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://radiomeltdown.store/">
+
+<link rel="icon" type="image/jpeg" href="/MMlogo.jpeg">
+<link rel="apple-touch-icon" href="/MMlogo.jpeg">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mack Magic Mobile Bar">
+<meta property="og:title" content="Mack Magic | Events & More">
+<meta property="og:description" content="It's a beautiful life. Explore Mack Magic mobile bartending, DJ entertainment, hosting and event services.">
+<meta property="og:url" content="https://radiomeltdown.store/">
+<meta property="og:image" content="https://radiomeltdown.store/MMlogo.jpeg">
+<meta property="og:image:alt" content="Mack Magic Mobile Bar Events and More logo">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mack Magic | Events & More">
+<meta name="twitter:description" content="Mobile bar, entertainment and event services by Mack Magic.">
+<meta name="twitter:image" content="https://radiomeltdown.store/MMlogo.jpeg">
+
 <meta name="theme-color" content="#183b2b">
+
 
 <title>Mack Magic | Events & Services</title>
 
@@ -86,12 +108,19 @@ main {
   box-shadow: 0 18px 50px rgba(0,0,0,.45);
 }
 
-.logo-frame video {
+
+.logo-frame video,
+.logo-frame .hero-image {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
+
+.logo-frame .hero-image {
+  object-position: center;
+}
+
 
 .tagline {
   margin-top: 24px;
@@ -292,16 +321,24 @@ main {
 
 <main>
 
-  <div class="logo-frame">
-    <video
-      src="MMslide.mp4"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto">
-    </video>
-  </div>
+  
+<div class="logo-frame">
+
+  <video
+    id="heroVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="/MMlogo.jpeg">
+
+    <source src="/MMslide.mp4" type="video/mp4">
+
+  </video>
+
+</div>
+
 
   <div class="tagline">Its A Beautiful Life</div>
 
@@ -388,6 +425,7 @@ main {
   </a>
 </footer>
 
+
 <script>
 
 const serviceSelect = document.getElementById("serviceSelect");
@@ -418,6 +456,21 @@ serviceSelect.addEventListener("change", function() {
 
   }
 
+});
+  const heroVideo = document.getElementById("heroVideo");
+
+heroVideo.addEventListener("error", function () {
+  const fallback = document.createElement("img");
+
+  fallback.src = "/MMlogo.jpeg";
+  fallback.alt = "Mack Magic Mobile Bar - Events and More";
+  fallback.className = "hero-image";
+
+  this.replaceWith(fallback);
+});
+
+heroVideo.play().catch(() => {
+  // The poster remains visible if autoplay is blocked.
 });
 
 </script>
