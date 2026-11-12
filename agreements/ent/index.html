@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24452f">
+<title>Mack Magic | Event Services Agreement</title>
+<style>
+:root {
+  --green:#24452f;
+  --gold:#c6a15b;
+  --cream:#f1e5ce;
+  --burnt:#a9683e;
+  --white:#fffaf0;
+}
+* {box-sizing:border-box;}
+body {
+  margin:0;
+  background:var(--cream);
+  color:var(--green);
+  font-family:Arial,sans-serif;
+  line-height:1.6;
+}
+header {
+  background:var(--green);
+  color:var(--cream);
+  text-align:center;
+  padding:35px 15px;
+  border-bottom:5px solid var(--gold);
+}
+header h1 {
+  font-family:Georgia,serif;
+  font-size:clamp(2.5rem,6vw,3.8rem);
+  margin:0;
+}
+header p {
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:12px;
+  font-weight:bold;
+}
+.container {
+  max-width:850px;
+  margin:35px auto;
+  padding:0 16px 50px;
+}
+.intro {
+  text-align:center;
+  margin-bottom:30px;
+}
+.intro h2 {
+  font-family:Georgia,serif;
+  font-size:30px;
+}
+.agreement {
+  background:var(--white);
+  border:2px solid var(--gold);
+  border-radius:12px;
+  padding:30px;
+  box-shadow:0 5px 18px rgba(0,0,0,.07);
+}
+.section {
+  border-bottom:1px solid #d8c8a9;
+  padding:22px 0;
+}
+.section:last-child {
+  border:0;
+}
+.section h3 {
+  font-family:Georgia,serif;
+  font-size:23px;
+  margin:0 0 17px;
+}
+.field-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.field {
+  margin-bottom:15px;
+}
+.field.full {
+  grid-column:1/-1;
+}
+label {
+  display:block;
+  font-weight:bold;
+  font-size:13px;
+  margin-bottom:6px;
+}
+input, textarea, select {
+  width:100%;
+  padding:12px;
+  border:1px solid #b9a47e;
+  border-radius:6px;
+  background:#fff;
+  color:var(--green);
+  font:inherit;
+  font-size:14px;
+}
+textarea {
+  min-height:90px;
+  resize:vertical;
+}
+.service-list {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.service-option {
+  background:#f1e5ce;
+  border:1px solid var(--gold);
+  padding:13px;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.service-option input {
+  width:18px;
+  height:18px;
+  accent-color:var(--green);
+}
+.service-option label {
+  margin:0;
+  font-size:14px;
+}
+.terms {
+  font-size:14px;
+}
+.terms h4 {
+  font-size:16px;
+  margin:20px 0 5px;
+  color:var(--burnt);
+}
+.terms p {
+  margin:6px 0;
+}
+.acknowledge {
+  background:#f1e5ce;
+  padding:18px;
+  border-left:4px solid var(--gold);
+  margin-top:20px;
+  font-size:14px;
+}
+.signature-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  margin-top:20px;
+}
+.signature-line {
+  border-bottom:1px solid var(--green);
+  margin-top:30px;
+  padding-bottom:8px;
+  font-size:13px;
+}
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+  margin-top:25px;
+}
+.button {
+  display:inline-block;
+  padding:15px 24px;
+  background:var(--green);
+  color:white;
+  border:2px solid var(--gold);
+  border-radius:7px;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
+}
+.button:hover {
+  background:var(--burnt);
+}
+.button.secondary {
+  background:var(--gold);
+  color:var(--green);
+}
+.note {
+  text-align:center;
+  font-size:12px;
+  margin:20px auto;
+  max-width:600px;
+}
+footer {
+  background:var(--green);
+  color:var(--cream);
+  text-align:center;
+  padding:25px;
+  border-top:5px solid var(--gold);
+  line-height:1.9;
+}
+@media(max-width:600px) {
+  .agreement {padding:20px 15px;}
+  .field-grid,
+  .signature-grid,
+  .service-list {
+    grid-template-columns:1fr;
+  }
+}
+@media print {
+  body {background:white;}
+  header {padding:15px;}
+  .container {margin:10px auto;}
+  .agreement {box-shadow:none;}
+  .actions,.note {display:none;}
+  input,textarea,select {
+    border:0;
+    border-bottom:1px solid #777;
+    background:white;
+  }
+  .section {break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Mack Magic</h1>
+  <p>MOBILE BAR · EVENTS AND MORE</p>
+  <h2>Event Services Agreement</h2>
+</header>
+<main class="container">
+  <div class="intro">
+    <h2>Let's Make It Official</h2>
+    <p>
+      Thank you for choosing Mack Magic.
+      Please complete the information below to document
+      your event details, selected services, and booking terms.
+    </p>
+  </div>
+  <form class="agreement" id="eventAgreement">
+    <!-- CLIENT INFORMATION -->
+    <section class="section">
+      <h3>01. Client Information</h3>
+      <div class="field-grid">
+        <div class="field">
+          <label>Client Full Name *</label>
+          <input type="text" name="client" required>
+        </div>
+        <div class="field">
+          <label>Business / Organization</label>
+          <input type="text" name="business">
+        </div>
+        <div class="field">
+          <label>Email Address *</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="field">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" required>
+        </div>
+        <div class="field full">
+          <label>Billing Address</label>
+          <input type="text" name="address">
+        </div>
+      </div>
+    </section>
+    <!-- EVENT INFORMATION -->
+    <section class="section">
+      <h3>02. Event Information</h3>
+      <div class="field-grid">
+        <div class="field">
+          <label>Event Name / Occasion *</label>
+          <input type="text" name="occasion" required>
+        </div>
+        <div class="field">
+          <label>Event Date *</label>
+          <input type="date" name="eventDate" required>
+        </div>
+        <div class="field">
+          <label>Event Start Time *</label>
+          <input type="time" name="startTime" required>
+        </div>
+        <div class="field">
+          <label>Event End Time *</label>
+          <input type="time" name="endTime" required>
+        </div>
+        <div class="field full">
+          <label>Event Venue / Address *</label>
+          <input type="text" name="venue" required>
+        </div>
+        <div class="field">
+          <label>Estimated Guest Count</label>
+          <input type="number" name="guests" min="0">
+        </div>
+        <div class="field">
+          <label>Indoor or Outdoor?</label>
+          <select name="locationType">
+            <option value="">Select</option>
+            <option>Indoor</option>
+            <option>Outdoor</option>
+            <option>Both</option>
+          </select>
+        </div>
+      </div>
+    </section>
+    <!-- SERVICE SELECTION -->
+    <section class="section">
+      <h3>03. Select Your Services</h3>
+      <p>Select all services included in your booking.</p>
+      <div class="service-list">
+        <div class="service-option">
+          <input type="checkbox" id="dj" name="services" value="DJ Services">
+          <label for="dj">DJ Services</label>
+        </div>
+        <div class="service-option">
+          <input type="checkbox" id="mack" name="services" value="Mack Magic DJ Experience">
+          <label for="mack">Mack Magic DJ Experience</label>
+        </div>
+        <div class="service-option">
+          <input type="checkbox" id="traditional" name="services" value="Traditional Bartending">
+          <label for="traditional">Traditional Bartending</label>
+        </div>
+        <div class="service-option">
+          <input type="checkbox" id="cantina" name="services" value="Cantina Experience">
+          <label for="cantina">Cantina Experience</label>
+        </div>
+        <div class="service-option">
+          <input type="checkbox" id="other" name="services" value="Additional Bartending Options">
+          <label for="other">Additional Bartending Options</label>
+        </div>
+      </div>
+      <div class="field" style="margin-top:20px">
+        <label>Requested Packages / Special Arrangements</label>
+        <textarea name="packages"
+          placeholder="Describe selected packages, add-ons, or special requests."></textarea>
+      </div>
+    </section>
+    <!-- PRICING -->
+    <section class="section">
+      <h3>04. Pricing & Payment</h3>
+      <div class="field-grid">
+        <div class="field">
+          <label>Total Agreed Service Price ($) *</label>
+          <input type="number" name="total" min="0" step="0.01" required>
+        </div>
+        <div class="field">
+          <label>Required Booking Deposit ($) *</label>
+          <input type="number" name="deposit" min="0" step="0.01" required>
+        </div>
+        <div class="field">
+          <label>Remaining Balance ($)</label>
+          <input type="number" name="balance" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label>Final Payment Due Date</label>
+          <input type="date" name="dueDate">
+        </div>
+        <div class="field full">
+          <label>Payment Method / Payment Instructions</label>
+          <input type="text" name="paymentMethod"
+            placeholder="Enter agreed payment method or instructions">
+        </div>
+      </div>
+      <div class="terms">
+        <h4>Booking & Deposit</h4>
+        <p>
+          The agreed booking deposit is applied toward the
+          total service price. The event date is considered
+          reserved only after the required deposit has been
+          received and the agreement has been accepted by both parties.
+        </p>
+        <h4>Remaining Balance</h4>
+        <p>
+          The client agrees to pay the remaining balance
+          according to the payment schedule documented above.
+          Any additional services or approved changes must be
+          agreed upon by both parties before additional charges
+          are applied.
+        </p>
+      </div>
+    </section>
+    <!-- SERVICE TERMS -->
+    <section class="section">
+      <h3>05. Service Expectations</h3>
+      <div class="terms">
+        <h4>DJ & Entertainment Services</h4>
+        <p>
+          The client agrees to provide accurate event details,
+          access to the performance area, and any venue information
+          necessary for the scheduled entertainment service.
+        </p>
+        <p>
+          Music preferences, special announcements, and requested
+          event accommodations should be communicated in advance.
+        </p>
+        <h4>Bartending Services</h4>
+        <p>
+          The client and Mack Magic will document the agreed
+          bartending package, staffing, equipment, supplies,
+          and responsibilities for providing beverages and
+          other event necessities before the event.
+        </p>
+        <p>
+          All beverage service must comply with applicable
+          laws and venue requirements. Mack Magic reserves
+          the right to refuse service where legally required,
+          including service to underage or visibly intoxicated guests.
+        </p>
+        <h4>Venue & Setup</h4>
+        <p>
+          The client is responsible for communicating venue
+          restrictions, access arrangements, setup requirements,
+          and any applicable permissions before the event.
+        </p>
+        <div class="field">
+          <label>Additional Responsibilities / Special Conditions</label>
+          <textarea name="responsibilities"
+            placeholder="Document who supplies alcohol, mixers, ice, equipment, tables, power, setup, cleanup, and any other agreed responsibilities."></textarea>
+        </div>
+      </div>
+    </section>
+    <!-- CANCELLATION -->
+    <section class="section">
+      <h3>06. Cancellation & Changes</h3>
+      <div class="terms">
+        <p>
+          Any request to cancel, reschedule, or modify the
+          contracted services must be communicated to Mack Magic
+          in writing.
+        </p>
+        <div class="field">
+          <label>Cancellation Policy *</label>
+          <textarea name="cancellation" required
+            placeholder="Enter the agreed cancellation notice period, deposit refund or forfeiture terms, and any applicable cancellation fees."></textarea>
+        </div>
+        <div class="field">
+          <label>Rescheduling Policy *</label>
+          <textarea name="rescheduling" required
+            placeholder="Enter the rescheduling notice period, availability requirements, and any applicable fees."></textarea>
+        </div>
+        <div class="field">
+          <label>Additional Contract Conditions</label>
+          <textarea name="conditions"
+            placeholder="Enter any additional terms agreed upon by both parties."></textarea>
+        </div>
+      </div>
+    </section>
+    <!-- ACCEPTANCE -->
+    <section class="section">
+      <h3>07. Agreement & Authorization</h3>
+      <p>
+        By signing below, both parties acknowledge that they
+        have reviewed the selected services, event details,
+        pricing, payment schedule, and conditions documented
+        in this agreement.
+      </p>
+      <p>
+        Any changes to this agreement must be documented
+        and accepted by both parties.
+      </p>
+      <div class="acknowledge">
+        <label>
+          <input type="checkbox" name="acceptance" required
+            style="width:18px;height:18px;vertical-align:middle">
+          I have reviewed the agreement and agree to the
+          documented service arrangements and terms.
+        </label>
+      </div>
+      <div class="signature-grid">
+        <div>
+          <div class="field">
+            <label>Client Typed Signature *</label>
+            <input type="text" name="clientSignature" required>
+          </div>
+          <div class="field">
+            <label>Client Signature Date *</label>
+            <input type="date" name="clientSignDate" required>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>Mack Magic Representative</label>
+            <input type="text" name="representative">
+          </div>
+          <div class="field">
+            <label>Representative Signature Date</label>
+            <input type="date" name="representativeDate">
+          </div>
+        </div>
+      </div>
+      <div class="signature-line">
+        Client Signature
+      </div>
+      <div class="signature-line">
+        Mack Magic Authorized Signature
+      </div>
+    </section>
+    <!-- PRINT -->
+    <div class="actions">
+      <button class="button" type="button"
+        onclick="window.print()">
+        PRINT / SAVE AGREEMENT
+      </button>
+      <button class="button secondary" type="reset">
+        CLEAR FORM
+      </button>
+    </div>
+  </form>
+  <p class="note">
+    Please complete all required fields and review your
+    agreement before printing. Printed copies may be signed
+    by both parties for their records.
+  </p>
+</main>
+<footer>
+  <strong>Mack Magic Mobile Bar – Events and More</strong>
+  <br>
+  470-774-2370
+  <br>
+  houseofmedia.marketing@gmail.com
+</footer>
+</body>
+</html>
