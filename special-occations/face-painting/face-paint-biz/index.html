@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#183b2b">
+
+<title>Mack Magic | Face Painting Shopping List</title>
+<meta name="description" content="Mack Magic face painting supply checklist, workstation setup and team expansion shopping guide.">
+
+<style>
+:root {
+  --green: #183b2b;
+  --gold: #c6a15b;
+  --cream: #ead9bd;
+  --burnt: #b98252;
+  --paper: #faf7f0;
+  --ink: #292a25;
+  --muted: #77766d;
+  --line: #ded6c7;
+  --white: #fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+.hero {
+  min-height: 430px;
+  background:
+    linear-gradient(90deg, rgba(14,35,25,.88), rgba(14,35,25,.25)),
+    url("fp.PNG") center 45% / cover no-repeat;
+  display: flex;
+  align-items: end;
+  padding: 45px 7%;
+  color: white;
+}
+
+.hero-content { max-width: 720px; }
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 7vw, 68px);
+  line-height: 1.05;
+  margin: 12px 0;
+}
+
+.hero p {
+  max-width: 520px;
+  color: #f4ead9;
+  font-size: 16px;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 35px 20px 70px;
+}
+
+.intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 35px;
+}
+
+.intro h2, .section-title {
+  color: var(--green);
+  font-family: Georgia, serif;
+}
+
+.section-title {
+  font-size: 29px;
+  margin: 0 0 7px;
+}
+
+.muted { color: var(--muted); }
+
+.progress-card {
+  background: var(--green);
+  color: white;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 35px;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.progress-track {
+  background: rgba(255,255,255,.2);
+  height: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--gold);
+  transition: width .2s ease;
+}
+
+.section {
+  margin: 38px 0;
+}
+
+.section-heading {
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+
+.section-heading h2 {
+  font-family: Georgia, serif;
+  color: var(--green);
+  font-size: 25px;
+  margin: 0;
+}
+
+.section-heading p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.item-list {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee9df;
+  cursor: pointer;
+}
+
+.item:last-child { border-bottom: 0; }
+
+.item:hover { background: #faf8f2; }
+
+.item input {
+  width: 19px;
+  height: 19px;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+
+.item-name { font-weight: 600; }
+
+.item small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.quantity {
+  background: #f2ecdf;
+  color: var(--green);
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.item.done .item-name {
+  text-decoration: line-through;
+  color: #929087;
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 35px 0;
+}
+
+.photos img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--cream);
+}
+
+.photo-caption {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.team-card {
+  background: #f0e8d8;
+  border: 1px solid #d6c29b;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.team-card h2 {
+  font-family: Georgia, serif;
+  color: var(--green);
+  margin-top: 0;
+}
+
+.team-note {
+  border-left: 4px solid var(--gold);
+  padding: 12px 15px;
+  background: white;
+  margin: 18px 0;
+  font-size: 14px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 450px;
+  font-size: 14px;
+}
+
+th {
+  background: var(--green);
+  color: white;
+  text-align: left;
+  padding: 13px;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+tr:last-child td { border-bottom: 0; }
+
+.workflow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.step {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.step strong {
+  color: var(--green);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.notice {
+  background: #f3eadb;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 18px;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  padding: 13px 19px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.primary {
+  background: var(--green);
+  color: white;
+}
+
+.secondary {
+  background: var(--gold);
+  color: #241e12;
+}
+
+footer {
+  background: var(--green);
+  color: white;
+  text-align: center;
+  padding: 35px 20px;
+}
+
+footer strong {
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-size: 23px;
+}
+
+@media(max-width:650px) {
+  .hero { min-height: 350px; padding: 30px 22px; }
+  main { padding: 25px 14px 50px; }
+  .photos { grid-template-columns: 1fr; }
+  .photos img { height: 250px; }
+  .workflow { grid-template-columns: 1fr; }
+  .item { padding: 13px 10px; gap: 8px; }
+  .quantity { font-size: 11px; }
+}
+
+@media print {
+  body { background: white; }
+  .hero { min-height: 220px; print-color-adjust: exact; }
+  .progress-card, footer { print-color-adjust: exact; }
+  .actions { display: none; }
+  .item { break-inside: avoid; }
+  main { padding: 15px; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Mack Magic Mobile Bar • Events & More</div>
+    <h1>Face Painting<br>Biz In A Box</h1>
+    <p>Your complete shopping guide for building a professional, organized face painting workstation.</p>
+  </div>
+</header>
+
+<main>
+
+<div class="intro">
+  <div class="eyebrow">The Starter Collection</div>
+  <h2 class="section-title">Build Your Face Painting Station</h2>
+  <p class="muted">
+    Start with a single-person setup and expand to a team of two or three painters.
+    Check off each item as you purchase it.
+  </p>
+</div>
+
+<div class="progress-card">
+  <div class="progress-top">
+    <span>Shopping Progress</span>
+    <span id="progressText">0 of 34 items purchased</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <p style="font-size:12px;margin-bottom:0;color:#e9e1d2">
+    Your checklist saves your selections on this device.
+  </p>
+</div>
+
+<!-- BASE KIT -->
+
+<section class="section">
+  <div class="section-heading">
+    <h2>01. Water & Sanitation</h2>
+    <p>Base supplies for one painter. Shared supplies can serve the entire team.</p>
+  </div>
+
+  <div class="item-list">
+    <label class="item"><input type="checkbox"><span class="item-name">Water<small>Clean water supply</small></span><span class="quantity">4 gallons min.</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Buckets<small>For designated washing and rinse water</small></span><span class="quantity">2</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Soap<small>Brush cleaning soap</small></span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Hand Sanitizer</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Antibacterial Wipes</span><span class="quantity">1 pack</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Alcohol<small>For appropriate surface use only; not a substitute for brush disinfectant</small></span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Approved Brush Disinfectant<small>Follow product directions and contact time</small></span><span class="quantity">1</span></label>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <h2>02. Organization & Storage</h2>
+    <p>Keep supplies separated, accessible and easy to transport.</p>
+  </div>
+
+  <div class="item-list">
+    <label class="item"><input type="checkbox"><span class="item-name">3-Compartment Organizing Storage Tray</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">3-Compartment Clear Plastic Caddy<small>Makeup section — one per painter</small></span><span class="quantity">1 base</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Rectangular Slotted Plastic Baskets</span><span class="quantity">2</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">5.2-Quart Storage Box With Lid</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Six-Cube Storage Rack</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Waste Baskets</span><span class="quantity">2</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Locker Bins With Handles</span><span class="quantity">2</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Storage Container With Clip-Lock Lid</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Stackable Bins</span><span class="quantity">1 set</span></label>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <h2>03. Personal Supplies & Workstation</h2>
+    <p>Supplies used during each face painting session.</p>
+  </div>
+
+  <div class="item-list">
+    <label class="item"><input type="checkbox"><span class="item-name">Apron</span><span class="quantity">1 per person</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Tablecloth</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Glitter</span><span class="quantity">1 pack</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Disposable Makeup Sponges<small>Single-use per customer</small></span><span class="quantity">1 pack</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Face Painting Brushes<small>Various sizes and shapes</small></span><span class="quantity">1 set per person</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Brush Cleaning Container</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Paper Towels</span><span class="quantity">1 roll per person</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Washcloths</span><span class="quantity">1 set</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Hand Towels</span><span class="quantity">1 set</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Disposable Gloves</span><span class="quantity">1 box</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Small Spray Bottles</span><span class="quantity">2</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Trash Bags</span><span class="quantity">1 box</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Mirror</span><span class="quantity">1</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Headbands</span><span class="quantity">1 pack</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Cotton Swabs</span><span class="quantity">1 pack</span></label>
+    <label class="item"><input type="checkbox"><span class="item-name">Individual Clean Paint-Water Cups<small>For activating paint; keep colors and customers separate</small></span><span class="quantity">1 set</span></label>
+  </div>
+</section>
+
+<!-- TEAM EXPANSION -->
+
+<section class="section">
+  <div class="section-heading">
+    <h2>04. Expanding Your Business</h2>
+    <p>What to purchase when adding one or two additional painters.</p>
+  </div>
+
+  <div class="team-card">
+    <h2>Build a 2–3 Person Team</h2>
+    <p>
+      Your team can share the large equipment and main storage.
+      Each painter should have their own personal workstation and supplies.
+    </p>
+
+    <div class="team-note">
+      <strong>For EACH additional painter, purchase:</strong>
+      <ul>
+        <li>1 three-compartment clear caddy</li>
+        <li>1 apron</li>
+        <li>1 personal supply of paper towels</li>
+        <li>1 pack of antibacterial wipes</li>
+        <li>1 personal set of clean paint-water cups</li>
+        <li>1 personal brush set</li>
+        <li>Personal brush-cleaning and drying supplies</li>
+      </ul>
+    </div>
+
+    <h3 style="color:var(--green)">Team Quantity Guide</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Supply</th>
+            <th>1 Painter</th>
+            <th>2 Painters</th>
+            <th>3 Painters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Clear Caddies</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>Aprons</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>Paper Towel Supplies</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>Wipe Supplies</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>Brush Sets</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>Paint-Water Cup Sets</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>Buckets</td><td>2 shared</td><td>2 shared</td><td>2 shared</td></tr>
+          <tr><td>Storage Rack</td><td>1 shared</td><td>1 shared</td><td>1 shared</td></tr>
+          <tr><td>Tablecloth</td><td>1 shared</td><td>1 shared</td><td>1 shared</td></tr>
+          <tr><td>Waste Baskets</td><td>2 shared</td><td>2 shared</td><td>2 shared</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="team-note">
+      <strong>Remember:</strong> Increase water, soap, disinfectant and disposable supplies as the number of customers grows. Shared equipment must be large enough for the team and cleaned between uses.
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+
+<section class="section">
+  <div class="section-heading">
+    <h2>05. Three-Compartment Cleaning Station</h2>
+    <p>Keep brush washing separate from paint activation.</p>
+  </div>
+
+  <div class="photos">
+    <div>
+      <img src="fp1.PNG" alt="Face painting workstation reference">
+      <div class="photo-caption">Face painting workstation inspiration</div>
+    </div>
+    <div>
+      <img src="fp2.PNG" alt="Face painting supplies and setup reference">
+      <div class="photo-caption">Organized supply setup inspiration</div>
+    </div>
+  </div>
+
+  <div class="workflow">
+    <div class="step">
+      <strong>01 — WASH</strong>
+      Use soapy water to remove paint from brushes.
+    </div>
+    <div class="step">
+      <strong>02 — RINSE</strong>
+      Rinse brushes in clean water. Change dirty water regularly.
+    </div>
+    <div class="step">
+      <strong>03 — FINAL RINSE</strong>
+      Use a separate clean-water rinse. Then disinfect separately and allow brushes to dry completely.
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>Important sanitation practices</strong>
+    <ul>
+      <li>Keep paint activation water in separate clean cups.</li>
+      <li>Never mix alcohol into the caddy water.</li>
+      <li>Use an appropriate brush disinfectant according to its label.</li>
+      <li>Allow brushes to dry completely before reuse.</li>
+      <li>Use a fresh disposable sponge for each customer.</li>
+      <li>Never share contaminated brushes, sponges or water between customers.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="actions">
+  <button class="primary" onclick="window.print()">PRINT CHECKLIST</button>
+  <button class="secondary" onclick="resetList()">RESET CHECKLIST</button>
+</div>
+
+</main>
+
+<footer>
+  <strong>MACK MAGIC</strong>
+  <p>Events & More</p>
+  <small>Organized supplies. Beautiful designs. Memorable experiences.</small>
+</footer>
+
+<script>
+const STORAGE_KEY = "mackMagicFacePaintChecklist";
+
+const checkboxes = [...document.querySelectorAll(
+  '.item input[type="checkbox"]'
+)];
+
+function updateProgress() {
+  const checked = checkboxes.filter(box => box.checked).length;
+  const total = checkboxes.length;
+
+  document.getElementById("progressText").textContent =
+    `${checked} of ${total} items purchased`;
+
+  document.getElementById("progressFill").style.width =
+    `${total ? checked / total * 100 : 0}%`;
+
+  checkboxes.forEach(box => {
+    box.closest(".item").classList.toggle("done", box.checked);
+  });
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(checkboxes.map(box => box.checked))
+  );
+}
+
+function resetList() {
+  if (!confirm("Clear all shopping checkmarks?")) return;
+
+  checkboxes.forEach(box => box.checked = false);
+  updateProgress();
+}
+
+function loadProgress() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+    if (Array.isArray(saved)) {
+      checkboxes.forEach((box, index) => {
+        box.checked = saved[index] === true;
+      });
+    }
+  } catch (error) {
+    console.warn("Could not load saved checklist.", error);
+  }
+
+  updateProgress();
+}
+
+checkboxes.forEach(box =>
+  box.addEventListener("change", updateProgress)
+);
+
+loadProgress();
+</script>
+
+</body>
+</html>
