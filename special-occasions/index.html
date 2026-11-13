@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b2117">
+
+<title>Special Occasions | Mack Magic Mobile Bar</title>
+
+<meta name="description" content="Explore Mack Magic special occasion services, including face painting, bartending, and MC and host entertainment. Make your next celebration memorable.">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://radiomeltdown.store/special-occasions/">
+<link rel="icon" href="/MMlogo.jpeg">
+
+<meta property="og:title" content="Special Occasions | Mack Magic">
+<meta property="og:description" content="Whatever the occasion, let Mack Magic make it memorable.">
+<meta property="og:image" content="https://radiomeltdown.store/fpp.PNG">
+<meta property="og:type" content="website">
+
+<style>
+:root {
+  --green: #102d20;
+  --dark: #081910;
+  --deep: #06130c;
+  --gold: #c6a15b;
+  --gold-light: #e0c487;
+  --cream: #ead9bd;
+  --burnt: #b98252;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #1b422b, transparent 65%),
+    linear-gradient(180deg, var(--green), var(--deep));
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* HERO */
+
+.hero {
+  height: min(65vh, 650px);
+  min-height: 430px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 2px solid var(--gold);
+  background: var(--dark);
+}
+
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  animation: zoomOut 3s ease-out both;
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1.2); }
+  to { transform: scale(1); }
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(4,17,10,.1),
+      rgba(4,17,10,.2) 40%,
+      rgba(4,17,10,.88) 100%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 40px 20px 45px;
+  text-align: center;
+  animation: fadeUp 1s ease .4s both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-kicker {
+  color: var(--gold-light);
+  font-size: 11px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 7vw, 68px);
+  font-weight: normal;
+  letter-spacing: .08em;
+  color: #fff9ee;
+  text-shadow: 0 5px 25px #000;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--gold-light);
+}
+
+.hero-subtitle {
+  margin-top: 16px;
+  font-size: 12px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+}
+
+/* MAIN */
+
+main {
+  width: min(850px, 92%);
+  margin: auto;
+  padding: 65px 0 80px;
+  text-align: center;
+}
+
+.section-label {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+}
+
+h2.section-heading {
+  margin-top: 16px;
+  font-size: clamp(28px, 6vw, 43px);
+  font-weight: normal;
+  letter-spacing: .06em;
+  color: var(--cream);
+}
+
+.description {
+  max-width: 550px;
+  margin: 20px auto 30px;
+  color: rgba(234,217,189,.82);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+/* SERVICE SELECTOR */
+
+.selector-panel {
+  position: relative;
+  margin: 35px auto 0;
+  padding: 42px 30px;
+  border: 1px solid rgba(198,161,91,.7);
+  border-radius: 7px;
+  background:
+    radial-gradient(ellipse at top, rgba(42,89,53,.4), transparent 75%),
+    linear-gradient(145deg, #163a26, #0b1d13);
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+
+.selector-panel::before,
+.selector-panel::after {
+  content: "";
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgba(198,161,91,.4);
+}
+
+.selector-panel::before {
+  top: 12px;
+  left: 12px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.selector-panel::after {
+  bottom: 12px;
+  right: 12px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.selector-heading {
+  color: var(--gold-light);
+  font-size: 13px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  margin-bottom: 23px;
+}
+
+.select-wrap {
+  position: relative;
+  max-width: 620px;
+  margin: auto;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 82px;
+  padding: 20px 55px 20px 20px;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: .08em;
+  text-align: center;
+  color: var(--green);
+  background: linear-gradient(145deg, #f1e5ce, #d8c39f);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+select:focus {
+  box-shadow: 0 0 0 4px rgba(198,161,91,.2);
+}
+
+select option {
+  background: var(--cream);
+  color: var(--green);
+}
+
+.arrow {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 25px;
+  color: var(--green);
+  pointer-events: none;
+}
+
+.selector-note {
+  margin-top: 22px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+}
+
+/* BOTTOM MESSAGE */
+
+.bottom-message {
+  margin-top: 55px;
+  padding: 30px 20px;
+  border-top: 1px solid rgba(198,161,91,.35);
+  border-bottom: 1px solid rgba(198,161,91,.35);
+}
+
+.bottom-message p {
+  color: var(--cream);
+  font-size: 14px;
+  letter-spacing: .1em;
+  line-height: 2;
+}
+
+.bottom-message strong {
+  color: var(--gold-light);
+  font-weight: normal;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 30px 20px;
+  text-align: center;
+  background: rgba(3,12,8,.7);
+  border-top: 1px solid rgba(198,161,91,.4);
+  color: var(--cream);
+  font-size: 12px;
+  letter-spacing: .12em;
+  line-height: 2.5;
+}
+
+footer a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+/* MOBILE */
+
+@media(max-width: 600px) {
+  .hero {
+    min-height: 420px;
+    height: 60vh;
+  }
+
+  .hero-content {
+    padding-bottom: 35px;
+  }
+
+  main {
+    padding: 48px 0 55px;
+  }
+
+  .selector-panel {
+    padding: 38px 17px;
+  }
+
+  select {
+    font-size: 14px;
+    min-height: 75px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO PHOTO -->
+
+<section class="hero">
+
+  <img
+    src="/fpp.PNG"
+    alt="Mack Magic Mobile Bar Events and More"
+    fetchpriority="high"
+  >
+
+  <div class="hero-content">
+
+    <div class="hero-kicker">
+      Mack Magic Mobile Bar
+    </div>
+
+    <h1>
+      Special
+      <span>Occasions</span>
+    </h1>
+
+    <div class="hero-subtitle">
+      Events · Entertainment · Experiences
+    </div>
+
+  </div>
+
+</section>
+
+<main>
+
+  <div class="section-label">
+    Make It A Mack Magic Experience
+  </div>
+
+  <h2 class="section-heading">
+    Every Occasion Deserves Something Special
+  </h2>
+
+  <p class="description">
+    Whatever the occasion, let Mack Magic help make
+    your event memorable. Explore our services and
+    discover the perfect addition to your celebration.
+  </p>
+
+  <!-- SERVICE MENU -->
+
+  <section class="selector-panel">
+
+    <div class="selector-heading">
+      Explore Our Services
+    </div>
+
+    <div class="select-wrap">
+
+      <select id="occasion" aria-label="Select a service">
+
+        <option value="">SELECT A SERVICE</option>
+
+        <option value="face-painting/">
+          Face Painting
+        </option>
+
+        <option value="bartending/">
+          Bartending
+        </option>
+
+        <option value="mc-host-services/">
+          MC & Host Services
+        </option>
+
+      </select>
+
+      <span class="arrow" aria-hidden="true">⌄</span>
+
+    </div>
+
+    <div class="selector-note">
+      Select Your Service To Continue
+    </div>
+
+  </section>
+
+  <div class="bottom-message">
+
+    <p>
+      YOUR EVENT. YOUR VISION.
+      <br>
+      <strong>LET'S MAKE IT MAGICAL.</strong>
+    </p>
+
+  </div>
+
+</main>
+
+<footer>
+
+  MACK MAGIC MOBILE BAR
+  <br>
+  EVENTS AND MORE
+  <br>
+  <a href="sms:4707742370">470-774-2370</a>
+
+</footer>
+
+<script>
+const occasion = document.getElementById("occasion");
+
+occasion.addEventListener("change", function() {
+
+  if (this.value) {
+    window.location.href = this.value;
+  }
+
+});
+</script>
+
+</body>
+</html>
