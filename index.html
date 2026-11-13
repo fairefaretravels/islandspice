@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b2117">
+
+<title>Mack Magic Mobile Bar | Events, Entertainment & More</title>
+
+<meta name="description" content="Make every celebration memorable with Mack Magic Mobile Bar. Explore mobile bartending, DJ entertainment, MC and hosting, face painting, and event services.">
+
+<meta name="keywords" content="Mack Magic, mobile bartending, DJ services, event entertainment, MC services, face painting, special occasions">
+
+<meta name="author" content="Mack Magic Mobile Bar - Events & More">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://radiomeltdown.store/">
+<link rel="icon" type="image/jpeg" href="/MMlogo.jpeg">
+<link rel="apple-touch-icon" href="/MMlogo.jpeg">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mack Magic Mobile Bar">
+<meta property="og:title" content="Mack Magic | Events & More">
+<meta property="og:description" content="It's a beautiful life. Discover Mack Magic mobile bartending, entertainment, face painting and more.">
+<meta property="og:url" content="https://radiomeltdown.store/">
+<meta property="og:image" content="https://radiomeltdown.store/fpp.PNG">
+<meta property="og:image:alt" content="Mack Magic Mobile Bar Events and More">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mack Magic | Events & More">
+<meta name="twitter:description" content="Mobile bar, entertainment and event services by Mack Magic.">
+<meta name="twitter:image" content="https://radiomeltdown.store/fpp.PNG">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green: #102d20;
+  --green-dark: #091b13;
+  --green-deep: #07150f;
+  --green-light: #1c4931;
+  --gold: #c6a15b;
+  --gold-light: #e0c487;
+  --cream: #ead9bd;
+  --burnt: #b98252;
+  --white: #fff9ee;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--green-deep);
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(35,83,53,.35), transparent 48%),
+    linear-gradient(180deg, #102d20 0%, #091b13 48%, #07150f 100%);
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* BACKGROUND */
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .16;
+  background-image:
+    linear-gradient(rgba(198,161,91,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(198,161,91,.07) 1px, transparent 1px);
+  background-size: 65px 65px;
+}
+
+.ambient {
+  position: fixed;
+  z-index: 0;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  background: rgba(36,91,53,.12);
+  filter: blur(100px);
+  pointer-events: none;
+  top: -300px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 560px;
+  height: min(78vh, 760px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: var(--green-dark);
+  border-bottom: 1px solid rgba(198,161,91,.55);
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  animation: heroZoom 2.8s cubic-bezier(.2,.7,.2,1) both;
+  transform-origin: center;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.19);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4,17,11,.08) 0%,
+      rgba(4,17,11,.12) 40%,
+      rgba(4,17,11,.78) 80%,
+      #091b13 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4,17,11,.28),
+      transparent 50%,
+      rgba(4,17,11,.18)
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1050px;
+  padding: 55px 25px 48px;
+  text-align: center;
+  animation: reveal .9s ease .5s both;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-kicker {
+  color: var(--gold-light);
+  font-size: 12px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+}
+
+.hero-title {
+  color: var(--white);
+  font-size: clamp(36px, 7vw, 76px);
+  font-weight: normal;
+  line-height: 1.05;
+  letter-spacing: .055em;
+  text-shadow: 0 5px 25px rgba(0,0,0,.55);
+}
+
+.hero-title span {
+  display: block;
+  color: var(--gold-light);
+}
+
+.hero-tagline {
+  margin-top: 19px;
+  color: var(--cream);
+  font-size: clamp(12px, 2vw, 16px);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+}
+
+.hero-rule {
+  width: 75px;
+  height: 2px;
+  margin: 25px auto 0;
+  background: var(--gold);
+}
+
+/* CONTENT */
+
+.content {
+  width: min(1050px, 92%);
+  margin: auto;
+  padding: 55px 0 75px;
+}
+
+.section-kicker {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* NAVIGATION */
+
+.menu {
+  width: min(800px, 100%);
+  margin: 30px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.btn {
+  position: relative;
+  min-height: 110px;
+  padding: 22px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid rgba(198,161,91,.42);
+  border-radius: 5px;
+  background: linear-gradient(145deg, #1b4630, #10291d);
+  box-shadow: 0 12px 30px rgba(0,0,0,.22);
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-light);
+  background: linear-gradient(145deg, #28583b, #173b27);
+}
+
+.label {
+  color: var(--cream);
+  font-size: clamp(15px, 2.2vw, 20px);
+  font-weight: bold;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.sub {
+  margin-top: 9px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+
+.arcade-btn {
+  border-color: var(--gold);
+  background: linear-gradient(145deg, #264c32, #142c1e);
+}
+
+.arcade-btn .label {
+  color: var(--gold-light);
+}
+
+.arcade-btn:hover {
+  background: var(--gold);
+}
+
+.arcade-btn:hover .label,
+.arcade-btn:hover .sub {
+  color: var(--green-dark);
+}
+
+/* SPECIAL OCCASIONS */
+
+.special-section {
+  position: relative;
+  width: min(800px, 100%);
+  margin: 55px auto 0;
+  padding: 43px 35px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid rgba(198,161,91,.6);
+  border-radius: 7px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(47,91,55,.35), transparent 70%),
+    linear-gradient(145deg, #153c28, #0a1d14);
+  box-shadow: 0 20px 55px rgba(0,0,0,.32);
+}
+
+.special-section::before,
+.special-section::after {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(198,161,91,.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.special-section::before {
+  top: -75px;
+  left: -55px;
+}
+
+.special-section::after {
+  bottom: -75px;
+  right: -55px;
+}
+
+.special-title {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+}
+
+.special-heading {
+  margin-top: 13px;
+  color: var(--cream);
+  font-size: clamp(27px, 5vw, 40px);
+  font-weight: normal;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.special-description {
+  max-width: 470px;
+  margin: 15px auto 30px;
+  color: rgba(234,217,189,.8);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.select-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 570px;
+  margin: auto;
+}
+
+.service-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 76px;
+  padding: 20px 55px 20px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  background: linear-gradient(145deg, #ead9bd, #d6bd94);
+  color: #102d20;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: .08em;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.service-select:focus {
+  box-shadow: 0 0 0 4px rgba(198,161,91,.2);
+}
+
+.service-select option {
+  background: var(--cream);
+  color: var(--green-dark);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--green);
+  pointer-events: none;
+  font-size: 25px;
+}
+
+.select-note {
+  margin-top: 19px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+}
+
+/* BRAND DIVIDER */
+
+.brand-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: min(600px, 90%);
+  margin: 65px auto;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.brand-divider::before,
+.brand-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.brand-divider::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* RADIO PROMOTION */
+
+.mack-radio-promo {
+  position: relative;
+  width: min(850px, 100%);
+  margin: 0 auto;
+  padding: 65px 35px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid rgba(198,161,91,.55);
+  border-radius: 7px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(41,89,53,.32), transparent 65%),
+    linear-gradient(160deg, #10291c, #07150f);
+  box-shadow: 0 20px 55px rgba(0,0,0,.35);
+}
+
+.radio-promo-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+  margin: auto;
+}
+
+.radio-status {
+  display: inline-block;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--green-dark);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: .2em;
+}
+
+.mack-radio-promo h2 {
+  margin: 30px 0 8px;
+  color: var(--gold-light);
+  font-size: clamp(60px, 12vw, 100px);
+  font-weight: normal;
+  letter-spacing: .08em;
+}
+
+.radio-tagline {
+  color: var(--cream);
+  font-size: 12px;
+  letter-spacing: .3em;
+  line-height: 1.8;
+}
+
+.alexa-callout {
+  margin: 40px 0 25px;
+  padding: 32px 15px;
+  border: 1px solid rgba(198,161,91,.65);
+  border-radius: 5px;
+  background: linear-gradient(145deg, #1b422c, #10281c);
+}
+
+.alexa-callout span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--cream);
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: .15em;
+}
+
+.alexa-callout strong {
+  display: block;
+  color: var(--gold-light);
+  font-size: clamp(22px, 5vw, 34px);
+}
+
+.alexa-callout p {
+  margin-top: 12px;
+  color: var(--cream);
+  font-size: 14px;
+}
+
+.radio-listen,
+.radio-apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 57px;
+  padding: 16px 28px;
+  margin: 12px 5px;
+  border-radius: 3px;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  transition: .25s ease;
+}
+
+button.radio-listen {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--gold);
+  color: var(--green-dark);
+  border: 1px solid var(--gold);
+  cursor: pointer;
+}
+
+.radio-listen:hover {
+  background: var(--cream);
+  transform: translateY(-3px);
+}
+
+.radio-apply {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--cream);
+}
+
+.radio-apply:visited {
+  color: var(--cream);
+}
+
+.radio-apply:hover {
+  background: var(--gold);
+  color: var(--green-dark);
+  transform: translateY(-3px);
+}
+
+.radio-listen:focus-visible,
+.radio-apply:focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.radio-small {
+  display: block;
+  margin-top: 20px;
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: .17em;
+  line-height: 1.9;
+}
+
+.radio-divider {
+  height: 1px;
+  margin: 45px 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: .6;
+}
+
+.mack-radio-promo h3 {
+  margin-bottom: 18px;
+  color: var(--gold-light);
+  font-size: clamp(23px, 5vw, 34px);
+  font-weight: normal;
+  letter-spacing: .04em;
+}
+
+.radio-description {
+  color: var(--cream);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.radio-highlight {
+  margin-top: 22px;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.9;
+}
+
+/* FOOTER */
+
+.footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 40px 20px 45px;
+  background: rgba(3,12,8,.55);
+  border-top: 1px solid rgba(198,161,91,.35);
+  color: var(--cream);
+  font-size: 11px;
+  letter-spacing: .17em;
+  line-height: 2.5;
+  text-align: center;
+}
+
+.footer a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+.footer a:visited {
+  color: var(--gold-light);
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-text {
+  display: inline-block;
+  margin: 12px 0;
+  padding: 10px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  color: var(--cream) !important;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: .1em;
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* TABLET */
+
+@media(max-width:700px) {
+  .hero {
+    min-height: 500px;
+    height: 65vh;
+  }
+
+  .menu {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+
+  .btn {
+    min-height: 90px;
+  }
+
+  .content {
+    padding-top: 40px;
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:480px) {
+  .hero {
+    min-height: 470px;
+    height: 68vh;
+  }
+
+  .hero-image {
+    object-position: center 40%;
+  }
+
+  .hero-content {
+    padding: 40px 17px 40px;
+  }
+
+  .hero-kicker {
+    font-size: 10px;
+    letter-spacing: .3em;
+  }
+
+  .hero-tagline {
+    font-size: 10px;
+    letter-spacing: .2em;
+  }
+
+  .content {
+    width: 91%;
+    padding: 40px 0 50px;
+  }
+
+  .menu {
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .special-section {
+    margin-top: 40px;
+    padding: 35px 18px;
+  }
+
+  .special-description {
+    font-size: 14px;
+  }
+
+  .service-select {
+    font-size: 14px;
+  }
+
+  .brand-divider {
+    margin: 48px auto;
+    font-size: 9px;
+  }
+
+  .mack-radio-promo {
+    padding: 45px 18px;
+  }
+
+  .radio-listen,
+  .radio-apply {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .footer {
+    font-size: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+<div class="ambient"></div>
+
+<main>
+
+  <!-- HERO PHOTO -->
+
+  <section class="hero">
+
+    <img
+      src="/fpp.PNG"
+      alt="Mack Magic Mobile Bar, Events and More"
+      class="hero-image"
+      fetchpriority="high"
+    >
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+      <div class="hero-kicker">
+        Events · Entertainment · Experiences
+      </div>
+
+      <h1 class="hero-title">
+        MACK MAGIC
+        <span>Mobile Bar</span>
+      </h1>
+
+      <div class="hero-tagline">
+        Events & More · It's A Beautiful Life
+      </div>
+
+      <div class="hero-rule"></div>
+
+    </div>
+
+  </section>
+
+  <div class="content">
+
+    <!-- NAVIGATION -->
+
+    <div class="section-kicker">
+      Welcome To Mack Magic
+    </div>
+
+    <nav class="menu" aria-label="Main navigation">
+
+      <a class="btn" href="/Pricing">
+        <span class="label">Pricing</span>
+        <span class="sub">Packages & Add-ons</span>
+      </a>
+
+      <a class="btn" href="/DJ">
+        <span class="label">DJ & Song Requests</span>
+        <span class="sub">Plan Your Playlist</span>
+      </a>
+
+      <a class="btn arcade-btn"
+         href="https://fairefaretravels.github.io/BattleGames/">
+        <span class="label">SENSTACK ARCADE</span>
+        <span class="sub">Play Games Now</span>
+      </a>
+
+    </nav>
+
+    <!-- SPECIAL OCCASIONS -->
+
+    <section class="special-section">
+
+      <div class="special-title">
+        Discover What We Do
+      </div>
+
+      <h2 class="special-heading">
+        Special Occasions
+      </h2>
+
+      <p class="special-description">
+        From intimate celebrations to unforgettable events,
+        Mack Magic brings the services, entertainment and
+        experience to make your special day memorable.
+      </p>
+
+      <div class="select-wrap">
+
+        <select
+          class="service-select"
+          id="serviceSelect"
+          aria-label="Choose an event service">
+
+          <option value="">SELECT A SERVICE</option>
+
+          <optgroup label="FACE PAINTING">
+
+            <option value="/special-occasions/face-painting">
+              Face Painting Services
+            </option>
+
+            <option value="/special-occasions/face-painting/face-paint-biz">
+              Face Painting Biz In A Box
+            </option>
+
+          </optgroup>
+
+          <optgroup label="ENTERTAINMENT">
+
+            <option value="/special-occasions/bartending-dj">
+              Bartending
+            </option>
+
+            <option value="/special-occasions/bartending-dj">
+              DJ Services
+            </option>
+
+            <option value="/special-occasions/bartending-dj">
+              MC & Host Services
+            </option>
+
+          </optgroup>
+
+        </select>
+
+        <span class="select-arrow" aria-hidden="true">⌄</span>
+
+      </div>
+
+      <div class="select-note">
+        Make Your Next Celebration Magical
+      </div>
+
+    </section>
+
+    <div class="brand-divider">
+      RADIO MELTDOWN PRESENTS
+    </div>
+
+    <!-- RADIO PROMOTION -->
+
+    <section class="mack-radio-promo">
+
+      <div class="radio-promo-inner">
+
+        <span class="radio-status">
+          NOW AVAILABLE ON ALEXA
+        </span>
+
+        <h2>24/7</h2>
+
+        <p class="radio-tagline">
+          YOUR RADIO. YOUR SOUND. YOUR STAGE.
+        </p>
+
+        <div class="alexa-callout">
+
+          <span>HEY ALEXA!</span>
+
+          <strong>PLAY MACKINTHEDARK</strong>
+
+          <p>Take us wherever you go.</p>
+
+        </div>
+
+        <button
+          class="radio-listen"
+          id="radioListenButton"
+          type="button">
+          LISTEN LIVE
+        </button>
+
+        <audio id="radioPlayer" preload="none"></audio>
+
+        <p id="radioMessage"
+           class="radio-small"
+           aria-live="polite"></p>
+
+        <div class="radio-divider"></div>
+
+        <h3>WANT YOUR OWN RADIO SHOW?</h3>
+
+        <p class="radio-description">
+          Independent artists, DJs, radio personalities
+          and creative voices — we're looking for YOU!
+        </p>
+
+        <p class="radio-highlight">
+          Got a voice? Got a sound? Got a show?
+          Let's put you on the air.
+        </p>
+
+        <a class="radio-apply" href="/apply/">
+          APPLY TODAY
+        </a>
+
+        <div class="radio-divider"></div>
+
+        <h3>WANT TO ADVERTISE WITH US?</h3>
+
+        <p class="radio-description">
+          Promote your business, music, event or brand
+          with MACKINTHEDARK.
+        </p>
+
+        <small class="radio-small">
+          RADIO MELTDOWN PRESENTS<br>
+          MACKINTHEDARK
+        </small>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  EVENTS | MACK MAGIC MOBILE BAR · EVENTS & MORE
+
+  <br>
+
+  <a class="footer-text" href="sms:4707742370">
+    TEXT RADIO TO: 470-774-2370
+  </a>
+
+  <br>
+
+  <a href="mailto:press@radiomeltdown.com">
+    press@radiomeltdown.com
+  </a>
+
+</footer>
+
+<script>
+
+/* =====================================
+   SPECIAL OCCASIONS NAVIGATION
+===================================== */
+
+const serviceSelect = document.getElementById("serviceSelect");
+
+if (serviceSelect) {
+
+  serviceSelect.addEventListener("change", function () {
+
+    const destination = this.value;
+
+    if (!destination) return;
+
+    window.location.assign(destination);
+
+  });
+
+}
+
+/* =====================================
+   MACKINTHEDARK RADIO PLAYER
+===================================== */
+
+const radioPlayer = document.getElementById("radioPlayer");
+const radioButton = document.getElementById("radioListenButton");
+const radioMessage = document.getElementById("radioMessage");
+
+const radioStream =
+  "https://listen.streamaudio.co/proxy/mackinthedark/stream";
+
+radioButton.addEventListener("click", async function () {
+
+  if (radioPlayer.paused) {
+
+    radioButton.textContent = "CONNECTING...";
+
+    radioMessage.textContent =
+      "Connecting to MACKINTHEDARK...";
+
+    if (!radioPlayer.src) {
+      radioPlayer.src = radioStream;
+    }
+
+    try {
+
+      await radioPlayer.play();
+
+    } catch (error) {
+
+      radioButton.textContent = "TRY AGAIN";
+
+      radioMessage.textContent =
+        "Unable to connect. Please try again.";
+
+    }
+
+  } else {
+
+    radioPlayer.pause();
+
+  }
+
+});
+
+radioPlayer.addEventListener("playing", function () {
+
+  radioButton.textContent = "PAUSE RADIO";
+
+  radioMessage.textContent =
+    "NOW PLAYING: MACKINTHEDARK";
+
+});
+
+radioPlayer.addEventListener("pause", function () {
+
+  radioButton.textContent = "LISTEN LIVE";
+
+  radioMessage.textContent = "RADIO PAUSED";
+
+});
+
+radioPlayer.addEventListener("error", function () {
+
+  radioButton.textContent = "TRY AGAIN";
+
+  radioMessage.textContent =
+    "The radio stream is currently unavailable.";
+
+});
+
+</script>
+
+</body>
+</html>
